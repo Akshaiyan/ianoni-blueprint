@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ShoppingBag, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import ianoniLogo from "@/assets/ianoni-logo.png";
 
 const navLinks = [
   { name: "Padel", href: "/padel" },
@@ -38,8 +39,8 @@ export function Header() {
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
-            <Link to="/" className="text-xl font-bold tracking-tight text-foreground">
-              IANONI
+            <Link to="/">
+              <img src={ianoniLogo} alt="IANONI" className="h-8 w-auto" />
             </Link>
 
             <nav className="hidden md:flex items-center gap-10">
