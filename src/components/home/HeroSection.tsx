@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/products/pr8100-hero.jpg";
+import heroImage from "@/assets/hero-padel-court.png";
 
 export function HeroSection() {
   return (
