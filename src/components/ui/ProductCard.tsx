@@ -22,20 +22,27 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       >
         <div className="relative">
           {/* Product Image Container - clean, premium */}
-          <div className="relative aspect-[4/5] bg-gradient-to-b from-muted/40 to-muted/70 rounded-xl overflow-hidden mb-6 border border-border/50">
+          <div className="relative aspect-[4/5] bg-gradient-to-b from-muted/30 to-muted/60 rounded-xl overflow-hidden mb-6 border border-border/30">
             {/* Subtle glow behind product on hover */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-primary/5 blur-3xl rounded-full" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-primary/10 blur-3xl rounded-full" />
             </div>
             
-            {/* Product Image Placeholder */}
-            <div className="absolute inset-0 flex items-center justify-center p-8">
-              <motion.div
-                className="text-7xl md:text-8xl transition-transform duration-700 group-hover:scale-105"
-              >
-                {product.image}
-              </motion.div>
+            {/* Product Image */}
+            <div className="absolute inset-0 flex items-center justify-center p-6">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
+              />
             </div>
+            
+            {/* Badge */}
+            {product.badge && (
+              <div className="absolute top-4 left-4 px-3 py-1 bg-primary text-primary-foreground text-xs font-medium rounded-full">
+                {product.badge}
+              </div>
+            )}
             
             {/* Hover overlay */}
             <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/[0.02] transition-colors duration-500" />
@@ -58,9 +65,14 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               <span>{product.reviewCount} reviews</span>
             </div>
 
-            {/* Name */}
-            <h3 className="font-medium text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+            {/* Name & Variant */}
+            <h3 className="font-medium text-foreground group-hover:text-primary transition-colors duration-300">
               {product.name}
+              {product.colorVariant && (
+                <span className="block text-sm font-normal text-muted-foreground mt-0.5">
+                  {product.colorVariant}
+                </span>
+              )}
             </h3>
 
             {/* Price */}
