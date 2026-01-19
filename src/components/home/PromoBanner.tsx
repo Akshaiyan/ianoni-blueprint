@@ -1,37 +1,31 @@
 import { motion } from "framer-motion";
-import { Sparkles, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 export function PromoBanner() {
   return (
-    <section className="py-4 bg-primary">
+    <section className="py-6 bg-foreground">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         className="container mx-auto px-4"
       >
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-primary-foreground">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5" />
-            <span className="font-semibold">New Customer Special</span>
-          </div>
-          <span className="hidden sm:block">•</span>
-          <span className="text-center sm:text-left">
-            Get <strong>10% OFF</strong> your first order with code{" "}
-            <code className="bg-primary-foreground/20 px-2 py-0.5 rounded font-mono font-bold">
-              WELCOME10
-            </code>
+        <Link 
+          to="/padel" 
+          className="group flex items-center justify-center gap-6 text-background"
+        >
+          <span className="text-sm tracking-[0.2em] uppercase">
+            New Customer
           </span>
-          <Button
-            variant="secondary"
-            size="sm"
-            className="shrink-0 bg-primary-foreground text-primary hover:bg-primary-foreground/90"
-          >
+          <span className="text-sm font-medium">
+            10% OFF with code <span className="font-mono font-bold">WELCOME10</span>
+          </span>
+          <span className="flex items-center gap-2 text-sm underline-reveal">
             Shop Now
-            <ArrowRight className="ml-1 h-4 w-4" />
-          </Button>
-        </div>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </span>
+        </Link>
       </motion.div>
     </section>
   );

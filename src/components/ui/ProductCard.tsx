@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Star, ShoppingBag } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
 import type { Product } from "@/data/products";
 
 interface ProductCardProps {
@@ -14,86 +11,61 @@ interface ProductCardProps {
 export function ProductCard({ product, index = 0 }: ProductCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
+      transition={{ delay: index * 0.1, duration: 0.6 }}
     >
       <Link
         to={`/product/${product.slug}`}
         className="group block"
       >
-        <div className="bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-          {/* Image Container */}
-          <div className="relative aspect-square bg-gradient-to-br from-muted to-muted/50 p-6">
-            {/* Badge */}
-            {product.badge && (
-              <Badge
-                className={cn(
-                  "absolute top-4 left-4 z-10",
-                  product.badge === "Best Seller" && "bg-primary",
-                  product.badge === "New" && "bg-sport-teal",
-                  product.badge === "Beginner Pick" && "bg-sport-green",
-                  product.badge === "Top Rated" && "bg-primary"
-                )}
-              >
-                {product.badge}
-              </Badge>
-            )}
-
-            {/* Sale badge */}
-            {product.originalPrice && (
-              <Badge
-                variant="destructive"
-                className="absolute top-4 right-4 z-10"
-              >
-                Sale
-              </Badge>
-            )}
-
+        <div className="relative">
+          {/* Product Image Container - clean, no chrome */}
+          <div className="relative aspect-[4/5] bg-gradient-to-b from-muted/50 to-muted/80 rounded-lg overflow-hidden mb-6">
+            {/* Atmospheric lighting behind product */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-foreground/[0.03] blur-3xl rounded-full" />
+            </div>
+            
             {/* Product Image Placeholder */}
-            <div className="h-full flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center justify-center p-8">
               <motion.div
-                whileHover={{ scale: 1.05, rotate: 2 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="text-7xl"
+                className="text-7xl md:text-8xl transition-transform duration-700 group-hover:scale-105"
               >
                 {product.image}
               </motion.div>
             </div>
-
-            {/* Quick Add Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileHover={{ opacity: 1, y: 0 }}
-              className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"
-            >
-              <Button className="w-full" size="sm">
-                <ShoppingBag className="mr-2 h-4 w-4" />
-                Quick View
-              </Button>
-            </motion.div>
+            
+            {/* Hover overlay - subtle */}
+            <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/[0.02] transition-colors duration-500" />
+            
+            {/* CTA appears on hover */}
+            <div className="absolute bottom-6 left-6 right-6 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+              <div className="flex items-center gap-2 text-foreground text-sm">
+                <span className="underline-reveal">View Details</span>
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </div>
+            </div>
           </div>
 
-          {/* Content */}
-          <div className="p-4">
-            {/* Rating */}
-            <div className="flex items-center gap-1 mb-2">
-              <Star className="h-4 w-4 fill-primary text-primary" />
-              <span className="text-sm font-medium">{product.rating}</span>
-              <span className="text-sm text-muted-foreground">
-                ({product.reviewCount})
-              </span>
+          {/* Product Info - minimal and clean */}
+          <div className="space-y-2">
+            {/* Rating - subtle */}
+            <div className="flex items-center gap-2 text-muted-foreground text-xs">
+              <span>{product.rating}★</span>
+              <span className="text-border">•</span>
+              <span>{product.reviewCount} reviews</span>
             </div>
 
             {/* Name */}
-            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 mb-2">
+            <h3 className="font-medium text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
               {product.name}
             </h3>
 
             {/* Price */}
-            <div className="flex items-center gap-2">
-              <span className="text-lg font-bold text-foreground">
+            <div className="flex items-baseline gap-3">
+              <span className="text-lg font-semibold text-foreground">
                 ${product.price.toFixed(2)}
               </span>
               {product.originalPrice && (
