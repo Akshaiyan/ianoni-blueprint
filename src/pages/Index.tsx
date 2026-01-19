@@ -4,7 +4,7 @@ import { PromoBanner } from "@/components/home/PromoBanner";
 import { CategoryPanels } from "@/components/home/CategoryPanels";
 import { EditorialBreak } from "@/components/home/EditorialBreak";
 import { WhyIanoni } from "@/components/home/WhyIanoni";
-import { BestSellers } from "@/components/home/BestSellers";
+import { ProductShowcase } from "@/components/home/ProductShowcase";
 import { TrustSection } from "@/components/home/TrustSection";
 import { BeginnerHub } from "@/components/home/BeginnerHub";
 
@@ -13,15 +13,17 @@ const Index = () => {
     <Layout>
       <HeroSection />
       <PromoBanner />
-      <CategoryPanels />
+      <ProductShowcase />
       <EditorialBreak 
         text="Designed for decisive moments."
         subtext="Engineering meets instinct"
+        variant="light"
       />
+      <CategoryPanels />
       <WhyIanoni />
-      <BestSellers />
       <EditorialBreak 
         text="Precision at every touch."
+        variant="dark"
       />
       <TrustSection />
       <BeginnerHub />
