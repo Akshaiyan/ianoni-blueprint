@@ -19,9 +19,9 @@ export function HeroSection() {
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
         
-        {/* Gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+        {/* Subtle gradient overlay - just enough for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
         
         {/* Subtle warm glow */}
         <motion.div
