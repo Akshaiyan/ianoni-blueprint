@@ -2,29 +2,33 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import heroImage from "@/assets/products/pr8100-hero.jpg";
 
 export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-end overflow-hidden bg-surface">
-      {/* Full-bleed background with subtle warmth */}
+      {/* Full-bleed background with product image */}
       <div className="absolute inset-0">
-        {/* Warm gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-surface to-muted/30">
-          {/* Atmospheric placeholder */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-10">
-            <span className="text-[20rem] select-none">🎾</span>
-          </div>
-        </div>
+        {/* Hero product image */}
+        <motion.img
+          src={heroImage}
+          alt="IANONI PR8100 Padel Racket"
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
         
-        {/* Soft overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+        {/* Gradient overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
         
         {/* Subtle warm glow */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.6 }}
+          animate={{ opacity: 0.4 }}
           transition={{ duration: 2 }}
-          className="absolute bottom-0 left-1/3 w-[800px] h-[500px] bg-primary/5 blur-[150px] rounded-full"
+          className="absolute bottom-0 left-1/3 w-[800px] h-[500px] bg-primary/10 blur-[150px] rounded-full"
         />
       </div>
 
