@@ -1,43 +1,68 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 interface EditorialBreakProps {
   text: string;
   subtext?: string;
+  variant?: "light" | "dark";
 }
 
-export function EditorialBreak({ text, subtext }: EditorialBreakProps) {
+export function EditorialBreak({ text, subtext, variant = "dark" }: EditorialBreakProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const x = useTransform(scrollYProgress, [0, 1], [-100, 100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+
+  const isDark = variant === "dark";
+
   return (
-    <section className="relative h-[40vh] md:h-[50vh] flex items-center justify-center overflow-hidden bg-muted/30">
-      {/* Subtle warm gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
-      
-      {/* Atmospheric glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary/[0.03] blur-[100px] rounded-full" />
-      
-      {/* Content */}
-      <div className="relative z-10 text-center px-4">
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
-          className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-editorial text-foreground max-w-4xl mx-auto"
-        >
-          {text}
-        </motion.p>
-        
-        {subtext && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="text-muted-foreground text-sm tracking-[0.3em] uppercase mt-8"
-          >
-            {subtext}
-          </motion.p>
-        )}
+    <section
+      ref={containerRef}
+      className={`relative py-32 md:py-48 overflow-hidden ${
+        isDark ? "bg-cinema" : "bg-background"
+      }`}
+    >
+      {/* Background accent */}
+      <div className="absolute inset-0">
+        <div
+          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full blur-[150px] ${
+            isDark ? "bg-primary/10" : "bg-primary/5"
+          }`}
+        />
       </div>
+
+      <div className="container mx-auto px-4">
+        <motion.div style={{ x, opacity }} className="text-center">
+          <h2
+            className={`text-4xl md:text-6xl lg:text-7xl font-bold text-display ${
+              isDark ? "text-white" : "text-foreground"
+            }`}
+          >
+            {text}
+          </h2>
+          {subtext && (
+            <p
+              className={`mt-6 text-lg md:text-xl ${
+                isDark ? "text-white/50" : "text-muted-foreground"
+              }`}
+            >
+              {subtext}
+            </p>
+          )}
+        </motion.div>
+      </div>
+
+      {/* Decorative lines */}
+      <motion.div
+        style={{ scaleX: scrollYProgress }}
+        className={`absolute top-1/2 left-0 right-0 h-px origin-left ${
+          isDark ? "bg-white/10" : "bg-border"
+        }`}
+      />
     </section>
   );
 }

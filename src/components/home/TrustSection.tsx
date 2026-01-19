@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const stats = [
   { value: "50K+", label: "Players Worldwide" },
-  { value: "4.6", label: "Amazon Rating" },
+  { value: "4.8", label: "Average Rating" },
   { value: "30+", label: "Countries" },
   { value: "1 Year", label: "Warranty" },
 ];
@@ -12,19 +12,21 @@ const testimonials = [
     quote: "The control is incredible. Best padel racket I've ever owned.",
     author: "Marco R.",
     location: "Spain",
+    rating: 5,
   },
   {
     quote: "Perfect for building confidence. Very forgiving for beginners.",
     author: "Sarah L.",
     location: "California",
+    rating: 5,
   },
 ];
 
 export function TrustSection() {
   return (
-    <section className="py-32 md:py-40 bg-muted/30">
-      <div className="container mx-auto px-4">
-        {/* Stats - horizontal line layout */}
+    <section className="py-32 md:py-40 bg-background">
+      <div className="container mx-auto px-4 md:px-8">
+        {/* Stats - bold horizontal layout */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -41,7 +43,7 @@ export function TrustSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="text-center flex-1 min-w-[120px]"
             >
-              <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-display text-foreground mb-2">
+              <p className="text-4xl md:text-5xl lg:text-6xl font-bold text-display text-foreground mb-2">
                 {stat.value}
               </p>
               <p className="text-muted-foreground text-sm tracking-wide">
@@ -60,13 +62,13 @@ export function TrustSection() {
             transition={{ duration: 0.8 }}
             className="lg:col-span-4"
           >
-            <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase mb-4">
+            <p className="text-primary text-sm tracking-[0.3em] uppercase mb-4">
               What Players Say
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-display text-foreground">
               Trusted by
               <br />
-              <span className="text-muted-foreground/50">Players</span>
+              <span className="text-muted-foreground">Champions</span>
             </h2>
           </motion.div>
           
@@ -78,14 +80,21 @@ export function TrustSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.15 }}
-                className="border-l-2 border-primary/30 pl-8"
+                className="relative pl-8 border-l-2 border-primary"
               >
-                <blockquote className="text-xl md:text-2xl text-foreground leading-relaxed mb-6">
+                {/* Star rating */}
+                <div className="flex gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <span key={i} className="text-primary text-lg">★</span>
+                  ))}
+                </div>
+                
+                <blockquote className="text-xl md:text-2xl text-foreground leading-relaxed mb-6 font-medium">
                   "{testimonial.quote}"
                 </blockquote>
                 <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                  <span className="font-medium text-foreground">{testimonial.author}</span>
-                  <span>•</span>
+                  <span className="font-semibold text-foreground">{testimonial.author}</span>
+                  <span className="text-primary">•</span>
                   <span>{testimonial.location}</span>
                 </div>
               </motion.div>

@@ -16,6 +16,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -27,20 +28,30 @@ export function Header() {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
 
+  // On home page, start transparent with light text, then become solid on scroll
+  const showDarkHeader = isScrolled || !isHomePage;
+
   return (
     <>
       <header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          isScrolled 
-            ? "bg-background/95 backdrop-blur-md border-b border-border shadow-sm" 
+          showDarkHeader
+            ? "bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
             : "bg-transparent"
         )}
       >
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between h-20">
-            <Link to="/">
-              <img src={ianoniLogo} alt="IANONI" className="h-8 w-auto" />
+            <Link to="/" className="relative z-10">
+              <img
+                src={ianoniLogo}
+                alt="IANONI"
+                className={cn(
+                  "h-8 w-auto transition-all duration-300",
+                  !showDarkHeader && "brightness-0 invert"
+                )}
+              />
             </Link>
 
             <nav className="hidden md:flex items-center gap-10">
@@ -50,7 +61,13 @@ export function Header() {
                   to={link.href}
                   className={cn(
                     "text-sm tracking-wide transition-colors underline-reveal py-1",
-                    location.pathname === link.href ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                    showDarkHeader
+                      ? location.pathname === link.href
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                      : location.pathname === link.href
+                      ? "text-white"
+                      : "text-white/70 hover:text-white"
                   )}
                 >
                   {link.name}
@@ -58,14 +75,40 @@ export function Header() {
               ))}
             </nav>
 
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                className={cn(
+                  "transition-colors",
+                  showDarkHeader
+                    ? "text-muted-foreground hover:text-foreground"
+                    : "text-white/70 hover:text-white hover:bg-white/10"
+                )}
+              >
                 <Search className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
+              <Button
+                variant="ghost"
+                size="icon"
+                className={cn(
+                  "transition-colors",
+                  showDarkHeader
+                    ? "text-muted-foreground hover:text-foreground"
+                    : "text-white/70 hover:text-white hover:bg-white/10"
+                )}
+              >
                 <ShoppingBag className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="md:hidden text-foreground" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className={cn(
+                  "md:hidden transition-colors",
+                  showDarkHeader ? "text-foreground" : "text-white"
+                )}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
                 {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </Button>
             </div>
@@ -77,14 +120,25 @@ export function Header() {
         {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
+            animate={{ opacity: 1, height: "100vh" }}
             exit={{ opacity: 0, height: 0 }}
-            className="fixed inset-0 z-40 bg-background pt-20"
+            className="fixed inset-0 z-40 bg-cinema pt-20"
           >
-            <nav className="container mx-auto px-4 py-8 space-y-6">
+            <nav className="container mx-auto px-4 py-12 space-y-8">
               {navLinks.map((link, i) => (
-                <motion.div key={link.name} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }}>
-                  <Link to={link.href} className={cn("block text-2xl font-medium", location.pathname === link.href ? "text-foreground" : "text-muted-foreground")}>
+                <motion.div
+                  key={link.name}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <Link
+                    to={link.href}
+                    className={cn(
+                      "block text-3xl font-bold",
+                      location.pathname === link.href ? "text-white" : "text-white/50"
+                    )}
+                  >
                     {link.name}
                   </Link>
                 </motion.div>
