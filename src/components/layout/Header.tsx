@@ -31,7 +31,9 @@ export function Header() {
       <header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          isScrolled ? "bg-background/90 backdrop-blur-md border-b border-border" : "bg-transparent"
+          isScrolled 
+            ? "bg-background/95 backdrop-blur-md border-b border-border shadow-sm" 
+            : "bg-transparent"
         )}
       >
         <div className="container mx-auto px-4">
@@ -56,10 +58,10 @@ export function Header() {
             </nav>
 
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground">
+              <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
                 <Search className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground">
+              <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
                 <ShoppingBag className="h-5 w-5" />
               </Button>
               <Button variant="ghost" size="icon" className="md:hidden text-foreground" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>

@@ -22,7 +22,7 @@ const testimonials = [
 
 export function TrustSection() {
   return (
-    <section className="py-32 md:py-40 bg-surface">
+    <section className="py-32 md:py-40 bg-muted/30">
       <div className="container mx-auto px-4">
         {/* Stats - horizontal line layout */}
         <motion.div
@@ -66,7 +66,7 @@ export function TrustSection() {
             <h2 className="text-3xl md:text-4xl font-bold text-display text-foreground">
               Trusted by
               <br />
-              <span className="text-muted-foreground">Players</span>
+              <span className="text-muted-foreground/50">Players</span>
             </h2>
           </motion.div>
           
@@ -78,7 +78,7 @@ export function TrustSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.15 }}
-                className="border-l-2 border-border pl-8"
+                className="border-l-2 border-primary/30 pl-8"
               >
                 <blockquote className="text-xl md:text-2xl text-foreground leading-relaxed mb-6">
                   "{testimonial.quote}"

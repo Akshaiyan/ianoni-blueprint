@@ -7,18 +7,12 @@ interface EditorialBreakProps {
 
 export function EditorialBreak({ text, subtext }: EditorialBreakProps) {
   return (
-    <section className="relative h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
-      {/* Dark atmospheric background */}
-      <div className="absolute inset-0 bg-cinema-dark">
-        {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
-        
-        {/* Vignette */}
-        <div className="absolute inset-0 vignette" />
-        
-        {/* Atmospheric glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-foreground/[0.02] blur-[100px] rounded-full" />
-      </div>
+    <section className="relative h-[40vh] md:h-[50vh] flex items-center justify-center overflow-hidden bg-muted/30">
+      {/* Subtle warm gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+      
+      {/* Atmospheric glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary/[0.03] blur-[100px] rounded-full" />
       
       {/* Content */}
       <div className="relative z-10 text-center px-4">

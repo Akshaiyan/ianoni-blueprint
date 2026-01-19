@@ -21,11 +21,11 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         className="group block"
       >
         <div className="relative">
-          {/* Product Image Container - clean, no chrome */}
-          <div className="relative aspect-[4/5] bg-gradient-to-b from-muted/50 to-muted/80 rounded-lg overflow-hidden mb-6">
-            {/* Atmospheric lighting behind product */}
+          {/* Product Image Container - clean, premium */}
+          <div className="relative aspect-[4/5] bg-gradient-to-b from-muted/40 to-muted/70 rounded-xl overflow-hidden mb-6 border border-border/50">
+            {/* Subtle glow behind product on hover */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-foreground/[0.03] blur-3xl rounded-full" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-primary/5 blur-3xl rounded-full" />
             </div>
             
             {/* Product Image Placeholder */}
@@ -37,7 +37,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               </motion.div>
             </div>
             
-            {/* Hover overlay - subtle */}
+            {/* Hover overlay */}
             <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/[0.02] transition-colors duration-500" />
             
             {/* CTA appears on hover */}
@@ -53,7 +53,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           <div className="space-y-2">
             {/* Rating - subtle */}
             <div className="flex items-center gap-2 text-muted-foreground text-xs">
-              <span>{product.rating}★</span>
+              <span className="text-primary">{product.rating}★</span>
               <span className="text-border">•</span>
               <span>{product.reviewCount} reviews</span>
             </div>

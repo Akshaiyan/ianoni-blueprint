@@ -36,19 +36,19 @@ export function CategoryPanels() {
             className="relative"
           >
             <Link to={category.href} className="group block relative h-[70vh] md:h-[80vh] overflow-hidden">
-              {/* Background */}
+              {/* Background - warm light tones */}
               <div className="absolute inset-0 bg-muted">
                 {/* Placeholder image */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <motion.span 
-                    className="text-[15rem] opacity-20 select-none img-zoom"
+                    className="text-[15rem] opacity-30 select-none img-zoom"
                   >
                     {category.image}
                   </motion.span>
                 </div>
                 
                 {/* Gradient overlay at bottom for text readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent" />
               </div>
               
               {/* Content - positioned at bottom with breathing room */}
@@ -63,7 +63,7 @@ export function CategoryPanels() {
                   <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-display text-foreground mb-1">
                     {category.title}
                   </h2>
-                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-display text-muted-foreground mb-4">
+                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-display text-muted-foreground/50 mb-4">
                     {category.subtitle}
                   </h3>
                   
@@ -82,7 +82,7 @@ export function CategoryPanels() {
                 </motion.div>
               </div>
               
-              {/* Hover state - subtle zoom on background */}
+              {/* Hover state - subtle warm overlay */}
               <div className="absolute inset-0 bg-primary/0 transition-colors duration-700 group-hover:bg-primary/5" />
             </Link>
           </motion.div>
