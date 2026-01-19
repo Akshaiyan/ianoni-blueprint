@@ -16,14 +16,14 @@ export function BeginnerHub() {
             transition={{ duration: 0.8 }}
             className="lg:col-span-6 order-2 lg:order-1"
           >
-            <div className="relative aspect-[4/5] bg-gradient-to-br from-muted/30 to-muted/60 rounded-lg overflow-hidden">
+            <div className="relative aspect-[4/5] bg-gradient-to-br from-muted/50 to-muted rounded-xl overflow-hidden border border-border/50">
               {/* Placeholder */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-[12rem] opacity-30 select-none">🎯</span>
+                <span className="text-[12rem] opacity-40 select-none">🎯</span>
               </div>
               
               {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
               
               {/* Text overlay at bottom */}
               <div className="absolute bottom-8 left-8 right-8">
@@ -49,7 +49,7 @@ export function BeginnerHub() {
             <h2 className="text-4xl md:text-5xl font-bold text-display text-foreground mb-6">
               Begin with
               <br />
-              <span className="text-muted-foreground">Confidence</span>
+              <span className="text-muted-foreground/50">Confidence</span>
             </h2>
             
             <p className="text-muted-foreground text-lg leading-relaxed mb-8 max-w-md">
@@ -58,7 +58,7 @@ export function BeginnerHub() {
             </p>
             
             {/* Quick links */}
-            <div className="space-y-4 mb-10">
+            <div className="space-y-0 mb-10">
               {[
                 { label: "Buying Guide", href: "/guide/buying-guide" },
                 { label: "Padel 101", href: "/guide/padel-101" },
@@ -67,7 +67,7 @@ export function BeginnerHub() {
                 <Link
                   key={link.label}
                   to={link.href}
-                  className="group flex items-center justify-between py-4 border-b border-border hover:border-foreground/30 transition-colors"
+                  className="group flex items-center justify-between py-5 border-b border-border hover:border-foreground/20 transition-colors"
                 >
                   <span className="text-foreground font-medium">{link.label}</span>
                   <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-2 transition-all" />
@@ -75,7 +75,7 @@ export function BeginnerHub() {
               ))}
             </div>
             
-            <Button asChild size="lg" className="bg-foreground text-background hover:bg-foreground/90 px-8 h-14">
+            <Button asChild size="lg" className="bg-foreground text-background hover:bg-foreground/90 px-8 h-14 rounded-full">
               <Link to="/guide">
                 Explore Guides
                 <ArrowRight className="ml-3 h-5 w-5" />

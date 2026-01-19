@@ -2,104 +2,102 @@
 @tailwind components;
 @tailwind utilities;
 
-/* IANONI Design System - Cinematic Premium Aesthetic */
-/* Dark, Technical, Engineered Sports Brand */
+/* IANONI Design System - Premium Light Aesthetic */
+/* Clean, Editorial, Engineered Sports Brand */
 
 @layer base {
   :root {
-    /* Core backgrounds - Dark, technical palette */
-    --background: 0 0% 4%;
-    --foreground: 0 0% 96%;
+    /* Core backgrounds - Clean, premium whites */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 8%;
 
-    /* Cards & surfaces - Elevated darks */
-    --card: 0 0% 7%;
-    --card-foreground: 0 0% 96%;
+    /* Cards & surfaces - Subtle elevation */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
 
-    --popover: 0 0% 7%;
-    --popover-foreground: 0 0% 96%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
 
-    /* Primary - Subtle warm accent (from IANONI logo) */
-    --primary: 35 90% 55%;
-    --primary-foreground: 0 0% 4%;
+    /* Primary - IANONI warm accent */
+    --primary: 35 85% 52%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Deep charcoal */
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 90%;
+    /* Secondary - Warm stone */
+    --secondary: 30 10% 96%;
+    --secondary-foreground: 0 0% 15%;
 
-    /* Muted - Sophisticated grays */
-    --muted: 0 0% 14%;
-    --muted-foreground: 0 0% 55%;
+    /* Muted - Sophisticated warm grays */
+    --muted: 30 8% 95%;
+    --muted-foreground: 0 0% 45%;
 
-    /* Accent - Reserved highlight */
-    --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 96%;
+    /* Accent - Subtle highlight */
+    --accent: 30 10% 94%;
+    --accent-foreground: 0 0% 8%;
 
     /* Destructive */
-    --destructive: 0 72% 45%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Borders & inputs - Subtle definition */
-    --border: 0 0% 16%;
-    --input: 0 0% 16%;
-    --ring: 35 90% 55%;
+    /* Borders & inputs - Refined definition */
+    --border: 30 8% 90%;
+    --input: 30 8% 90%;
+    --ring: 35 85% 52%;
 
     --radius: 0.5rem;
 
     /* Extended palette */
-    --surface: 0 0% 6%;
-    --surface-foreground: 0 0% 96%;
+    --surface: 30 10% 98%;
+    --surface-foreground: 0 0% 8%;
     
-    /* Cinematic layers */
-    --cinema-dark: 0 0% 2%;
-    --cinema-overlay: 0 0% 0%;
-    --cinema-vignette: radial-gradient(ellipse at center, transparent 0%, hsl(0 0% 0% / 0.4) 100%);
+    /* Cinematic layers - light mode adapted */
+    --cinema-light: 0 0% 98%;
+    --cinema-overlay: 0 0% 100%;
     
     /* Typography accent */
-    --text-dim: 0 0% 45%;
-    --text-bright: 0 0% 100%;
+    --text-dim: 0 0% 55%;
+    --text-bright: 0 0% 5%;
 
-    /* Shadows - Atmospheric depth */
-    --shadow-sm: 0 2px 8px hsl(0 0% 0% / 0.4);
-    --shadow-md: 0 8px 24px hsl(0 0% 0% / 0.5);
-    --shadow-lg: 0 16px 48px hsl(0 0% 0% / 0.6);
-    --shadow-xl: 0 24px 64px hsl(0 0% 0% / 0.7);
-    --shadow-glow: 0 0 40px hsl(35 90% 55% / 0.15);
-    --shadow-product: 0 20px 60px -20px hsl(0 0% 0% / 0.8);
+    /* Shadows - Soft, premium depth */
+    --shadow-sm: 0 2px 8px hsl(0 0% 0% / 0.04);
+    --shadow-md: 0 8px 24px hsl(0 0% 0% / 0.06);
+    --shadow-lg: 0 16px 48px hsl(0 0% 0% / 0.08);
+    --shadow-xl: 0 24px 64px hsl(0 0% 0% / 0.1);
+    --shadow-glow: 0 0 40px hsl(35 85% 52% / 0.1);
+    --shadow-product: 0 20px 60px -20px hsl(0 0% 0% / 0.15);
 
     /* Sidebar */
-    --sidebar-background: 0 0% 5%;
-    --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 35 90% 55%;
-    --sidebar-primary-foreground: 0 0% 4%;
-    --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 0 0% 96%;
-    --sidebar-border: 0 0% 16%;
-    --sidebar-ring: 35 90% 55%;
+    --sidebar-background: 30 10% 98%;
+    --sidebar-foreground: 0 0% 15%;
+    --sidebar-primary: 35 85% 52%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 30 10% 94%;
+    --sidebar-accent-foreground: 0 0% 8%;
+    --sidebar-border: 30 8% 90%;
+    --sidebar-ring: 35 85% 52%;
   }
 
-  /* Dark mode is now default - light mode override if needed */
-  .light {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 10%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
-    --primary: 35 90% 50%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 210 20% 96%;
-    --secondary-foreground: 0 0% 10%;
-    --muted: 210 20% 96%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 210 20% 96%;
-    --accent-foreground: 0 0% 10%;
-    --destructive: 0 84% 60%;
+  .dark {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 96%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 96%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 35 90% 55%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 90%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 55%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 96%;
+    --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 35 90% 50%;
-    --surface: 210 20% 98%;
-    --surface-foreground: 0 0% 10%;
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 35 90% 55%;
+    --surface: 0 0% 6%;
+    --surface-foreground: 0 0% 96%;
   }
 }
 
@@ -118,13 +116,13 @@
   }
 
   ::selection {
-    background-color: hsl(var(--primary) / 0.3);
+    background-color: hsl(var(--primary) / 0.15);
     color: hsl(var(--foreground));
   }
 }
 
 @layer utilities {
-  /* Cinematic vignette overlay */
+  /* Cinematic vignette overlay - light mode */
   .vignette {
     position: relative;
   }
@@ -134,56 +132,57 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: radial-gradient(ellipse at center, transparent 40%, hsl(0 0% 0% / 0.5) 100%);
+    background: radial-gradient(ellipse at center, transparent 50%, hsl(0 0% 0% / 0.03) 100%);
   }
   
-  /* Editorial gradient overlays */
+  /* Editorial gradient overlays - light mode */
   .overlay-cinematic {
     background: linear-gradient(
       to bottom,
-      hsl(0 0% 0% / 0.3) 0%,
-      hsl(0 0% 0% / 0.1) 30%,
-      hsl(0 0% 0% / 0.4) 70%,
-      hsl(0 0% 0% / 0.7) 100%
+      hsl(0 0% 100% / 0.1) 0%,
+      transparent 30%,
+      hsl(0 0% 0% / 0.02) 70%,
+      hsl(0 0% 0% / 0.08) 100%
     );
   }
   
   .overlay-editorial {
     background: linear-gradient(
       135deg,
-      hsl(0 0% 0% / 0.6) 0%,
-      hsl(0 0% 0% / 0.2) 50%,
-      hsl(0 0% 0% / 0.5) 100%
+      hsl(0 0% 100% / 0.9) 0%,
+      hsl(0 0% 100% / 0.4) 50%,
+      hsl(0 0% 100% / 0.7) 100%
     );
   }
   
-  /* Smoked glass effect */
-  .glass-dark {
-    background: hsl(0 0% 0% / 0.6);
+  /* Refined glass effect - light mode */
+  .glass-light {
+    background: hsl(0 0% 100% / 0.85);
     backdrop-filter: blur(24px) saturate(1.2);
     -webkit-backdrop-filter: blur(24px) saturate(1.2);
+    border: 1px solid hsl(0 0% 0% / 0.05);
   }
   
   .glass-subtle {
-    background: hsl(0 0% 10% / 0.4);
+    background: hsl(0 0% 100% / 0.6);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
   }
 
-  /* Premium product shadow - atmospheric lighting */
+  /* Premium product shadow - light mode */
   .shadow-product {
     box-shadow: 
-      0 20px 60px -20px hsl(0 0% 0% / 0.8),
-      0 0 80px -20px hsl(0 0% 100% / 0.05);
+      0 20px 60px -20px hsl(0 0% 0% / 0.12),
+      0 0 0 1px hsl(0 0% 0% / 0.03);
   }
   
   .shadow-product-hover {
     box-shadow: 
-      0 30px 80px -20px hsl(0 0% 0% / 0.9),
-      0 0 100px -20px hsl(0 0% 100% / 0.08);
+      0 30px 80px -20px hsl(0 0% 0% / 0.18),
+      0 0 0 1px hsl(0 0% 0% / 0.05);
   }
 
-  /* Elegant hover lift - subtle and premium */
+  /* Elegant hover lift */
   .hover-lift {
     transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), 
                 box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1);
@@ -227,9 +226,9 @@
     transform-origin: left;
   }
   
-  /* Atmospheric background glow */
+  /* Atmospheric background glow - light */
   .glow-subtle {
-    box-shadow: 0 0 120px 40px hsl(0 0% 100% / 0.02);
+    box-shadow: 0 0 120px 40px hsl(35 85% 52% / 0.03);
   }
   
   /* Image zoom on hover */
@@ -249,22 +248,27 @@
   .group:hover .tilt-hover {
     transform: perspective(1000px) rotateY(-2deg) rotateX(1deg);
   }
+  
+  /* Premium border */
+  .border-premium {
+    border: 1px solid hsl(0 0% 0% / 0.06);
+  }
 }
 
-/* Custom scrollbar - minimal and dark */
+/* Custom scrollbar - refined and minimal */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(0 0% 4%);
+  background: hsl(0 0% 98%);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(0 0% 20%);
+  background: hsl(0 0% 80%);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(0 0% 30%);
+  background: hsl(0 0% 65%);
 }
