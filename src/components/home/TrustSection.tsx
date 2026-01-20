@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { Star, Shield, Truck, RotateCcw, Quote } from "lucide-react";
+import { Star, Shield, Truck, RotateCcw } from "lucide-react";
 
 const stats = [
   { value: "4.6", suffix: "★", label: "Amazon Rating", sublabel: "2,400+ reviews" },
@@ -16,30 +16,32 @@ const badges = [
 
 const testimonials = [
   {
-    quote: "The control is incredible. Best padel racket I've ever owned. Worth every penny invested.",
+    quote: "The control is incredible. Best padel racket I've ever owned.",
     author: "Marco R.",
-    location: "Barcelona, Spain",
+    location: "Barcelona",
     rating: 5,
-    verified: true,
-    highlight: "control",
   },
   {
-    quote: "Perfect for building confidence. Very forgiving for beginners like me. Highly recommended!",
+    quote: "Perfect for building confidence. Very forgiving for beginners.",
     author: "Sarah L.",
-    location: "San Diego, CA",
+    location: "San Diego",
     rating: 5,
-    verified: true,
-    highlight: "confidence",
   },
   {
-    quote: "Excellent quality and outstanding customer service. My whole club now plays with IANONI.",
+    quote: "Excellent quality. My whole club now plays with IANONI.",
     author: "James T.",
-    location: "London, UK",
+    location: "London",
     rating: 5,
-    verified: true,
-    highlight: "quality",
   },
 ];
+
+// Featured quote - larger, more impactful
+const featuredQuote = {
+  quote: "This racket changed my game completely. The power transfer is unlike anything I've experienced.",
+  author: "Carlos M.",
+  title: "Semi-Pro Player",
+  location: "Madrid, Spain",
+};
 
 export function TrustSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -49,12 +51,12 @@ export function TrustSection() {
   });
 
   const statScale = useTransform(scrollYProgress, [0, 0.3], [0.8, 1]);
+  const quoteX = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
     <section ref={sectionRef} className="relative py-32 md:py-48 overflow-hidden bg-background">
-      {/* Subtle court markings background */}
+      {/* Background */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] border border-foreground/[0.02] rounded-lg opacity-50" />
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[200px]" />
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/3 rounded-full blur-[150px]" />
       </div>
@@ -87,40 +89,35 @@ export function TrustSection() {
               transition={{ duration: 0.8, delay: index * 0.15 }}
               className="relative text-center group"
             >
-              {/* Giant number - editorial style */}
               <div className="relative inline-block">
-                <span className="text-6xl md:text-8xl lg:text-[140px] font-black text-hero text-foreground leading-none">
+                <span className="text-5xl sm:text-6xl md:text-8xl lg:text-[120px] font-black text-hero text-foreground leading-none">
                   {stat.value}
                 </span>
-                <span className="absolute -top-2 -right-4 md:-right-8 text-3xl md:text-5xl font-bold text-primary">
+                <span className="absolute -top-1 -right-3 md:-right-6 text-2xl md:text-4xl font-bold text-primary">
                   {stat.suffix}
                 </span>
               </div>
-
-              {/* Labels */}
-              <div className="mt-4">
-                <p className="text-sm md:text-base font-medium text-foreground">
+              <div className="mt-3 md:mt-4">
+                <p className="text-xs md:text-sm font-medium text-foreground">
                   {stat.label}
                 </p>
-                <p className="text-[10px] md:text-xs tracking-widest uppercase text-muted-foreground mt-1">
+                <p className="text-[9px] md:text-xs tracking-widest uppercase text-muted-foreground mt-1">
                   {stat.sublabel}
                 </p>
               </div>
-
-              {/* Subtle divider for non-last items */}
               {index < stats.length - 1 && (
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-24 bg-border hidden md:block" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-16 md:h-24 bg-border hidden md:block" />
               )}
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Trust badges - minimal glass style */}
+        {/* Trust badges */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-4 md:gap-8 mb-32"
+          className="flex flex-wrap justify-center gap-3 md:gap-6 mb-32"
         >
           {badges.map((badge, index) => (
             <motion.div
@@ -129,14 +126,14 @@ export function TrustSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group flex items-center gap-4 px-6 py-4 rounded-full bg-muted/30 border border-border hover:border-primary/30 transition-colors duration-300"
+              className="group flex items-center gap-3 px-4 md:px-6 py-3 md:py-4 rounded-full bg-muted/30 border border-border hover:border-primary/30 transition-colors duration-300"
             >
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <badge.icon className="h-5 w-5 text-primary" />
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                <badge.icon className="h-4 w-4 md:h-5 md:w-5 text-primary" />
               </div>
               <div className="text-left">
-                <p className="text-sm font-medium text-foreground">{badge.label}</p>
-                <p className="text-[10px] tracking-wider uppercase text-muted-foreground">
+                <p className="text-xs md:text-sm font-medium text-foreground">{badge.label}</p>
+                <p className="text-[9px] md:text-[10px] tracking-wider uppercase text-muted-foreground">
                   {badge.sublabel}
                 </p>
               </div>
@@ -144,89 +141,119 @@ export function TrustSection() {
           ))}
         </motion.div>
 
-        {/* Testimonials - Magazine layout */}
+        {/* Testimonials - Creative editorial layout */}
         <div className="relative">
-          {/* Section header */}
+          {/* Large pull quote - magazine style */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="mb-16"
+            transition={{ duration: 1 }}
+            className="relative mb-24"
           >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-10 h-10 rounded-full border border-primary/30 flex items-center justify-center">
-                <Quote className="h-4 w-4 text-primary" />
+            {/* Giant quotation mark */}
+            <motion.span 
+              style={{ x: quoteX }}
+              className="absolute -top-8 md:-top-12 -left-2 md:left-0 text-[150px] md:text-[250px] font-serif text-primary/10 leading-none select-none pointer-events-none"
+            >
+              "
+            </motion.span>
+            
+            <div className="relative grid lg:grid-cols-12 gap-8 items-end">
+              <div className="lg:col-span-8">
+                <motion.blockquote
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-[1.1] tracking-tight"
+                >
+                  {featuredQuote.quote}
+                </motion.blockquote>
               </div>
-              <span className="text-[10px] tracking-[0.4em] uppercase text-primary">
-                Player Stories
-              </span>
-            </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-hero text-foreground leading-[0.9]">
-              Trusted by
-              <br />
-              <span className="text-primary">Champions</span>
-            </h2>
-          </motion.div>
-
-          {/* Testimonial cards - asymmetric grid */}
-          <div className="grid md:grid-cols-12 gap-6">
-            {testimonials.map((testimonial, index) => (
+              
               <motion.div
-                key={testimonial.author}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: index * 0.15 }}
-                className={`relative group ${
-                  index === 0 ? "md:col-span-5" : "md:col-span-3 lg:col-span-4"
-                } ${index === 2 ? "md:col-start-9 lg:col-start-9" : ""}`}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="lg:col-span-4"
               >
-                <div className="relative p-8 h-full rounded-2xl bg-muted/20 border border-border group-hover:border-primary/20 transition-all duration-500">
-                  {/* Quote number */}
-                  <span className="absolute top-4 right-4 text-6xl font-black text-foreground/[0.03]">
-                    0{index + 1}
-                  </span>
-
-                  {/* Stars */}
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="h-4 w-4 fill-primary text-primary"
-                      />
-                    ))}
+                <div className="flex items-center gap-4 lg:justify-end">
+                  <div className="w-px h-12 bg-primary hidden lg:block" />
+                  <div className="lg:text-right">
+                    <p className="font-semibold text-foreground">{featuredQuote.author}</p>
+                    <p className="text-sm text-primary">{featuredQuote.title}</p>
+                    <p className="text-xs text-muted-foreground">{featuredQuote.location}</p>
                   </div>
-
-                  {/* Quote with highlight */}
-                  <blockquote className="text-foreground leading-relaxed mb-8 relative z-10">
-                    "{testimonial.quote.split(testimonial.highlight).map((part, i, arr) => (
-                      <span key={i}>
-                        {part}
-                        {i < arr.length - 1 && (
-                          <span className="text-primary font-medium">{testimonial.highlight}</span>
-                        )}
-                      </span>
-                    ))}"
-                  </blockquote>
-
-                  {/* Author */}
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium text-foreground">{testimonial.author}</p>
-                      <p className="text-xs text-muted-foreground">{testimonial.location}</p>
-                    </div>
-                    {testimonial.verified && (
-                      <span className="text-[9px] tracking-widest uppercase text-primary px-3 py-1 rounded-full border border-primary/20">
-                        Verified
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Hover accent */}
-                  <div className="absolute bottom-0 left-8 right-8 h-px bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
                 </div>
               </motion.div>
-            ))}
+            </div>
+          </motion.div>
+
+          {/* Horizontal scrolling testimonials strip */}
+          <div className="relative">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-4 mb-8"
+            >
+              <span className="text-[10px] tracking-[0.4em] uppercase text-muted-foreground">
+                More Reviews
+              </span>
+              <div className="h-px flex-1 bg-border" />
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-3 w-3 fill-primary text-primary" />
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Testimonial cards - horizontal strip */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+              {testimonials.map((testimonial, index) => (
+                <motion.div
+                  key={testimonial.author}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="group relative"
+                >
+                  <div className="relative p-6 h-full border-l-2 border-border group-hover:border-primary transition-colors duration-300 bg-gradient-to-r from-muted/20 to-transparent">
+                    {/* Index number */}
+                    <span className="absolute top-0 right-0 text-4xl font-black text-foreground/[0.03]">
+                      0{index + 1}
+                    </span>
+
+                    {/* Stars inline */}
+                    <div className="flex gap-0.5 mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="h-3 w-3 fill-primary text-primary" />
+                      ))}
+                    </div>
+
+                    {/* Quote */}
+                    <p className="text-foreground text-sm leading-relaxed mb-4">
+                      "{testimonial.quote}"
+                    </p>
+
+                    {/* Author - compact */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium text-foreground text-sm">{testimonial.author}</span>
+                        <span className="text-muted-foreground text-xs">·</span>
+                        <span className="text-muted-foreground text-xs">{testimonial.location}</span>
+                      </div>
+                      <span className="text-[8px] tracking-widest uppercase text-primary">
+                        Verified
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
