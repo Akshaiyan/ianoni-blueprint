@@ -18,8 +18,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 6%;
 
-    /* Primary - IANONI warm accent - more saturated */
-    --primary: 14 84% 53%;
+    /* Primary - IANONI Teal/Green accent - premium sports */
+    --primary: 168 76% 42%;
     --primary-foreground: 0 0% 100%;
 
     /* Secondary - Rich warm tones */
@@ -41,7 +41,7 @@
     /* Borders & inputs - Defined edges */
     --border: 30 10% 85%;
     --input: 30 10% 85%;
-    --ring: 14 84% 53%;
+    --ring: 168 76% 42%;
 
     --radius: 0.75rem;
 
@@ -62,18 +62,18 @@
     --shadow-md: 0 8px 30px hsl(0 0% 0% / 0.1);
     --shadow-lg: 0 20px 60px hsl(0 0% 0% / 0.15);
     --shadow-xl: 0 30px 80px hsl(0 0% 0% / 0.2);
-    --shadow-glow: 0 0 60px hsl(14 84% 53% / 0.15);
+    --shadow-glow: 0 0 60px hsl(168 76% 42% / 0.2);
     --shadow-product: 0 25px 80px -20px hsl(0 0% 0% / 0.25);
 
     /* Sidebar */
     --sidebar-background: 0 0% 6%;
     --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 14 84% 53%;
+    --sidebar-primary: 168 76% 42%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 12%;
     --sidebar-accent-foreground: 0 0% 96%;
     --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 14 84% 53%;
+    --sidebar-ring: 168 76% 42%;
   }
 
   .dark {
@@ -83,7 +83,7 @@
     --card-foreground: 0 0% 96%;
     --popover: 0 0% 7%;
     --popover-foreground: 0 0% 96%;
-    --primary: 14 90% 55%;
+    --primary: 168 80% 48%;
     --primary-foreground: 0 0% 4%;
     --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 90%;
@@ -95,7 +95,7 @@
     --destructive-foreground: 0 0% 100%;
     --border: 0 0% 16%;
     --input: 0 0% 16%;
-    --ring: 14 90% 55%;
+    --ring: 168 80% 48%;
     --surface: 0 0% 6%;
     --surface-foreground: 0 0% 96%;
   }
@@ -195,7 +195,7 @@
   .shadow-product-hover {
     box-shadow: 
       0 40px 100px -20px hsl(0 0% 0% / 0.35),
-      0 0 60px hsl(14 84% 53% / 0.1);
+      0 0 60px hsl(168 76% 42% / 0.15);
   }
 
   /* Elegant hover lift */
@@ -237,7 +237,7 @@
   
   /* Gradient text */
   .text-gradient {
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(30 90% 60%) 100%);
+    background: linear-gradient(135deg, hsl(168 76% 42%) 0%, hsl(180 70% 50%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -268,11 +268,11 @@
   
   /* Glow effects */
   .glow-primary {
-    box-shadow: 0 0 80px 20px hsl(14 84% 53% / 0.2);
+    box-shadow: 0 0 80px 20px hsl(168 76% 42% / 0.25);
   }
   
   .glow-subtle {
-    box-shadow: 0 0 120px 40px hsl(14 84% 53% / 0.08);
+    box-shadow: 0 0 120px 40px hsl(168 76% 42% / 0.1);
   }
   
   /* Image effects */

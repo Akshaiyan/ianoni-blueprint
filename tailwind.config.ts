@@ -62,10 +62,10 @@ export default {
           foreground: "hsl(var(--surface-foreground))",
         },
         sport: {
-          green: "hsl(var(--sport-green))",
-          teal: "hsl(var(--sport-teal))",
-          dark: "hsl(var(--sport-dark))",
-          light: "hsl(var(--sport-light))",
+          green: "hsl(168 76% 42%)",
+          teal: "hsl(180 70% 50%)",
+          dark: "hsl(168 60% 25%)",
+          light: "hsl(168 50% 92%)",
         },
       },
       borderRadius: {
