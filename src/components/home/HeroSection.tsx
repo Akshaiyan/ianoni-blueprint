@@ -1,7 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 import heroImage from "@/assets/hero-action.jpg";
 
@@ -12,16 +11,17 @@ export function HeroSection() {
     offset: ["start start", "end start"],
   });
 
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
-  const imageOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.3]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.3]);
+  const imageOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.4, 0.8]);
 
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative h-screen flex items-center overflow-hidden"
     >
-      {/* Full-bleed background with parallax */}
+      {/* Full-bleed background */}
       <div className="absolute inset-0">
         <motion.div
           style={{ scale: imageScale, opacity: imageOpacity }}
@@ -29,139 +29,161 @@ export function HeroSection() {
         >
           <img
             src={heroImage}
-            alt="Padel players in action"
-            className="absolute inset-0 w-full h-full object-cover object-top"
+            alt="Padel in action"
+            className="absolute inset-0 w-full h-full object-cover"
           />
         </motion.div>
 
-        {/* Dramatic overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
+        {/* Cinematic overlays */}
+        <motion.div 
+          style={{ opacity: overlayOpacity }}
+          className="absolute inset-0 bg-black" 
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
 
-        {/* Primary color accent glow */}
+        {/* Ambient glow */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 2, delay: 0.5 }}
-          className="absolute bottom-0 left-0 w-[600px] h-[400px] bg-primary/15 blur-[150px] rounded-full"
+          transition={{ duration: 2, delay: 1 }}
+          className="absolute bottom-0 left-1/4 w-[600px] h-[400px] bg-primary/20 blur-[200px] rounded-full"
         />
       </div>
 
+      {/* HUD frame elements */}
+      <div className="absolute inset-8 pointer-events-none hidden lg:block">
+        {/* Corner brackets */}
+        <div className="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-white/10" />
+        <div className="absolute top-0 right-0 w-16 h-16 border-r-2 border-t-2 border-white/10" />
+        <div className="absolute bottom-0 left-0 w-16 h-16 border-l-2 border-b-2 border-white/10" />
+        <div className="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-white/10" />
+        
+        {/* Alignment guides */}
+        <div className="absolute top-1/2 left-0 w-8 h-px bg-white/10" />
+        <div className="absolute top-1/2 right-0 w-8 h-px bg-white/10" />
+      </div>
+
       {/* Content */}
-      <motion.div style={{ y: textY }} className="relative z-10 w-full pt-32 pb-24">
+      <motion.div style={{ y: textY }} className="relative z-10 w-full">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="max-w-3xl">
-            {/* Eyebrow */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex items-center gap-4 mb-6"
-            >
-              <div className="w-12 h-px bg-primary" />
-              <span className="text-primary text-sm font-medium tracking-[0.3em] uppercase">
-                Premium Padel & Pickleball
-              </span>
-            </motion.div>
+          {/* Micro label */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="flex items-center gap-4 mb-8"
+          >
+            <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+            <span className="text-[10px] tracking-[0.5em] uppercase text-white/50 font-medium">
+              Padel & Pickleball
+            </span>
+          </motion.div>
 
-            {/* Value Proposition - matching spec */}
-            <div className="mb-6">
-              <div className="overflow-hidden">
-                <motion.h1
-                  initial={{ y: 150 }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 1, delay: 0.3, ease: [0.23, 1, 0.32, 1] }}
-                  className="text-5xl md:text-7xl lg:text-8xl font-black text-white text-hero"
-                >
-                  Innovative Rackets
-                </motion.h1>
-              </div>
-              <div className="overflow-hidden -mt-1 md:-mt-2">
-                <motion.h1
-                  initial={{ y: 150 }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 1, delay: 0.45, ease: [0.23, 1, 0.32, 1] }}
-                  className="text-5xl md:text-7xl lg:text-8xl font-black text-hero"
-                >
-                  <span className="text-outline text-white">for</span>{" "}
-                  <span className="text-gradient">Every Player</span>
-                </motion.h1>
-              </div>
+          {/* Main headline - massive, minimal */}
+          <div className="max-w-5xl">
+            <div className="overflow-hidden">
+              <motion.h1
+                initial={{ y: 200 }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="text-[15vw] md:text-[12vw] lg:text-[10vw] font-black text-white leading-[0.85] tracking-[-0.04em]"
+              >
+                PLAY
+              </motion.h1>
             </div>
-
-            {/* Subtext */}
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="text-white/70 text-lg md:text-xl leading-relaxed mb-10 max-w-xl"
-            >
-              Carbon fiber technology meets intuitive design. Engineered with pro input
-              for beginners and champions alike.
-            </motion.p>
-
-            {/* Dual CTAs - matching spec */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
-              className="flex flex-col sm:flex-row gap-4"
-            >
-              <Button
-                asChild
-                size="lg"
-                className="text-base px-8 h-14 bg-primary hover:bg-primary/90 text-white rounded-full font-semibold shadow-lg shadow-primary/30"
+            <div className="overflow-hidden -mt-[2vw]">
+              <motion.h1
+                initial={{ y: 200 }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="text-[15vw] md:text-[12vw] lg:text-[10vw] font-black leading-[0.85] tracking-[-0.04em]"
               >
-                <Link to="/padel">
-                  Shop Padel
-                  <ArrowRight className="ml-3 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                className="text-base px-8 h-14 bg-white hover:bg-white/90 text-foreground rounded-full font-semibold"
-              >
-                <Link to="/pickleball">
-                  Shop Pickleball
-                  <ArrowRight className="ml-3 h-5 w-5" />
-                </Link>
-              </Button>
-            </motion.div>
+                <span className="text-outline text-white">WITH</span>{" "}
+                <span className="text-primary">INTENT</span>
+              </motion.h1>
+            </div>
           </div>
 
-          {/* Floating trust badge */}
+          {/* Dual CTAs - clean, minimal */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 1.2 }}
-            className="hidden lg:block absolute right-8 xl:right-16 top-1/2 -translate-y-1/2"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+            className="flex flex-col sm:flex-row gap-4 mt-12"
           >
-            <div className="glass-dark rounded-2xl p-6 text-center">
-              <p className="text-4xl font-bold text-white mb-1">4.6<span className="text-primary">★</span></p>
-              <p className="text-xs text-white/60 uppercase tracking-wider mb-2">Amazon Rating</p>
-              <div className="w-full h-px bg-white/10 my-3" />
-              <p className="text-2xl font-bold text-primary mb-1">50K+</p>
-              <p className="text-xs text-white/60 uppercase tracking-wider">Happy Players</p>
-            </div>
+            <Link
+              to="/padel"
+              className="group flex items-center gap-4 px-8 py-4 bg-primary hover:bg-primary/90 text-white rounded-full transition-all duration-300"
+            >
+              <span className="text-sm font-semibold tracking-wide">Shop Padel</span>
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+            <Link
+              to="/pickleball"
+              className="group flex items-center gap-4 px-8 py-4 bg-white/10 hover:bg-white/20 text-white rounded-full backdrop-blur-sm border border-white/10 transition-all duration-300"
+            >
+              <span className="text-sm font-semibold tracking-wide">Shop Pickleball</span>
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
           </motion.div>
         </div>
       </motion.div>
 
-      {/* Scroll indicator */}
+      {/* Right side floating stat */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1, delay: 1.5 }}
+        className="absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 hidden lg:block"
       >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2"
-        >
-          <motion.div className="w-1 h-2 bg-white/60 rounded-full" />
-        </motion.div>
+        <div className="text-right">
+          <span className="text-7xl font-black text-white">4.6</span>
+          <span className="text-3xl text-primary ml-1">★</span>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-white/40 mt-2">
+            Amazon Rating
+          </p>
+          <div className="w-full h-px bg-white/10 my-4" />
+          <span className="text-4xl font-bold text-primary">50K+</span>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-white/40 mt-1">
+            Players
+          </p>
+        </div>
+      </motion.div>
+
+      {/* Bottom info bar */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.8 }}
+        className="absolute bottom-8 left-0 right-0"
+      >
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex items-center justify-between">
+            {/* Scroll hint */}
+            <div className="flex items-center gap-4">
+              <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="w-5 h-8 border border-white/20 rounded-full flex justify-center pt-1.5"
+              >
+                <div className="w-1 h-1.5 bg-white/40 rounded-full" />
+              </motion.div>
+              <span className="text-[9px] tracking-[0.3em] uppercase text-white/30 hidden sm:block">
+                Scroll
+              </span>
+            </div>
+
+            {/* Tech specs hint */}
+            <div className="flex items-center gap-6 text-[9px] tracking-widest uppercase text-white/20">
+              <span>Carbon Fiber</span>
+              <span className="w-1 h-1 bg-white/20 rounded-full" />
+              <span>Pro Engineered</span>
+              <span className="w-1 h-1 bg-white/20 rounded-full hidden sm:block" />
+              <span className="hidden sm:block">Premium Quality</span>
+            </div>
+          </div>
+        </div>
       </motion.div>
     </section>
   );
