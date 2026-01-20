@@ -1,95 +1,90 @@
 import { motion } from "framer-motion";
+import { Zap, Target, Award, Shield } from "lucide-react";
 
 const features = [
   {
-    number: "01",
-    title: "Carbon Fiber Core",
-    description: "3K carbon weave delivers explosive power transfer while maintaining precise control at impact.",
+    icon: Zap,
+    title: "Carbon Fiber Tech",
+    description: "3K carbon weave delivers explosive power transfer with precise control at every impact.",
   },
   {
-    number: "02",
-    title: "Engineered Balance",
-    description: "Optimized weight distribution creates a naturally intuitive swing for players at every level.",
+    icon: Target,
+    title: "Beginner-Friendly",
+    description: "Expanded sweet spot and forgiving design helps new players build confidence fast.",
   },
   {
-    number: "03",
-    title: "Expanded Sweet Spot",
-    description: "Forgiving hitting zone builds confidence, letting you focus on your game, not your gear.",
+    icon: Award,
+    title: "Pro-Engineered",
+    description: "Developed with professional player input for tournament-level quality and performance.",
+  },
+  {
+    icon: Shield,
+    title: "Quality Guarantee",
+    description: "1-year warranty and 30-day money-back guarantee on every racket we sell.",
   },
 ];
 
 export function WhyIanoni() {
   return (
-    <section className="py-32 md:py-40 bg-cinema relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-cinema relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px]" />
         <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px]" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Asymmetrical grid layout */}
-        <div className="grid lg:grid-cols-12 gap-16 lg:gap-8">
-          {/* Left column - Editorial heading */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="lg:col-span-5 lg:sticky lg:top-32 lg:self-start"
-          >
-            <p className="text-primary text-sm tracking-[0.3em] uppercase mb-6">
-              The Technology
-            </p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-display text-white mb-6">
-              Why
-              <br />
-              <span className="text-outline text-white/80">IANONI</span>
-            </h2>
-            <p className="text-white/60 text-lg leading-relaxed max-w-md">
-              Every detail engineered for the decisive moments that define your game.
-            </p>
-          </motion.div>
+      <div className="container mx-auto px-4 md:px-8 relative z-10">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <span className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-4 block">
+            The IANONI Difference
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-display text-white mb-6">
+            Why Choose <span className="text-gradient">IANONI</span>?
+          </h2>
+          <p className="text-white/60 text-lg max-w-2xl mx-auto">
+            Innovative rackets engineered with pro input for high quality performance at every level.
+          </p>
+        </motion.div>
 
-          {/* Right column - Feature list */}
-          <div className="lg:col-span-6 lg:col-start-7 space-y-16">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.number}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.15 }}
-                className="group"
-              >
-                {/* Feature number */}
-                <span className="text-primary/60 text-sm font-mono tracking-wider">
-                  {feature.number}
-                </span>
-                
-                {/* Divider line */}
-                <div className="w-full h-px bg-white/10 my-6 relative overflow-hidden">
-                  <motion.div
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, delay: 0.3 + index * 0.15 }}
-                    className="absolute inset-0 bg-primary/40 origin-left"
-                  />
+        {/* Features grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="group relative"
+            >
+              <div className="relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-primary/30 transition-all duration-500 h-full">
+                {/* Icon */}
+                <div className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center mb-6 group-hover:bg-primary/30 transition-colors">
+                  <feature.icon className="h-7 w-7 text-primary" />
                 </div>
-                
-                {/* Title */}
-                <h3 className="text-2xl md:text-3xl font-semibold text-white mb-4">
+
+                {/* Content */}
+                <h3 className="text-xl font-semibold text-white mb-3">
                   {feature.title}
                 </h3>
-                
-                {/* Description */}
-                <p className="text-white/50 leading-relaxed max-w-md">
+                <p className="text-white/50 leading-relaxed">
                   {feature.description}
                 </p>
-              </motion.div>
-            ))}
-          </div>
+
+                {/* Hover glow */}
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-primary/10 blur-2xl rounded-full" />
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
