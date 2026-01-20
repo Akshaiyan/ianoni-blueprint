@@ -2,6 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { HeroSection } from "@/components/home/HeroSection";
 import { PromoBanner } from "@/components/home/PromoBanner";
 import { CategoryPanels } from "@/components/home/CategoryPanels";
+import { ProductEditorial } from "@/components/home/ProductEditorial";
 import { WhyIanoni } from "@/components/home/WhyIanoni";
 import { TrustSection } from "@/components/home/TrustSection";
 import { BestSellers } from "@/components/home/BestSellers";
@@ -19,16 +20,19 @@ const Index = () => {
       {/* 3. Category tiles */}
       <CategoryPanels />
       
-      {/* 4. Why IANONI - key selling points */}
+      {/* 4. Editorial product showcase - floating racket with tech specs */}
+      <ProductEditorial />
+      
+      {/* 5. Why IANONI - key selling points */}
       <WhyIanoni />
       
-      {/* 5. Trust/Social proof */}
+      {/* 6. Trust/Social proof */}
       <TrustSection />
       
-      {/* 6. Best Sellers carousel */}
+      {/* 7. Best Sellers carousel */}
       <BestSellers />
       
-      {/* 7. Beginner's Guide section */}
+      {/* 8. Beginner's Guide section */}
       <BeginnerHub />
     </Layout>
   );

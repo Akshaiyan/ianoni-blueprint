@@ -39,8 +39,8 @@ export function HeroSection() {
           style={{ opacity: overlayOpacity }}
           className="absolute inset-0 bg-black" 
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
 
         {/* Ambient glow */}
         <motion.div
@@ -53,15 +53,10 @@ export function HeroSection() {
 
       {/* HUD frame elements */}
       <div className="absolute inset-8 pointer-events-none hidden lg:block">
-        {/* Corner brackets */}
         <div className="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-white/10" />
         <div className="absolute top-0 right-0 w-16 h-16 border-r-2 border-t-2 border-white/10" />
         <div className="absolute bottom-0 left-0 w-16 h-16 border-l-2 border-b-2 border-white/10" />
         <div className="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-white/10" />
-        
-        {/* Alignment guides */}
-        <div className="absolute top-1/2 left-0 w-8 h-px bg-white/10" />
-        <div className="absolute top-1/2 right-0 w-8 h-px bg-white/10" />
       </div>
 
       {/* Content */}
@@ -72,7 +67,7 @@ export function HeroSection() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex items-center gap-4 mb-8"
+            className="flex items-center gap-4 mb-6"
           >
             <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
             <span className="text-[10px] tracking-[0.5em] uppercase text-white/50 font-medium">
@@ -80,37 +75,52 @@ export function HeroSection() {
             </span>
           </motion.div>
 
-          {/* Main headline - massive, minimal */}
-          <div className="max-w-5xl">
+          {/* Main headline - INNOVATIVE RACKETS */}
+          <div className="max-w-6xl">
             <div className="overflow-hidden">
               <motion.h1
                 initial={{ y: 200 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[15vw] md:text-[12vw] lg:text-[10vw] font-black text-white leading-[0.85] tracking-[-0.04em]"
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-white leading-[1] tracking-[-0.03em]"
               >
-                PLAY
+                INNOVATIVE
               </motion.h1>
             </div>
-            <div className="overflow-hidden -mt-[2vw]">
+            <div className="overflow-hidden">
               <motion.h1
                 initial={{ y: 200 }}
                 animate={{ y: 0 }}
-                transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[15vw] md:text-[12vw] lg:text-[10vw] font-black leading-[0.85] tracking-[-0.04em]"
+                transition={{ duration: 1.2, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-[1] tracking-[-0.03em]"
               >
-                <span className="text-outline text-white">WITH</span>{" "}
-                <span className="text-primary">INTENT</span>
+                <span className="text-primary">RACKETS</span>
               </motion.h1>
+            </div>
+            <div className="overflow-hidden mt-2">
+              <motion.div
+                initial={{ y: 100 }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center gap-4 md:gap-6"
+              >
+                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-white/40 tracking-wide">
+                  for
+                </span>
+                <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight">
+                  Every Player
+                </span>
+                <div className="hidden sm:block h-px flex-1 max-w-32 bg-gradient-to-r from-white/30 to-transparent" />
+              </motion.div>
             </div>
           </div>
 
-          {/* Dual CTAs - clean, minimal */}
+          {/* Dual CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
-            className="flex flex-col sm:flex-row gap-4 mt-12"
+            className="flex flex-col sm:flex-row gap-4 mt-10 md:mt-14"
           >
             <Link
               to="/padel"
@@ -138,13 +148,13 @@ export function HeroSection() {
         className="absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 hidden lg:block"
       >
         <div className="text-right">
-          <span className="text-7xl font-black text-white">4.6</span>
-          <span className="text-3xl text-primary ml-1">★</span>
+          <span className="text-6xl font-black text-white">4.6</span>
+          <span className="text-2xl text-primary ml-1">★</span>
           <p className="text-[10px] tracking-[0.3em] uppercase text-white/40 mt-2">
             Amazon Rating
           </p>
           <div className="w-full h-px bg-white/10 my-4" />
-          <span className="text-4xl font-bold text-primary">50K+</span>
+          <span className="text-3xl font-bold text-primary">50K+</span>
           <p className="text-[10px] tracking-[0.3em] uppercase text-white/40 mt-1">
             Players
           </p>
@@ -160,7 +170,6 @@ export function HeroSection() {
       >
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between">
-            {/* Scroll hint */}
             <div className="flex items-center gap-4">
               <motion.div
                 animate={{ y: [0, 8, 0] }}
@@ -174,7 +183,6 @@ export function HeroSection() {
               </span>
             </div>
 
-            {/* Tech specs hint */}
             <div className="flex items-center gap-6 text-[9px] tracking-widest uppercase text-white/20">
               <span>Carbon Fiber</span>
               <span className="w-1 h-1 bg-white/20 rounded-full" />
