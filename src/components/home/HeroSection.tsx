@@ -33,9 +33,9 @@ export function HeroSection() {
           />
         </motion.div>
 
-        {/* Cinematic overlays */}
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
+        {/* Cinematic overlays - lighter for better visibility */}
+        <div className="absolute inset-0 bg-black/35" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/25" />
 
         {/* Ambient glow */}
         <motion.div
@@ -63,7 +63,7 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-6"
         >
-          <span className="text-[11px] tracking-[0.6em] uppercase text-primary font-bold">
+          <span className="text-sm tracking-[0.5em] uppercase text-primary font-bold drop-shadow-lg">
             IANONI
           </span>
         </motion.div>
@@ -95,9 +95,19 @@ export function HeroSection() {
               initial={{ y: 60 }}
               animate={{ y: 0 }}
               transition={{ duration: 0.9, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white/80 font-light tracking-wide"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white font-light tracking-wide drop-shadow-md"
             >
               for <span className="font-semibold text-white">Every Player</span>
+            </motion.p>
+          </div>
+          <div className="overflow-hidden mt-4">
+            <motion.p
+              initial={{ y: 40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="text-base sm:text-lg md:text-xl text-white font-medium tracking-widest uppercase drop-shadow-lg"
+            >
+              Engineered for Impact
             </motion.p>
           </div>
         </div>
