@@ -18,7 +18,7 @@ export function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Full-bleed background */}
       <div className="absolute inset-0">
@@ -55,31 +55,27 @@ export function HeroSection() {
       </div>
 
       {/* Center content */}
-      <motion.div style={{ y: textY }} className="relative z-10 text-center px-4">
-        {/* Micro label */}
+      <motion.div style={{ y: textY }} className="relative z-10 text-center px-4 py-20">
+        {/* Brand name - strong emphasis */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex items-center justify-center gap-3 mb-8"
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mb-6"
         >
-          <div className="h-px w-8 bg-white/20" />
-          <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-          <span className="text-[10px] tracking-[0.5em] uppercase text-white/50 font-medium">
-            Padel & Pickleball
+          <span className="text-[11px] tracking-[0.6em] uppercase text-primary font-bold">
+            IANONI
           </span>
-          <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-          <div className="h-px w-8 bg-white/20" />
         </motion.div>
 
         {/* Main headline - centered stack */}
-        <div className="mb-10">
+        <div className="mb-8">
           <div className="overflow-hidden">
             <motion.h1
               initial={{ y: 120 }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[13vw] md:text-[10vw] lg:text-[8vw] font-black text-white leading-[0.9] tracking-[-0.04em]"
+              className="text-[14vw] md:text-[11vw] lg:text-[9vw] font-black text-white leading-[0.9] tracking-[-0.04em]"
             >
               INNOVATIVE
             </motion.h1>
@@ -89,12 +85,12 @@ export function HeroSection() {
               initial={{ y: 120 }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[13vw] md:text-[10vw] lg:text-[8vw] font-black text-primary leading-[0.9] tracking-[-0.04em]"
+              className="text-[14vw] md:text-[11vw] lg:text-[9vw] font-black text-primary leading-[0.9] tracking-[-0.04em]"
             >
               RACKETS
             </motion.h1>
           </div>
-          <div className="overflow-hidden mt-2 md:mt-4">
+          <div className="overflow-hidden mt-3 md:mt-5">
             <motion.p
               initial={{ y: 60 }}
               animate={{ y: 0 }}
@@ -106,26 +102,19 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* CTAs */}
+        {/* CTA - single button, more prominent */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+          className="flex justify-center mb-10"
         >
           <Link
             to="/padel"
-            className="group flex items-center justify-center gap-3 px-8 py-4 bg-primary hover:bg-primary/90 text-white rounded-full transition-all duration-300"
+            className="group flex items-center justify-center gap-3 px-10 py-5 bg-primary hover:bg-primary/90 text-white rounded-full transition-all duration-300"
           >
-            <span className="text-sm font-semibold">Shop Padel</span>
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
-          <Link
-            to="/pickleball"
-            className="group flex items-center justify-center gap-3 px-8 py-4 bg-white/10 hover:bg-white/20 text-white rounded-full backdrop-blur-sm border border-white/10 transition-all duration-300"
-          >
-            <span className="text-sm font-semibold">Shop Pickleball</span>
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <span className="text-base font-semibold">Shop Padel Rackets</span>
+            <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </motion.div>
 

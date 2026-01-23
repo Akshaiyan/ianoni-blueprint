@@ -29,7 +29,7 @@ const guides = [
 
 export function BeginnerHub() {
   return (
-    <section className="py-24 md:py-32 bg-cinema relative overflow-hidden">
+    <section className="py-16 md:py-24 bg-cinema relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[150px]" />

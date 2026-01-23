@@ -19,16 +19,6 @@ const categories = [
     statLabel: "models",
   },
   {
-    id: "pickleball",
-    title: "Pickleball",
-    subtitle: "Rackets",
-    description: "Power meets control",
-    image: pr8100RedBlack,
-    href: "/pickleball",
-    stat: "8",
-    statLabel: "models",
-  },
-  {
     id: "accessories",
     title: "Accessories",
     subtitle: "& Gear",
@@ -60,7 +50,7 @@ export function CategoryPanels() {
   const bgY = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   return (
-    <section ref={sectionRef} className="relative py-32 md:py-40 overflow-hidden">
+    <section ref={sectionRef} className="relative py-16 md:py-24 overflow-hidden">
       {/* Layered background - court texture at 3% */}
       <div className="absolute inset-0 bg-background">
         <motion.div 
@@ -74,27 +64,24 @@ export function CategoryPanels() {
       </div>
 
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        {/* Editorial section intro */}
-        <div className="mb-20">
-          {/* Floating micro label */}
+        {/* Editorial section intro - tighter */}
+        <div className="mb-10 md:mb-14">
+          {/* Divider + label */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="flex items-center gap-4 mb-8"
+            className="flex items-center gap-4 mb-6"
           >
             <div className="h-px w-16 bg-primary" />
             <span className="text-[10px] tracking-[0.4em] uppercase text-primary font-medium">
-              Collection Index
+              Shop by Category
             </span>
-            <span className="text-[10px] text-muted-foreground">—</span>
-            <span className="text-[10px] tracking-widest uppercase text-muted-foreground">
-              04 Categories
-            </span>
+            <div className="h-px flex-1 bg-border" />
           </motion.div>
 
-          {/* Oversized typography with grid break */}
-          <div className="grid lg:grid-cols-12 gap-8">
+          {/* Heading - more compact */}
+          <div className="grid lg:grid-cols-12 gap-6">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -102,11 +89,9 @@ export function CategoryPanels() {
               transition={{ duration: 0.8 }}
               className="lg:col-span-8"
             >
-              <h2 className="text-6xl md:text-8xl lg:text-[120px] font-black text-hero leading-[0.85] text-foreground">
-                Shop
-                <br />
-                <span className="text-outline text-foreground">by</span>{" "}
-                <span className="text-primary">Category</span>
+              <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-hero leading-[0.9] text-foreground">
+                Find Your{" "}
+                <span className="text-primary">Gear</span>
               </h2>
             </motion.div>
 
@@ -117,14 +102,9 @@ export function CategoryPanels() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="lg:col-span-4 flex flex-col justify-end"
             >
-              <p className="text-muted-foreground leading-relaxed mb-4">
+              <p className="text-muted-foreground leading-relaxed text-sm">
                 Curated equipment for every level. From competition-grade rackets to essential accessories.
               </p>
-              {/* HUD-style element */}
-              <div className="flex items-center gap-3 text-[10px] tracking-widest uppercase text-muted-foreground/60">
-                <span className="w-2 h-2 border border-primary rounded-full" />
-                <span>Scroll to explore</span>
-              </div>
             </motion.div>
           </div>
         </div>

@@ -10,8 +10,8 @@ const stats = [
 
 const badges = [
   { icon: Shield, label: "Secure Checkout", sublabel: "SSL Encrypted" },
-  { icon: Truck, label: "Fast Shipping", sublabel: "2-5 days" },
-  { icon: RotateCcw, label: "Easy Returns", sublabel: "30-day guarantee" },
+  { icon: Truck, label: "2-3 Day Shipping", sublabel: "Fast delivery" },
+  { icon: RotateCcw, label: "30-Day Returns", sublabel: "Hassle-free" },
 ];
 
 const testimonials = [
@@ -50,11 +50,11 @@ export function TrustSection() {
     offset: ["start end", "end start"],
   });
 
-  const statScale = useTransform(scrollYProgress, [0, 0.3], [0.8, 1]);
-  const quoteX = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const statScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
+  const quoteX = useTransform(scrollYProgress, [0, 1], [30, -30]);
 
   return (
-    <section ref={sectionRef} className="relative py-32 md:py-48 overflow-hidden bg-background">
+    <section ref={sectionRef} className="relative py-16 md:py-24 overflow-hidden bg-background">
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[200px]" />
@@ -67,7 +67,7 @@ export function TrustSection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="flex items-center gap-6 mb-20"
+          className="flex items-center gap-6 mb-12"
         >
           <span className="text-[10px] tracking-[0.5em] uppercase text-muted-foreground">
             By The Numbers
@@ -78,7 +78,7 @@ export function TrustSection() {
         {/* Stats - Editorial treatment */}
         <motion.div
           style={{ scale: statScale }}
-          className="grid grid-cols-3 gap-4 md:gap-8 mb-32"
+          className="grid grid-cols-3 gap-4 md:gap-8 mb-16"
         >
           {stats.map((stat, index) => (
             <motion.div
@@ -117,7 +117,7 @@ export function TrustSection() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-3 md:gap-6 mb-32"
+          className="flex flex-wrap justify-center gap-3 md:gap-4 mb-16"
         >
           {badges.map((badge, index) => (
             <motion.div
@@ -126,14 +126,14 @@ export function TrustSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group flex items-center gap-3 px-4 md:px-6 py-3 md:py-4 rounded-full bg-muted/30 border border-border hover:border-primary/30 transition-colors duration-300"
+              className="group flex items-center gap-2 px-4 py-2.5 rounded-full bg-muted/30 border border-border hover:border-primary/30 transition-colors duration-300"
             >
-              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <badge.icon className="h-4 w-4 md:h-5 md:w-5 text-primary" />
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                <badge.icon className="h-4 w-4 text-primary" />
               </div>
               <div className="text-left">
-                <p className="text-xs md:text-sm font-medium text-foreground">{badge.label}</p>
-                <p className="text-[9px] md:text-[10px] tracking-wider uppercase text-muted-foreground">
+                <p className="text-xs font-medium text-foreground">{badge.label}</p>
+                <p className="text-[9px] tracking-wider uppercase text-muted-foreground">
                   {badge.sublabel}
                 </p>
               </div>
@@ -149,7 +149,7 @@ export function TrustSection() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="relative mb-24"
+            className="relative mb-16"
           >
             {/* Giant quotation mark */}
             <motion.span 
