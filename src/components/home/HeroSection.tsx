@@ -105,7 +105,7 @@ export function HeroSection() {
               initial={{ y: 40, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="text-base sm:text-lg md:text-xl text-white font-medium tracking-widest uppercase drop-shadow-lg"
+              className="text-[11px] sm:text-xs tracking-[0.4em] uppercase text-primary font-bold"
             >
               Engineered for Impact
             </motion.p>
