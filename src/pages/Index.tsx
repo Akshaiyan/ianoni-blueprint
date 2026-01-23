@@ -17,11 +17,11 @@ const Index = () => {
       {/* 2. Promo strip with urgency */}
       <PromoBanner />
       
-      {/* 3. Category tiles */}
-      <CategoryPanels />
+      {/* 3. Best Sellers - moved up for conversions */}
+      <BestSellers />
       
-      {/* 4. Editorial product showcase - floating racket with tech specs */}
-      <ProductEditorial />
+      {/* 4. Category tiles */}
+      <CategoryPanels />
       
       {/* 5. Why IANONI - key selling points */}
       <WhyIanoni />
@@ -29,8 +29,8 @@ const Index = () => {
       {/* 6. Trust/Social proof */}
       <TrustSection />
       
-      {/* 7. Best Sellers carousel */}
-      <BestSellers />
+      {/* 7. Editorial product showcase */}
+      <ProductEditorial />
       
       {/* 8. Beginner's Guide section */}
       <BeginnerHub />

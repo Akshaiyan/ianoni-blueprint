@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Flame } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import { products } from "@/data/products";
 
@@ -17,7 +17,7 @@ export function BestSellers() {
   const bestSellers = products.slice(0, 4);
 
   return (
-    <section ref={sectionRef} className="relative py-32 md:py-48 overflow-hidden">
+    <section ref={sectionRef} className="relative py-16 md:py-24 overflow-hidden">
       {/* Background with depth */}
       <div className="absolute inset-0 bg-muted/30">
         <motion.div style={{ y: bgY }} className="absolute inset-0">
@@ -35,8 +35,8 @@ export function BestSellers() {
       </div>
 
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        {/* Editorial header - dramatic typography */}
-        <div className="grid lg:grid-cols-12 gap-8 mb-16 md:mb-24">
+        {/* Editorial header - cleaner */}
+        <div className="grid lg:grid-cols-12 gap-6 mb-10 md:mb-14">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -44,22 +44,17 @@ export function BestSellers() {
             transition={{ duration: 0.8 }}
             className="lg:col-span-8"
           >
-            {/* Micro label with accent line */}
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                <Flame className="h-4 w-4 text-primary" />
-              </div>
-              <span className="text-[10px] tracking-[0.4em] uppercase text-primary font-medium">
-                Top Rated on Amazon
+            {/* Badge - cleaner design */}
+            <div className="flex items-center gap-3 mb-4">
+              <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] tracking-[0.3em] uppercase font-semibold">
+                ★ Top Rated
               </span>
               <div className="h-px flex-1 bg-border hidden md:block" />
             </div>
 
-            {/* Massive headline */}
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-black text-hero text-foreground leading-[0.85]">
-              Best
-              <br />
-              <span className="text-outline text-foreground">Sellers</span>
+            {/* Headline - more compact */}
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-hero text-foreground leading-[0.9]">
+              Best Sellers
             </h2>
           </motion.div>
 
@@ -70,16 +65,15 @@ export function BestSellers() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="lg:col-span-4 flex flex-col justify-end"
           >
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              Our most-loved rackets, backed by thousands of 5-star reviews. 
-              Each one engineered for exceptional performance.
+            <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+              Our most-loved rackets, backed by thousands of 5-star reviews.
             </p>
             <Link
               to="/padel"
               className="group inline-flex items-center gap-3 text-foreground hover:text-primary transition-colors"
             >
               <span className="text-[10px] tracking-[0.3em] uppercase font-medium">
-                View All Products
+                View All
               </span>
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-2" />
             </Link>

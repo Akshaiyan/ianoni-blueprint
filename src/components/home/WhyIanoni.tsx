@@ -48,7 +48,7 @@ export function WhyIanoni() {
   const textY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
-    <section ref={sectionRef} className="relative py-32 md:py-48 bg-cinema overflow-hidden">
+    <section ref={sectionRef} className="relative py-16 md:py-24 bg-cinema overflow-hidden">
       {/* Background layers */}
       <div className="absolute inset-0">
         {/* Carbon fiber texture at 3% */}
@@ -105,14 +105,12 @@ export function WhyIanoni() {
                 viewport={{ once: true }}
                 transition={{ duration: 1 }}
               >
-                <span className="text-[10px] tracking-[0.4em] uppercase text-primary mb-4 block">
+                <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-hero text-white leading-[0.9] mb-4">
                   Why Choose
-                </span>
-                <h2 className="text-6xl md:text-7xl lg:text-8xl font-black text-hero text-white leading-[0.85] mb-8">
-                  IAN
-                  <br />
-                  <span className="text-outline text-white">ONI</span>
                 </h2>
+                <span className="text-4xl md:text-5xl lg:text-6xl font-black text-primary">
+                  IANONI
+                </span>
               </motion.div>
 
               <motion.p

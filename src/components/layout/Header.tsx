@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import ianoniLogo from "@/assets/ianoni-logo.png";
 
 const navLinks = [
-  { name: "Padel", href: "/padel" },
+  { name: "Shop Padel", href: "/padel" },
   { name: "Accessories", href: "/accessories" },
   { name: "Guide", href: "/guide" },
 ];
@@ -42,25 +42,25 @@ export function Header() {
         )}
       >
         <div className="container mx-auto px-4 md:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-24">
             <Link to="/" className="relative z-10">
               <img
                 src={ianoniLogo}
                 alt="IANONI"
                 className={cn(
-                  "h-8 w-auto transition-all duration-300",
+                  "h-12 w-auto transition-all duration-300",
                   !showDarkHeader && "brightness-0 invert"
                 )}
               />
             </Link>
 
-            <nav className="hidden md:flex items-center gap-10">
+            <nav className="hidden md:flex items-center gap-12">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.href}
                   className={cn(
-                    "text-sm tracking-wide transition-colors underline-reveal py-1",
+                    "text-base font-medium tracking-wide transition-colors underline-reveal py-1",
                     showDarkHeader
                       ? location.pathname === link.href
                         ? "text-foreground"
@@ -75,41 +75,41 @@ export function Header() {
               ))}
             </nav>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
               <Button
                 variant="ghost"
                 size="icon"
                 className={cn(
-                  "transition-colors",
+                  "transition-colors h-11 w-11",
                   showDarkHeader
                     ? "text-muted-foreground hover:text-foreground"
                     : "text-white/70 hover:text-white hover:bg-white/10"
                 )}
               >
-                <Search className="h-5 w-5" />
+                <Search className="h-6 w-6" />
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
                 className={cn(
-                  "transition-colors",
+                  "transition-colors h-11 w-11",
                   showDarkHeader
                     ? "text-muted-foreground hover:text-foreground"
                     : "text-white/70 hover:text-white hover:bg-white/10"
                 )}
               >
-                <ShoppingBag className="h-5 w-5" />
+                <ShoppingBag className="h-6 w-6" />
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
                 className={cn(
-                  "md:hidden transition-colors",
+                  "md:hidden transition-colors h-11 w-11",
                   showDarkHeader ? "text-foreground" : "text-white"
                 )}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
-                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </Button>
             </div>
           </div>
@@ -122,7 +122,7 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "100vh" }}
             exit={{ opacity: 0, height: 0 }}
-            className="fixed inset-0 z-40 bg-cinema pt-20"
+            className="fixed inset-0 z-40 bg-cinema pt-24"
           >
             <nav className="container mx-auto px-4 py-12 space-y-8">
               {navLinks.map((link, i) => (
