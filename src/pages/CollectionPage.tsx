@@ -4,18 +4,14 @@ import { ChevronRight, Filter, SlidersHorizontal } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { Button } from "@/components/ui/button";
-import { getProductsByCategory, products as allProducts } from "@/data/products";
+import { getProductsByCategory, getPadelRacketsRandomized, products as allProducts } from "@/data/products";
+import { useMemo } from "react";
 
 const categoryInfo: Record<string, { title: string; description: string; emoji: string }> = {
   padel: {
     title: "Padel Rackets",
     description: "Premium carbon fiber padel rackets designed for players of all skill levels",
     emoji: "🎾",
-  },
-  pickleball: {
-    title: "Pickleball Paddles",
-    description: "Precision-engineered paddles for optimal control and power",
-    emoji: "🏓",
   },
   accessories: {
     title: "Accessories & Bags",
@@ -27,7 +23,14 @@ const categoryInfo: Record<string, { title: string; description: string; emoji: 
 export default function CollectionPage() {
   const { category } = useParams<{ category: string }>();
   const info = category ? categoryInfo[category] : null;
-  const products = category ? getProductsByCategory(category) : allProducts;
+  
+  // Randomize padel rackets on each page load
+  const products = useMemo(() => {
+    if (category === "padel") {
+      return getPadelRacketsRandomized();
+    }
+    return category ? getProductsByCategory(category) : allProducts;
+  }, [category]);
 
   if (!info) {
     return (
@@ -86,7 +89,7 @@ export default function CollectionPage() {
           </div>
 
           {/* Product Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
             {products.map((product, index) => (
               <ProductCard key={product.id} product={product} index={index} />
             ))}
