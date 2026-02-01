@@ -113,13 +113,13 @@ export function ProductEditorial() {
                     transition={{ duration: 0.6, delay: 0.3 + i * 0.1 }}
                     className="group flex items-center gap-4 py-3 border-b border-white/5 hover:border-primary/20 transition-colors"
                   >
-                    <span className="text-[9px] tracking-[0.3em] uppercase text-white/20 w-20">
+                    <span className="text-xs tracking-[0.3em] uppercase text-white/50 w-24 font-medium">
                       {spec.label}
                     </span>
-                    <span className="text-2xl font-bold text-primary group-hover:text-white transition-colors">
+                    <span className="text-3xl font-bold text-primary group-hover:text-white transition-colors">
                       {spec.value}
                     </span>
-                    <span className="text-[9px] tracking-widest uppercase text-white/15 ml-auto">
+                    <span className="text-xs tracking-widest uppercase text-white/40 ml-auto font-medium">
                       {spec.detail}
                     </span>
                   </motion.div>
