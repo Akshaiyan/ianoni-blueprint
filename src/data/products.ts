@@ -69,6 +69,13 @@ import pr8100BoPlayer from "@/assets/products/pr8100-bo-player.jpg";
 import pr8100BoDetail from "@/assets/products/pr8100-bo-detail.jpg";
 import pr8100BoHero from "@/assets/products/pr8100-bo-hero.jpg";
 
+// PR8200 Grey Stripe
+import pr8200GsMain from "@/assets/products/pr8200-gs-main.jpg";
+import pr8200GsAngle from "@/assets/products/pr8200-gs-angle.jpg";
+import pr8200GsBall from "@/assets/products/pr8200-gs-ball.jpg";
+import pr8200GsGrip from "@/assets/products/pr8200-gs-grip.jpg";
+import pr8200GsPlayer from "@/assets/products/pr8200-gs-player.jpg";
+
 // Legacy imports (for other products until images provided)
 import pr8100Hero from "@/assets/products/pr8100-hero.jpg";
 import pr8100Specs from "@/assets/products/pr8100-specs.jpg";
@@ -238,7 +245,8 @@ export const products: Product[] = [
     price: 179.99,
     rating: 4.8,
     reviewCount: 42,
-    image: pr8100Detail, // placeholder until PR8200 images provided
+    image: pr8200GsMain,
+    gallery: [pr8200GsMain, pr8200GsAngle, pr8200GsBall, pr8200GsGrip, pr8200GsPlayer],
     colorVariant: "Grey Stripe",
     description: "The next evolution in padel performance. PR8200 features advanced materials and refined balance for professional-level play.",
     features: [
