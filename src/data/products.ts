@@ -108,6 +108,8 @@ export interface Product {
   isNew?: boolean;
   colorVariant?: string;
   bestSellerOrder?: number; // For carousel display order
+  isStarterKit?: boolean;
+  isBallType?: boolean;
 }
 
 export const products: Product[] = [
@@ -297,11 +299,109 @@ export const products: Product[] = [
     bestSellerOrder: 6, // Sixth in carousel (second page)
     isNew: true,
   },
-  // Accessories
+  // Starter Kits
   {
-    id: "acc-1",
-    name: "IANONI Padel Balls",
-    slug: "ianoni-padel-balls",
+    id: "kit-1",
+    name: "Beginner Starter Kit",
+    slug: "beginner-starter-kit",
+    category: "accessories",
+    price: 199.99,
+    rating: 4.9,
+    reviewCount: 156,
+    image: pr8100Hero,
+    badge: "Popular",
+    description: "Everything you need to start your padel journey. Includes racket, balls, and bag.",
+    features: [
+      "Entry-level racket",
+      "3 premium balls",
+      "Carry bag included",
+      "Beginner's guide",
+    ],
+    specs: {},
+    isStarterKit: true,
+  },
+  {
+    id: "kit-2",
+    name: "Intermediate Pro Kit",
+    slug: "intermediate-pro-kit",
+    category: "accessories",
+    price: 299.99,
+    rating: 4.8,
+    reviewCount: 89,
+    image: pr8100Hero,
+    description: "Level up your game with our intermediate kit. Premium racket with pro accessories.",
+    features: [
+      "Mid-level racket",
+      "6 competition balls",
+      "Premium bag",
+      "Overgrip set",
+    ],
+    specs: {},
+    isStarterKit: true,
+  },
+  {
+    id: "kit-3",
+    name: "Doubles Partner Kit",
+    slug: "doubles-partner-kit",
+    category: "accessories",
+    price: 349.99,
+    rating: 4.7,
+    reviewCount: 67,
+    image: pr8100Hero,
+    description: "Perfect for couples or friends. Two rackets, balls, and shared accessories.",
+    features: [
+      "2 matching rackets",
+      "6 premium balls",
+      "Double racket bag",
+      "Accessories included",
+    ],
+    specs: {},
+    isStarterKit: true,
+  },
+  {
+    id: "kit-4",
+    name: "Competition Ready Kit",
+    slug: "competition-ready-kit",
+    category: "accessories",
+    price: 449.99,
+    rating: 4.9,
+    reviewCount: 45,
+    image: pr8100Hero,
+    badge: "Best Value",
+    description: "Tournament-grade equipment for serious players. Everything you need to compete.",
+    features: [
+      "Competition racket",
+      "12 tournament balls",
+      "Pro tour bag",
+      "Premium accessories",
+    ],
+    specs: {},
+    isStarterKit: true,
+  },
+  {
+    id: "kit-5",
+    name: "Family Fun Kit",
+    slug: "family-fun-kit",
+    category: "accessories",
+    price: 499.99,
+    rating: 4.8,
+    reviewCount: 34,
+    image: pr8100Hero,
+    description: "Get the whole family playing. Four rackets for all skill levels plus extras.",
+    features: [
+      "4 rackets (mixed sizes)",
+      "12 balls",
+      "Large family bag",
+      "Training materials",
+    ],
+    specs: {},
+    isStarterKit: true,
+  },
+  // Ball Types
+  {
+    id: "balls-1",
+    name: "IANONI Premium Balls",
+    slug: "ianoni-premium-balls",
     category: "accessories",
     price: 12.99,
     rating: 4.6,
@@ -315,7 +415,29 @@ export const products: Product[] = [
       "Pack of 3",
     ],
     specs: {},
+    isBallType: true,
   },
+  {
+    id: "balls-2",
+    name: "IANONI Competition Balls",
+    slug: "ianoni-competition-balls",
+    category: "accessories",
+    price: 18.99,
+    rating: 4.8,
+    reviewCount: 234,
+    image: pr8100Hero,
+    badge: "Pro Choice",
+    description: "Professional-grade balls used in tournaments worldwide. Superior durability.",
+    features: [
+      "WPT approved",
+      "Extended lifespan",
+      "Perfect pressure",
+      "Pack of 3",
+    ],
+    specs: {},
+    isBallType: true,
+  },
+  // Accessories
   {
     id: "acc-2",
     name: "Premium Racket Bag",
