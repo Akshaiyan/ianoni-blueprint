@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import ianoniLogo from "@/assets/ianoni-logo.png";
 
 export function Footer() {
   return (
@@ -6,7 +7,9 @@ export function Footer() {
       <div className="container mx-auto px-4 py-20">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-2 md:col-span-1">
-            <Link to="/" className="text-xl font-bold text-foreground">IANONI</Link>
+            <Link to="/" className="inline-block">
+              <img src={ianoniLogo} alt="IANONI" className="h-10 w-auto" />
+            </Link>
             <p className="text-muted-foreground text-sm mt-4 max-w-xs">Premium padel equipment engineered for players at every level.</p>
           </div>
           <div>
