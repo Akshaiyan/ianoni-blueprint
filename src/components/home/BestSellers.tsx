@@ -1,18 +1,30 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
-import { getBestSellers } from "@/data/products";
+import { useState, useMemo } from "react";
+import { getBestSellers, Product } from "@/data/products";
 import { Button } from "@/components/ui/button";
+
+// Randomly assign badges to products
+const assignRandomBadges = (products: Product[]) => {
+  const badges = ["Best Seller", "Limited Stock", null, null]; // 50% chance of a badge
+  return products.map((product) => ({
+    ...product,
+    displayBadge: badges[Math.floor(Math.random() * badges.length)],
+  }));
+};
 
 export function BestSellers() {
   const [currentPage, setCurrentPage] = useState(0);
   const bestSellers = getBestSellers();
   
+  // Randomly assign badges on mount (stable for session)
+  const productsWithBadges = useMemo(() => assignRandomBadges(bestSellers), []);
+  
   // Show 3 products per page
   const productsPerPage = 3;
-  const totalPages = Math.ceil(bestSellers.length / productsPerPage);
-  const currentProducts = bestSellers.slice(
+  const totalPages = Math.ceil(productsWithBadges.length / productsPerPage);
+  const currentProducts = productsWithBadges.slice(
     currentPage * productsPerPage,
     (currentPage + 1) * productsPerPage
   );
@@ -120,11 +132,15 @@ export function BestSellers() {
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
 
-                  {/* Badge */}
-                  {product.badge && (
+                  {/* Badge - randomly assigned */}
+                  {product.displayBadge && (
                     <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-[10px] tracking-widest uppercase font-semibold shadow-lg">
-                        {product.badge}
+                      <span className={`px-3 py-1.5 rounded-full text-[10px] tracking-widest uppercase font-semibold shadow-lg ${
+                        product.displayBadge === "Limited Stock" 
+                          ? "bg-orange-500 text-white" 
+                          : "bg-primary text-primary-foreground"
+                      }`}>
+                        {product.displayBadge}
                       </span>
                     </div>
                   )}
