@@ -19,9 +19,9 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/collection/:category" element={<CollectionPage />} />
           <Route path="/padel" element={<CollectionPage />} />
           <Route path="/accessories" element={<CollectionPage />} />
-          <Route path="/:category" element={<CollectionPage />} />
           <Route path="/product/:slug" element={<ProductPage />} />
           <Route path="/guide" element={<GuidePage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
