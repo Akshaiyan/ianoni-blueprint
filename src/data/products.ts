@@ -58,6 +58,17 @@ import pr8200SpAngle2 from "@/assets/products/pr8200-sp-angle2.png";
 import pr8200SpAction from "@/assets/products/pr8200-sp-action.png";
 import pr8200SpGrip from "@/assets/products/pr8200-sp-grip.png";
 
+// PR8100 Blue/Orange
+import pr8100BoMain from "@/assets/products/pr8100-bo-main.jpg";
+import pr8100BoBall from "@/assets/products/pr8100-bo-ball.jpg";
+import pr8100BoAngle from "@/assets/products/pr8100-bo-angle.jpg";
+import pr8100BoLifestyle from "@/assets/products/pr8100-bo-lifestyle.jpg";
+import pr8100BoFront from "@/assets/products/pr8100-bo-front.jpg";
+import pr8100BoPair from "@/assets/products/pr8100-bo-pair.jpg";
+import pr8100BoPlayer from "@/assets/products/pr8100-bo-player.jpg";
+import pr8100BoDetail from "@/assets/products/pr8100-bo-detail.jpg";
+import pr8100BoHero from "@/assets/products/pr8100-bo-hero.jpg";
+
 // Legacy imports (for other products until images provided)
 import pr8100Hero from "@/assets/products/pr8100-hero.jpg";
 import pr8100Specs from "@/assets/products/pr8100-specs.jpg";
@@ -166,8 +177,8 @@ export const products: Product[] = [
     originalPrice: 199.99,
     rating: 4.6,
     reviewCount: 98,
-    image: pr8100Hero, // placeholder until images provided
-    gallery: [pr8100Hero, pr8100Detail, pr8100Grip, pr8100Specs],
+    image: pr8100BoMain,
+    gallery: [pr8100BoMain, pr8100BoBall, pr8100BoAngle, pr8100BoLifestyle, pr8100BoFront, pr8100BoPair, pr8100BoPlayer, pr8100BoDetail, pr8100BoHero],
     colorVariant: "Blue/Orange",
     description: "Our flagship padel racket featuring 3-layer carbon fiber construction with Energy Transfer System for maximum power and control. The equidistant hole arrangement in groups of 3 strengthens the surface and improves durability.",
     features: [
