@@ -54,26 +54,26 @@ export default function ProductPage() {
               animate={{ opacity: 1, x: 0 }}
               className="space-y-4"
             >
-              <div className="aspect-square rounded-3xl bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center relative overflow-hidden">
+              <div className="aspect-square rounded-3xl bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center relative overflow-hidden p-8">
                 {product.badge && (
-                  <Badge className="absolute top-6 left-6 text-sm">{product.badge}</Badge>
+                  <Badge className="absolute top-6 left-6 text-sm z-10">{product.badge}</Badge>
                 )}
-                <motion.div
+                <motion.img
                   whileHover={{ scale: 1.05 }}
-                  className="text-9xl"
-                >
-                  {product.image}
-                </motion.div>
+                  src={product.gallery?.[0] || product.image}
+                  alt={product.name}
+                  className="w-full h-full object-contain"
+                />
               </div>
               
-              {/* Thumbnail placeholders */}
+              {/* Thumbnails from gallery */}
               <div className="grid grid-cols-4 gap-4">
-                {[1, 2, 3, 4].map((i) => (
+                {(product.gallery || [product.image]).slice(0, 4).map((img, i) => (
                   <div
                     key={i}
-                    className="aspect-square rounded-xl bg-muted flex items-center justify-center cursor-pointer hover:ring-2 ring-primary transition-all"
+                    className="aspect-square rounded-xl bg-muted flex items-center justify-center cursor-pointer hover:ring-2 ring-primary transition-all overflow-hidden p-2"
                   >
-                    <span className="text-3xl opacity-50">{product.image}</span>
+                    <img src={img} alt={`${product.name} view ${i + 1}`} className="w-full h-full object-contain" />
                   </div>
                 ))}
               </div>
