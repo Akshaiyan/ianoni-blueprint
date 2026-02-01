@@ -21,7 +21,12 @@ const categoryInfo: Record<string, { title: string; description: string; emoji: 
 };
 
 export default function CollectionPage() {
-  const { category } = useParams<{ category: string }>();
+  const { category: paramCategory } = useParams<{ category: string }>();
+  
+  // Detect category from URL path if not in params (for /padel and /accessories routes)
+  const pathname = window.location.pathname;
+  const category = paramCategory || (pathname === "/padel" ? "padel" : pathname === "/accessories" ? "accessories" : null);
+  
   const info = category ? categoryInfo[category] : null;
   
   // Randomize padel rackets on each page load
