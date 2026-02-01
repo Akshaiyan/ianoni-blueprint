@@ -24,10 +24,19 @@ import pr8100BpBall from "@/assets/products/pr8100-bp-ball.jpg";
 import pr8100BpAction from "@/assets/products/pr8100-bp-action.jpg";
 import pr8100BpBalls from "@/assets/products/pr8100-bp-balls.jpg";
 import pr8100BpDetail from "@/assets/products/pr8100-bp-detail.jpg";
+import pr8100BpDetail2 from "@/assets/products/pr8100-bp-detail2.jpg";
 import pr8100BpPair from "@/assets/products/pr8100-bp-pair.jpg";
 import pr8100BpPair2 from "@/assets/products/pr8100-bp-pair2.jpg";
 import pr8100BpSpecs from "@/assets/products/pr8100-bp-specs.jpg";
 import pr8100BpSpecs2 from "@/assets/products/pr8100-bp-specs2.jpg";
+import pr8100BpPlayer1 from "@/assets/products/pr8100-bp-player1.jpg";
+import pr8100BpPlayer2 from "@/assets/products/pr8100-bp-player2.jpg";
+import pr8100BpGrip1 from "@/assets/products/pr8100-bp-grip1.jpg";
+import pr8100BpGrip2 from "@/assets/products/pr8100-bp-grip2.jpg";
+import pr8100BpCourt1 from "@/assets/products/pr8100-bp-court1.jpg";
+import pr8100BpCourt2 from "@/assets/products/pr8100-bp-court2.jpg";
+import pr8100BpLifestyle1 from "@/assets/products/pr8100-bp-lifestyle1.jpg";
+import pr8100BpLifestyle2 from "@/assets/products/pr8100-bp-lifestyle2.jpg";
 
 // Legacy imports (for other products until images provided)
 import pr8100Hero from "@/assets/products/pr8100-hero.jpg";
@@ -107,7 +116,7 @@ export const products: Product[] = [
     rating: 4.7,
     reviewCount: 186,
     image: pr8100BpMain,
-    gallery: [pr8100BpMain, pr8100BpAngle, pr8100BpBall, pr8100BpAction, pr8100BpBalls, pr8100BpDetail, pr8100BpPair, pr8100BpPair2, pr8100BpSpecs, pr8100BpSpecs2],
+    gallery: [pr8100BpMain, pr8100BpAngle, pr8100BpBall, pr8100BpAction, pr8100BpBalls, pr8100BpDetail, pr8100BpDetail2, pr8100BpPair, pr8100BpPair2, pr8100BpSpecs, pr8100BpSpecs2, pr8100BpPlayer1, pr8100BpPlayer2, pr8100BpGrip1, pr8100BpGrip2, pr8100BpCourt1, pr8100BpCourt2, pr8100BpLifestyle1, pr8100BpLifestyle2],
     colorVariant: "Blue/Pink",
     description: "Our flagship padel racket featuring 3-layer carbon fiber construction with Energy Transfer System for maximum power and control. The equidistant hole arrangement in groups of 3 strengthens the surface and improves durability.",
     features: [
