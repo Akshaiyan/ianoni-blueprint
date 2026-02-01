@@ -11,7 +11,7 @@ export interface Product {
   id: string;
   name: string;
   slug: string;
-  category: "padel" | "pickleball" | "accessories";
+  category: "padel" | "accessories";
   price: number;
   originalPrice?: number;
   rating: number;
@@ -32,6 +32,7 @@ export interface Product {
   isBestSeller?: boolean;
   isNew?: boolean;
   colorVariant?: string;
+  bestSellerOrder?: number; // For carousel display order
 }
 
 export const products: Product[] = [
@@ -66,6 +67,7 @@ export const products: Product[] = [
       level: "Intermediate-Advanced",
     },
     isBestSeller: true,
+    bestSellerOrder: 1, // First in carousel
   },
   {
     id: "pr8100-blue-pink",
@@ -95,7 +97,8 @@ export const products: Product[] = [
       balance: "Medium",
       level: "Intermediate-Advanced",
     },
-    isNew: true,
+    isBestSeller: true,
+    bestSellerOrder: 3, // Third in carousel
   },
   {
     id: "pr8100-blue-orange",
@@ -106,7 +109,7 @@ export const products: Product[] = [
     originalPrice: 199.99,
     rating: 4.6,
     reviewCount: 98,
-    image: pr8100Hero,
+    image: pr8100Hero, // placeholder until images provided
     gallery: [pr8100Hero, pr8100Detail, pr8100Grip, pr8100Specs],
     colorVariant: "Blue/Orange",
     description: "Our flagship padel racket featuring 3-layer carbon fiber construction with Energy Transfer System for maximum power and control. The equidistant hole arrangement in groups of 3 strengthens the surface and improves durability.",
@@ -125,6 +128,8 @@ export const products: Product[] = [
       balance: "Medium",
       level: "Intermediate-Advanced",
     },
+    isBestSeller: true,
+    bestSellerOrder: 5, // Fifth in carousel (second page)
   },
   // PR8200 Series
   {
@@ -153,7 +158,8 @@ export const products: Product[] = [
       balance: "Medium-High",
       level: "Advanced-Pro",
     },
-    isNew: true,
+    isBestSeller: true,
+    bestSellerOrder: 2, // Second in carousel
   },
   {
     id: "pr8200-grey-stripe",
@@ -180,6 +186,38 @@ export const products: Product[] = [
       balance: "Medium-High",
       level: "Advanced-Pro",
     },
+    isBestSeller: true,
+    bestSellerOrder: 4, // Fourth in carousel (second page)
+  },
+  {
+    id: "pr8200-super-power-pink",
+    name: "PR8200",
+    slug: "pr8200-super-power-pink",
+    category: "padel",
+    price: 179.99,
+    rating: 4.7,
+    reviewCount: 28,
+    image: pr8100Specs, // placeholder until images provided
+    badge: "New",
+    colorVariant: "Super Power Pink",
+    description: "The next evolution in padel performance. PR8200 features advanced materials and refined balance for professional-level play.",
+    features: [
+      "Advanced carbon composite",
+      "Enhanced sweet spot",
+      "Precision balance system",
+      "Pro-grade grip",
+      "Tournament approved",
+    ],
+    specs: {
+      weight: "12.3 oz (350g)",
+      shape: "Teardrop",
+      material: "Carbon Composite",
+      balance: "Medium-High",
+      level: "Advanced-Pro",
+    },
+    isBestSeller: true,
+    bestSellerOrder: 6, // Sixth in carousel (second page)
+    isNew: true,
   },
   // Accessories
   {
@@ -190,7 +228,7 @@ export const products: Product[] = [
     price: 12.99,
     rating: 4.6,
     reviewCount: 445,
-    image: pr8100Hero, // Shows balls in image
+    image: pr8100Hero,
     description: "Official IANONI padel balls for optimal play and consistent bounce.",
     features: [
       "Tournament quality",
@@ -199,7 +237,6 @@ export const products: Product[] = [
       "Pack of 3",
     ],
     specs: {},
-    isBestSeller: true,
   },
   {
     id: "acc-2",
@@ -241,7 +278,27 @@ export const products: Product[] = [
   },
 ];
 
-export const getBestSellers = () => products.filter((p) => p.isBestSeller);
+// Get best sellers sorted by their display order
+export const getBestSellers = () => 
+  products
+    .filter((p) => p.isBestSeller && p.bestSellerOrder)
+    .sort((a, b) => (a.bestSellerOrder || 0) - (b.bestSellerOrder || 0));
+
+// Get all padel rackets (the 6 main products)
+export const getPadelRackets = () => 
+  products.filter((p) => p.category === "padel" && p.name.startsWith("PR"));
+
+// Get padel rackets in random order
+export const getPadelRacketsRandomized = () => {
+  const rackets = getPadelRackets();
+  // Fisher-Yates shuffle
+  for (let i = rackets.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [rackets[i], rackets[j]] = [rackets[j], rackets[i]];
+  }
+  return rackets;
+};
+
 export const getNewProducts = () => products.filter((p) => p.isNew);
 export const getProductsByCategory = (category: string) =>
   products.filter((p) => p.category === category);

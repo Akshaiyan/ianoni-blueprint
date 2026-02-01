@@ -1,206 +1,215 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
-import { useRef } from "react";
-import { products } from "@/data/products";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { getBestSellers } from "@/data/products";
+import { Button } from "@/components/ui/button";
 
 export function BestSellers() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
+  const [currentPage, setCurrentPage] = useState(0);
+  const bestSellers = getBestSellers();
+  
+  // Show 3 products per page
+  const productsPerPage = 3;
+  const totalPages = Math.ceil(bestSellers.length / productsPerPage);
+  const currentProducts = bestSellers.slice(
+    currentPage * productsPerPage,
+    (currentPage + 1) * productsPerPage
+  );
 
-  const bgY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const goToNext = () => {
+    setCurrentPage((prev) => (prev + 1) % totalPages);
+  };
 
-  // Get first 4 products as best sellers
-  const bestSellers = products.slice(0, 4);
+  const goToPrev = () => {
+    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
+  };
 
   return (
-    <section ref={sectionRef} className="relative py-16 md:py-24 overflow-hidden">
-      {/* Background with depth */}
+    <section className="relative py-16 md:py-20 overflow-hidden">
+      {/* Background */}
       <div className="absolute inset-0 bg-muted/30">
-        <motion.div style={{ y: bgY }} className="absolute inset-0">
-          {/* Subtle grid pattern */}
-          <div 
-            className="absolute inset-0 opacity-[0.02]"
-            style={{
-              backgroundImage: `linear-gradient(to right, currentColor 1px, transparent 1px),
-                               linear-gradient(to bottom, currentColor 1px, transparent 1px)`,
-              backgroundSize: "60px 60px",
-            }}
-          />
-        </motion.div>
+        <div 
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `linear-gradient(to right, currentColor 1px, transparent 1px),
+                             linear-gradient(to bottom, currentColor 1px, transparent 1px)`,
+            backgroundSize: "60px 60px",
+          }}
+        />
         <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[200px]" />
       </div>
 
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        {/* Editorial header - cleaner */}
-        <div className="grid lg:grid-cols-12 gap-6 mb-10 md:mb-14">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-8"
           >
-            {/* Badge - cleaner design */}
+            {/* Badge */}
             <div className="flex items-center gap-3 mb-4">
               <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] tracking-[0.3em] uppercase font-semibold">
                 ★ Top Rated
               </span>
-              <div className="h-px flex-1 bg-border hidden md:block" />
             </div>
 
-            {/* Headline - more compact */}
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-hero text-foreground leading-[0.9]">
+            {/* Headline */}
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground leading-[0.9]">
               Best Sellers
             </h2>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-4 flex flex-col justify-end"
-          >
-            <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+            <p className="text-muted-foreground text-sm mt-3 max-w-md">
               Our most-loved rackets, backed by thousands of 5-star reviews.
             </p>
-            <Link
-              to="/padel"
-              className="group inline-flex items-center gap-3 text-foreground hover:text-primary transition-colors"
+          </motion.div>
+
+          {/* Navigation arrows */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex items-center gap-3"
+          >
+            <button
+              onClick={goToPrev}
+              className="w-12 h-12 rounded-full border border-border bg-background hover:bg-muted flex items-center justify-center transition-colors"
+              aria-label="Previous products"
             >
-              <span className="text-[10px] tracking-[0.3em] uppercase font-medium">
-                View All
-              </span>
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-2" />
-            </Link>
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <div className="text-sm text-muted-foreground font-medium min-w-[60px] text-center">
+              {currentPage + 1} / {totalPages}
+            </div>
+            <button
+              onClick={goToNext}
+              className="w-12 h-12 rounded-full border border-border bg-background hover:bg-muted flex items-center justify-center transition-colors"
+              aria-label="Next products"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
           </motion.div>
         </div>
 
-        {/* Product grid - asymmetric layout */}
-        <div className="grid grid-cols-12 gap-4 md:gap-6">
-          {bestSellers.map((product, index) => (
+        {/* Product Grid - 3 equal cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {currentProducts.map((product, index) => (
             <motion.div
               key={product.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: index * 0.1 }}
-              className={`
-                ${index === 0 ? "col-span-12 md:col-span-6 lg:col-span-5" : ""}
-                ${index === 1 ? "col-span-6 md:col-span-6 lg:col-span-4" : ""}
-                ${index === 2 ? "col-span-6 lg:col-span-3" : ""}
-                ${index === 3 ? "col-span-12 md:col-span-12 lg:col-span-12" : ""}
-              `}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <Link
-                to={`/product/${product.id}`}
+                to={`/product/${product.slug}`}
                 className="group block relative overflow-hidden"
               >
-                {/* Card with varying heights */}
-                <div className={`
-                  relative overflow-hidden rounded-2xl
-                  ${index === 0 ? "h-[400px] md:h-[500px]" : ""}
-                  ${index === 1 || index === 2 ? "h-[300px] md:h-[400px]" : ""}
-                  ${index === 3 ? "h-[200px] md:h-[280px]" : ""}
-                `}>
-                  {/* Image with zoom */}
+                {/* Card */}
+                <div className="relative overflow-hidden rounded-2xl h-[400px] md:h-[450px]">
+                  {/* Image */}
                   <div className="absolute inset-0 overflow-hidden bg-muted">
                     <img
                       src={product.image}
-                      alt={product.name}
-                      className={`
-                        absolute inset-0 w-full h-full object-cover 
-                        transition-transform duration-1000 group-hover:scale-110
-                        ${index === 3 ? "object-[center_40%]" : ""}
-                      `}
+                      alt={`${product.name} ${product.colorVariant}`}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                   </div>
 
-                  {/* Gradient overlays */}
+                  {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                  {index === 3 && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
-                  )}
-
-                  {/* HUD elements */}
-                  <div className="absolute top-4 right-4 text-[9px] font-mono text-white/20">
-                    0{index + 1}
-                  </div>
 
                   {/* Badge */}
                   {product.badge && (
                     <div className="absolute top-4 left-4">
-                      <span className="glass-dark px-3 py-1.5 rounded-full text-[10px] tracking-widest uppercase text-white">
+                      <span className="px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-[10px] tracking-widest uppercase font-semibold shadow-lg">
                         {product.badge}
                       </span>
                     </div>
                   )}
 
                   {/* Content */}
-                  <div className={`
-                    absolute bottom-0 left-0 right-0 p-6 md:p-8
-                    ${index === 3 ? "flex items-end justify-between" : ""}
-                  `}>
-                    <div className={index === 3 ? "flex-1" : ""}>
-                      {/* Rating micro element */}
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="text-primary text-sm">★</span>
-                        <span className="text-white/60 text-xs">{product.rating}</span>
-                        <span className="text-white/30 text-xs">({product.reviewCount})</span>
-                      </div>
-
-                      {/* Product name */}
-                      <h3 className={`
-                        font-bold text-white group-hover:text-primary transition-colors duration-300
-                        ${index === 0 ? "text-2xl md:text-3xl" : "text-lg md:text-xl"}
-                        ${index === 3 ? "text-xl md:text-2xl" : ""}
-                      `}>
-                        {product.name}
-                      </h3>
-
-                      {/* Price */}
-                      <div className="flex items-baseline gap-2 mt-2">
-                        <span className={`font-bold text-white ${index === 0 ? "text-2xl" : "text-lg"}`}>
-                          ${product.price}
-                        </span>
-                        {product.originalPrice && (
-                          <span className="text-white/40 line-through text-sm">
-                            ${product.originalPrice}
-                          </span>
-                        )}
-                      </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    {/* Rating */}
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-primary text-sm">★</span>
+                      <span className="text-white/70 text-xs font-medium">{product.rating}</span>
+                      <span className="text-white/40 text-xs">({product.reviewCount} reviews)</span>
                     </div>
 
-                    {/* CTA for horizontal card */}
-                    {index === 3 && (
-                      <div className="flex items-center gap-3 text-white group-hover:text-primary transition-colors">
-                        <span className="text-[10px] tracking-[0.3em] uppercase font-medium hidden md:block">
-                          View Details
-                        </span>
-                        <ArrowRight className="h-5 w-5 transition-transform duration-500 group-hover:translate-x-2" />
-                      </div>
+                    {/* Product name & variant */}
+                    <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300">
+                      {product.name}
+                    </h3>
+                    {product.colorVariant && (
+                      <p className="text-white/60 text-sm mt-1">{product.colorVariant}</p>
                     )}
+
+                    {/* Price */}
+                    <div className="flex items-baseline gap-3 mt-3">
+                      <span className="text-xl font-bold text-white">
+                        ${product.price.toFixed(2)}
+                      </span>
+                      {product.originalPrice && (
+                        <span className="text-white/40 line-through text-sm">
+                          ${product.originalPrice.toFixed(2)}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   {/* Hover accent line */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-700" />
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
                 </div>
               </Link>
             </motion.div>
           ))}
         </div>
 
-        {/* Urgency indicator - editorial style */}
+        {/* Pagination dots */}
+        <div className="flex justify-center gap-2 mt-8">
+          {Array.from({ length: totalPages }).map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentPage(idx)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                idx === currentPage 
+                  ? "bg-primary w-6" 
+                  : "bg-border hover:bg-muted-foreground"
+              }`}
+              aria-label={`Go to page ${idx + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* View All Button - Prominent */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-10 flex justify-center"
+        >
+          <Button
+            asChild
+            size="lg"
+            className="h-14 px-10 text-base font-semibold rounded-full shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-shadow"
+          >
+            <Link to="/padel" className="flex items-center gap-3">
+              View All Rackets
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+          </Button>
+        </motion.div>
+
+        {/* Urgency indicator */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-16 flex items-center justify-center gap-6"
+          className="mt-10 flex items-center justify-center gap-6"
         >
           <div className="h-px flex-1 max-w-[100px] bg-gradient-to-r from-transparent to-border" />
           <div className="flex items-center gap-3">
