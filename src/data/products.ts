@@ -38,6 +38,17 @@ import pr8100BpCourt2 from "@/assets/products/pr8100-bp-court2.jpg";
 import pr8100BpLifestyle1 from "@/assets/products/pr8100-bp-lifestyle1.jpg";
 import pr8100BpLifestyle2 from "@/assets/products/pr8100-bp-lifestyle2.jpg";
 
+// PR8200 Blue Stripe
+import pr8200BsMain from "@/assets/products/pr8200-bs-main.jpg";
+import pr8200BsAngle from "@/assets/products/pr8200-bs-angle.jpg";
+import pr8200BsBall from "@/assets/products/pr8200-bs-ball.jpg";
+import pr8200BsAction from "@/assets/products/pr8200-bs-action.jpg";
+import pr8200BsCourt from "@/assets/products/pr8200-bs-court.jpg";
+import pr8200BsDetail from "@/assets/products/pr8200-bs-detail.jpg";
+import pr8200BsGrip from "@/assets/products/pr8200-bs-grip.jpg";
+import pr8200BsPlayer from "@/assets/products/pr8200-bs-player.jpg";
+import pr8200BsPair from "@/assets/products/pr8200-bs-pair.jpg";
+
 // Legacy imports (for other products until images provided)
 import pr8100Hero from "@/assets/products/pr8100-hero.jpg";
 import pr8100Specs from "@/assets/products/pr8100-specs.jpg";
@@ -177,7 +188,8 @@ export const products: Product[] = [
     price: 179.99,
     rating: 4.9,
     reviewCount: 64,
-    image: pr8100RbAngle, // placeholder until PR8200 images provided
+    image: pr8200BsMain,
+    gallery: [pr8200BsMain, pr8200BsAngle, pr8200BsBall, pr8200BsAction, pr8200BsCourt, pr8200BsDetail, pr8200BsGrip, pr8200BsPlayer, pr8200BsPair],
     badge: "New",
     colorVariant: "Blue Stripe",
     description: "The next evolution in padel performance. PR8200 features advanced materials and refined balance for professional-level play.",
