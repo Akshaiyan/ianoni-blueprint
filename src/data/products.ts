@@ -49,6 +49,15 @@ import pr8200BsGrip from "@/assets/products/pr8200-bs-grip.jpg";
 import pr8200BsPlayer from "@/assets/products/pr8200-bs-player.jpg";
 import pr8200BsPair from "@/assets/products/pr8200-bs-pair.jpg";
 
+// PR8200 Super Power Pink
+import pr8200SpMain from "@/assets/products/pr8200-sp-main.png";
+import pr8200SpAngle from "@/assets/products/pr8200-sp-angle.png";
+import pr8200SpSide from "@/assets/products/pr8200-sp-side.png";
+import pr8200SpDetail from "@/assets/products/pr8200-sp-detail.png";
+import pr8200SpAngle2 from "@/assets/products/pr8200-sp-angle2.png";
+import pr8200SpAction from "@/assets/products/pr8200-sp-action.png";
+import pr8200SpGrip from "@/assets/products/pr8200-sp-grip.png";
+
 // Legacy imports (for other products until images provided)
 import pr8100Hero from "@/assets/products/pr8100-hero.jpg";
 import pr8100Specs from "@/assets/products/pr8100-specs.jpg";
@@ -246,7 +255,8 @@ export const products: Product[] = [
     price: 179.99,
     rating: 4.7,
     reviewCount: 28,
-    image: pr8100Specs, // placeholder until images provided
+    image: pr8200SpMain,
+    gallery: [pr8200SpMain, pr8200SpAngle, pr8200SpSide, pr8200SpDetail, pr8200SpAngle2, pr8200SpAction, pr8200SpGrip],
     badge: "New",
     colorVariant: "Super Power Pink",
     description: "The next evolution in padel performance. PR8200 features advanced materials and refined balance for professional-level play.",
