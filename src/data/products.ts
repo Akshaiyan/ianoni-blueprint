@@ -1,7 +1,16 @@
-// Product images
-import pr8100RedBlack from "@/assets/products/pr8100-red-black.jpg";
+// Product images - PR8100 Red/Black
+import pr8100RbMain from "@/assets/products/pr8100-rb-main.jpg";
+import pr8100RbAngle from "@/assets/products/pr8100-rb-angle.jpg";
+import pr8100RbBall from "@/assets/products/pr8100-rb-ball.jpg";
+import pr8100RbAction from "@/assets/products/pr8100-rb-action.jpg";
+import pr8100RbBalls from "@/assets/products/pr8100-rb-balls.jpg";
+import pr8100RbDetail from "@/assets/products/pr8100-rb-detail.jpg";
+import pr8100RbDetail2 from "@/assets/products/pr8100-rb-detail2.jpg";
+import pr8100RbPair from "@/assets/products/pr8100-rb-pair.jpg";
+import pr8100RbSpecs from "@/assets/products/pr8100-rb-specs.jpg";
+
+// Legacy imports (for other products until images provided)
 import pr8100BluePink from "@/assets/products/pr8100-blue-pink.jpg";
-import pr8100Angle from "@/assets/products/pr8100-red-black-angle.jpg";
 import pr8100Hero from "@/assets/products/pr8100-hero.jpg";
 import pr8100Specs from "@/assets/products/pr8100-specs.jpg";
 import pr8100Detail from "@/assets/products/pr8100-detail.jpg";
@@ -46,8 +55,8 @@ export const products: Product[] = [
     originalPrice: 199.99,
     rating: 4.8,
     reviewCount: 342,
-    image: pr8100RedBlack,
-    gallery: [pr8100RedBlack, pr8100Angle, pr8100Hero, pr8100Detail, pr8100Grip, pr8100Specs],
+    image: pr8100RbMain,
+    gallery: [pr8100RbMain, pr8100RbAngle, pr8100RbBall, pr8100RbAction, pr8100RbBalls, pr8100RbDetail, pr8100RbDetail2, pr8100RbPair, pr8100RbSpecs],
     badge: "Best Seller",
     colorVariant: "Red/Black",
     description: "Our flagship padel racket featuring 3-layer carbon fiber construction with Energy Transfer System for maximum power and control. The equidistant hole arrangement in groups of 3 strengthens the surface and improves durability.",
@@ -140,7 +149,7 @@ export const products: Product[] = [
     price: 179.99,
     rating: 4.9,
     reviewCount: 64,
-    image: pr8100Angle, // placeholder until PR8200 images provided
+    image: pr8100RbAngle, // placeholder until PR8200 images provided
     badge: "New",
     colorVariant: "Blue Stripe",
     description: "The next evolution in padel performance. PR8200 features advanced materials and refined balance for professional-level play.",
@@ -246,7 +255,7 @@ export const products: Product[] = [
     price: 79.99,
     rating: 4.8,
     reviewCount: 92,
-    image: pr8100RedBlack,
+    image: pr8100RbMain,
     description: "Spacious bag with dedicated compartments for rackets and gear.",
     features: [
       "Holds 3+ rackets",
