@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { BookOpen, Lightbulb, HelpCircle, ChevronRight, ArrowRight, Check } from "lucide-react";
@@ -59,6 +60,10 @@ const comparisonData = [
 ];
 
 export default function GuidePage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Layout>
       {/* Hero */}
