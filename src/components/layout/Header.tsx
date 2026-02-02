@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ShoppingBag, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { SearchDialog } from "./SearchDialog";
 import ianoniLogo from "@/assets/ianoni-logo.png";
 
 const navLinks = [
@@ -15,6 +16,7 @@ const navLinks = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
@@ -83,6 +85,7 @@ export function Header() {
               <Button
                 variant="ghost"
                 size="icon"
+                onClick={() => setIsSearchOpen(true)}
                 className={cn(
                   "transition-colors h-11 w-11",
                   showDarkHeader
@@ -151,6 +154,8 @@ export function Header() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <SearchDialog isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   );
 }
