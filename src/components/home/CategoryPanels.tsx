@@ -161,6 +161,7 @@ export function CategoryPanels() {
           <div className="flex justify-center mt-8">
             <Link
               to="/padel"
+              onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "instant" })}
               className="group inline-flex items-center gap-4 px-10 py-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full font-semibold text-base transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-primary/40"
             >
               Explore All Rackets
