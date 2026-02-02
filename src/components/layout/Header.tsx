@@ -43,7 +43,11 @@ export function Header() {
       >
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between h-24">
-            <Link to="/" className="relative z-10">
+            <Link 
+              to="/" 
+              className="relative z-10"
+              onClick={() => window.scrollTo(0, 0)}
+            >
               <img
                 src={ianoniLogo}
                 alt="IANONI"
