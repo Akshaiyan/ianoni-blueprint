@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Star, Check, ShoppingBag, Heart, Share2, Truck, Shield, RotateCcw } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
@@ -11,6 +12,11 @@ import { getProductBySlug, products } from "@/data/products";
 export default function ProductPage() {
   const { slug } = useParams<{ slug: string }>();
   const product = slug ? getProductBySlug(slug) : null;
+
+  // Scroll to top when navigating to a new product
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
 
   if (!product) {
     return (
