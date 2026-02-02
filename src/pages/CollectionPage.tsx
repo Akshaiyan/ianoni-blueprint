@@ -1,11 +1,11 @@
 import { useParams, Link } from "react-router-dom";
+import { useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Filter, SlidersHorizontal } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { Button } from "@/components/ui/button";
 import { getProductsByCategory, getPadelRacketsRandomized, products as allProducts } from "@/data/products";
-import { useMemo } from "react";
 
 const categoryInfo: Record<string, { title: string; description: string; emoji: string }> = {
   padel: {
@@ -26,6 +26,11 @@ export default function CollectionPage() {
   // Detect category from URL path if not in params (for /padel and /accessories routes)
   const pathname = window.location.pathname;
   const category = paramCategory || (pathname === "/padel" ? "padel" : pathname === "/accessories" ? "accessories" : null);
+
+  // Scroll to top when navigating to this page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [category]);
   
   const info = category ? categoryInfo[category] : null;
   
