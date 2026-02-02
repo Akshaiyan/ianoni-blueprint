@@ -8,15 +8,50 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { getProductBySlug, products } from "@/data/products";
-
+import { useToast } from "@/hooks/use-toast";
 export default function ProductPage() {
   const { slug } = useParams<{ slug: string }>();
   const product = slug ? getProductBySlug(slug) : null;
+  const { toast } = useToast();
 
   // Scroll to top when navigating to a new product
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
+
+  const handleAddToCart = () => {
+    toast({
+      title: "Added to cart",
+      description: `${product?.name} has been added to your cart.`,
+    });
+  };
+
+  const handleWishlist = () => {
+    toast({
+      title: "Added to wishlist",
+      description: `${product?.name} has been saved to your wishlist.`,
+    });
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: product?.name,
+          text: product?.description,
+          url: window.location.href,
+        });
+      } catch (err) {
+        // User cancelled or error
+      }
+    } else {
+      await navigator.clipboard.writeText(window.location.href);
+      toast({
+        title: "Link copied",
+        description: "Product link has been copied to clipboard.",
+      });
+    }
+  };
 
   if (!product) {
     return (
@@ -168,14 +203,14 @@ export default function ProductPage() {
 
               {/* Actions */}
               <div className="flex gap-4">
-                <Button size="lg" className="flex-1">
+                <Button size="lg" className="flex-1" onClick={handleAddToCart}>
                   <ShoppingBag className="mr-2 h-5 w-5" />
                   Add to Cart
                 </Button>
-                <Button size="lg" variant="outline">
+                <Button size="lg" variant="outline" onClick={handleWishlist}>
                   <Heart className="h-5 w-5" />
                 </Button>
-                <Button size="lg" variant="outline">
+                <Button size="lg" variant="outline" onClick={handleShare}>
                   <Share2 className="h-5 w-5" />
                 </Button>
               </div>
