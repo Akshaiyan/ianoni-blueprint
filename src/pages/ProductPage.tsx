@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Star, Check, ShoppingBag, Heart, Share2, Truck, Shield, RotateCcw } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
@@ -15,8 +15,8 @@ export default function ProductPage() {
   const { toast } = useToast();
 
   // Scroll to top when navigating to a new product
-  useEffect(() => {
-    window.scrollTo(0, 0);
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [slug]);
 
   const handleAddToCart = () => {
