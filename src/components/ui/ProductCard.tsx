@@ -29,7 +29,7 @@ export function ProductCard({ product, index = 0, variant = "light" }: ProductCa
             className={`relative aspect-[4/5] rounded-2xl overflow-hidden mb-6 ${
               isDark 
                 ? "bg-gradient-to-b from-white/10 to-white/5 border border-white/10" 
-                : "bg-gradient-to-b from-muted to-muted/50 border border-border"
+                : "bg-white/80 border border-border/50"
             }`}
           >
             {/* Glow on hover */}
