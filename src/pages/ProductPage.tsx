@@ -189,14 +189,14 @@ export default function ProductPage() {
 
               {/* Price */}
               <div className="flex items-center gap-4">
-                <span className="text-3xl font-bold">${product.price.toFixed(2)}</span>
+                <span className="text-3xl font-bold">£{product.price.toFixed(2)}</span>
                 {product.originalPrice && (
                   <>
                     <span className="text-xl text-muted-foreground line-through">
-                      ${product.originalPrice.toFixed(2)}
+                      £{product.originalPrice.toFixed(2)}
                     </span>
                     <Badge variant="destructive">
-                      Save ${(product.originalPrice - product.price).toFixed(2)}
+                      Save £{(product.originalPrice - product.price).toFixed(2)}
                     </Badge>
                   </>
                 )}

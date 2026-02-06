@@ -165,11 +165,11 @@ export function BestSellers() {
                     {/* Price */}
                     <div className="flex items-baseline gap-3 mt-3">
                       <span className="text-xl font-bold text-white">
-                        ${product.price.toFixed(2)}
+                        £{product.price.toFixed(2)}
                       </span>
                       {product.originalPrice && (
                         <span className="text-white/40 line-through text-sm">
-                          ${product.originalPrice.toFixed(2)}
+                          £{product.originalPrice.toFixed(2)}
                         </span>
                       )}
                     </div>

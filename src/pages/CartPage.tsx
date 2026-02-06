@@ -85,7 +85,7 @@ export default function CartPage() {
                       {item.product.colorVariant && (
                         <p className="text-sm text-muted-foreground">{item.product.colorVariant}</p>
                       )}
-                      <p className="text-lg font-bold mt-2">${item.product.price.toFixed(2)}</p>
+                      <p className="text-lg font-bold mt-2">£{item.product.price.toFixed(2)}</p>
 
                       {/* Quantity & Remove */}
                       <div className="flex items-center gap-4 mt-3">
@@ -120,7 +120,7 @@ export default function CartPage() {
 
                     {/* Line total */}
                     <div className="text-right shrink-0">
-                      <p className="font-bold">${(item.product.price * item.quantity).toFixed(2)}</p>
+                      <p className="font-bold">£{(item.product.price * item.quantity).toFixed(2)}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -134,7 +134,7 @@ export default function CartPage() {
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Subtotal</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span>£{total.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Shipping</span>
@@ -143,7 +143,7 @@ export default function CartPage() {
                   <Separator />
                   <div className="flex justify-between text-base font-bold">
                     <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span>£{total.toFixed(2)}</span>
                   </div>
                 </div>
                 <Button className="w-full mt-6" size="lg">
