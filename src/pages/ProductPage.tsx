@@ -105,7 +105,7 @@ export default function ProductPage() {
               className="space-y-4"
             >
               <div
-                className="aspect-square rounded-3xl bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center relative overflow-hidden p-8 cursor-zoom-in"
+                className="aspect-square rounded-3xl bg-white flex items-center justify-center relative overflow-hidden p-8 cursor-zoom-in"
                 onClick={() => setLightboxOpen(true)}
               >
                 {product.badge && (
@@ -132,7 +132,7 @@ export default function ProductPage() {
                   <button
                     key={i}
                     onClick={() => setSelectedImage(i)}
-                    className={`aspect-square rounded-xl bg-muted flex items-center justify-center cursor-pointer transition-all overflow-hidden p-2 ${
+                    className={`aspect-square rounded-xl bg-white flex items-center justify-center cursor-pointer transition-all overflow-hidden p-2 ${
                       selectedImage === i ? "ring-2 ring-primary" : "hover:ring-2 ring-primary/50"
                     }`}
                   >
