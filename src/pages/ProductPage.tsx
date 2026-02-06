@@ -144,27 +144,40 @@ export default function ProductPage() {
               animate={{ opacity: 1, x: 0 }}
               className="space-y-6"
             >
-              {/* Rating */}
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1">
-                  {Array.from({ length: 5 }).map((_, i) => {
-                    const fill = Math.min(1, Math.max(0, product.rating - i));
-                    return (
-                      <div key={i} className="relative h-5 w-5">
-                        <Star className="h-5 w-5 text-muted absolute inset-0" />
-                        {fill > 0 && (
-                          <div className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
-                            <Star className="h-5 w-5 fill-primary text-primary" />
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
+              <div className="flex items-center justify-between gap-4 flex-wrap">
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: 5 }).map((_, i) => {
+                      const fill = Math.min(1, Math.max(0, product.rating - i));
+                      return (
+                        <div key={i} className="relative h-5 w-5">
+                          <Star className="h-5 w-5 text-muted absolute inset-0" />
+                          {fill > 0 && (
+                            <div className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
+                              <Star className="h-5 w-5 fill-primary text-primary" />
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <span className="font-medium">{product.rating}</span>
+                  <span className="text-muted-foreground">
+                    ({product.reviewCount} reviews)
+                  </span>
                 </div>
-                <span className="font-medium">{product.rating}</span>
-                <span className="text-muted-foreground">
-                  ({product.reviewCount} reviews)
-                </span>
+                <div className="flex gap-2">
+                  <Button size="sm" onClick={handleAddToCart}>
+                    <ShoppingBag className="mr-2 h-4 w-4" />
+                    Add to Cart
+                  </Button>
+                  <Button size="sm" variant="outline" onClick={handleWishlist}>
+                    <Heart className="h-4 w-4" />
+                  </Button>
+                  <Button size="sm" variant="outline" onClick={handleShare}>
+                    <Share2 className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
 
               {/* Name */}
@@ -220,21 +233,8 @@ export default function ProductPage() {
                 </div>
               )}
 
-              <Separator />
 
-              {/* Actions */}
-              <div className="flex gap-4">
-                <Button size="lg" className="flex-1" onClick={handleAddToCart}>
-                  <ShoppingBag className="mr-2 h-5 w-5" />
-                  Add to Cart
-                </Button>
-                <Button size="lg" variant="outline" onClick={handleWishlist}>
-                  <Heart className="h-5 w-5" />
-                </Button>
-                <Button size="lg" variant="outline" onClick={handleShare}>
-                  <Share2 className="h-5 w-5" />
-                </Button>
-              </div>
+
 
               {/* Trust badges */}
               <div className="grid grid-cols-3 gap-4 pt-4">
