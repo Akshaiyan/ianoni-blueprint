@@ -10,6 +10,7 @@ import ianoniLogo from "@/assets/ianoni-logo.png";
 
 const navLinks = [
   { name: "Shop Padel", href: "/padel" },
+  { name: "Starter Kits", href: "/starter-kits" },
   { name: "Accessories", href: "/accessories" },
   { name: "Guide", href: "/guide" },
 ];
