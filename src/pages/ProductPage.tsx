@@ -127,12 +127,12 @@ export default function ProductPage() {
               </div>
               
               {/* Thumbnails from gallery */}
-              <div className="grid grid-cols-4 gap-4">
-                {galleryImages.slice(0, 4).map((img, i) => (
+              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin">
+                {galleryImages.map((img, i) => (
                   <button
                     key={i}
                     onClick={() => setSelectedImage(i)}
-                    className={`aspect-square rounded-xl bg-white flex items-center justify-center cursor-pointer transition-all overflow-hidden p-2 ${
+                    className={`flex-shrink-0 w-20 h-20 rounded-xl bg-white flex items-center justify-center cursor-pointer transition-all overflow-hidden p-1.5 ${
                       selectedImage === i ? "ring-2 ring-primary" : "hover:ring-2 ring-primary/50"
                     }`}
                   >
