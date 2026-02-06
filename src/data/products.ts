@@ -90,6 +90,14 @@ import balls1Closeup from "@/assets/products/balls1-closeup.jpg";
 import balls1Racket from "@/assets/products/balls1-racket.jpg";
 import balls1Top from "@/assets/products/balls1-top.jpg";
 
+// Ball Type 2 images
+import balls2Main from "@/assets/products/balls2-main.jpg";
+import balls2Open from "@/assets/products/balls2-open.jpg";
+import balls2Top from "@/assets/products/balls2-top.jpg";
+import balls2Ball from "@/assets/products/balls2-ball.jpg";
+import balls2Closeup from "@/assets/products/balls2-closeup.jpg";
+import balls2Court from "@/assets/products/balls2-court.jpg";
+
 export interface Product {
   id: string;
   name: string;
@@ -403,17 +411,18 @@ export const products: Product[] = [
   },
   {
     id: "balls-2",
-    name: "IANONI Competition Balls",
-    slug: "ianoni-competition-balls",
+    name: "IANONI Pro S Padel Balls",
+    slug: "ianoni-pro-s-padel-balls",
     category: "accessories",
-    price: 18.99,
+    price: 9.99,
     rating: 4.8,
     reviewCount: 234,
-    image: pr8100Hero,
+    image: balls2Main,
+    gallery: [balls2Main, balls2Open, balls2Top, balls2Ball, balls2Closeup, balls2Court],
     badge: "Pro Choice",
-    description: "Professional-grade balls used in tournaments worldwide. Superior durability.",
+    description: "Professional-grade Pro S padel balls — durable, tournament-grade performance. Pack of 3.",
     features: [
-      "WPT approved",
+      "Tournament grade",
       "Extended lifespan",
       "Perfect pressure",
       "Pack of 3",
