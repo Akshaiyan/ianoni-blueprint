@@ -49,6 +49,8 @@ import pr8200BsBall from "@/assets/products/pr8200-bs-ball.jpg";
 import pr8200BsAction from "@/assets/products/pr8200-bs-action.jpg";
 import pr8200BsCourt from "@/assets/products/pr8200-bs-court.jpg";
 import pr8200BsDetail from "@/assets/products/pr8200-bs-detail.jpg";
+import pr8200BsPlayer2 from "@/assets/products/pr8200-bs-player2.jpg";
+import pr8200BsBall2 from "@/assets/products/pr8200-bs-ball2.jpg";
 import pr8200BsGrip from "@/assets/products/pr8200-bs-grip.jpg";
 import pr8200BsPlayer from "@/assets/products/pr8200-bs-player.jpg";
 import pr8200BsPair from "@/assets/products/pr8200-bs-pair.jpg";
@@ -241,7 +243,7 @@ export const products: Product[] = [
     rating: 4.9,
     reviewCount: 64,
     image: pr8200BsMain,
-    gallery: [pr8200BsMain, pr8200BsAngle, pr8200BsBall, pr8200BsAction, pr8200BsCourt, pr8200BsDetail, pr8200BsGrip, pr8200BsPlayer, pr8200BsPair],
+    gallery: [pr8200BsMain, pr8200BsAngle, pr8200BsBall, pr8200BsAction, pr8200BsCourt, pr8200BsDetail, pr8200BsGrip, pr8200BsPlayer, pr8200BsPair, pr8200BsPlayer2, pr8200BsBall2],
     badge: "New",
     colorVariant: "Blue Stripe",
     description: "The next evolution in padel performance. PR8200 features advanced materials and refined balance for professional-level play.",
