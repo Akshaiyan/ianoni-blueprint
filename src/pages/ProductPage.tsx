@@ -1,12 +1,13 @@
 import { useParams, Link } from "react-router-dom";
 import { useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight, Star, Check, ShoppingBag, Heart, Share2, Truck, Shield, RotateCcw } from "lucide-react";
+import { ChevronRight, Star, Check, ShoppingBag, Heart, Share2, Truck, Shield, RotateCcw, ZoomIn } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ProductCard } from "@/components/ui/ProductCard";
+import { ImageLightbox } from "@/components/product/ImageLightbox";
 import { getProductBySlug, products } from "@/data/products";
 import { useToast } from "@/hooks/use-toast";
 export default function ProductPage() {
@@ -15,6 +16,7 @@ export default function ProductPage() {
   const { toast } = useToast();
   const galleryImages = product?.gallery || (product ? [product.image] : []);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   // Scroll to top and reset image when navigating to a new product
   useLayoutEffect(() => {
@@ -98,7 +100,10 @@ export default function ProductPage() {
               animate={{ opacity: 1, x: 0 }}
               className="space-y-4"
             >
-              <div className="aspect-square rounded-3xl bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center relative overflow-hidden p-8">
+              <div
+                className="aspect-square rounded-3xl bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center relative overflow-hidden p-8 cursor-zoom-in"
+                onClick={() => setLightboxOpen(true)}
+              >
                 {product.badge && (
                   <Badge className="absolute top-6 left-6 text-sm z-10">{product.badge}</Badge>
                 )}
@@ -112,6 +117,9 @@ export default function ProductPage() {
                   alt={product.name}
                   className="w-full h-full object-contain"
                 />
+                <div className="absolute bottom-4 right-4 p-2 rounded-full bg-foreground/10 backdrop-blur-sm text-foreground/60">
+                  <ZoomIn className="h-4 w-4" />
+                </div>
               </div>
               
               {/* Thumbnails from gallery */}
@@ -256,6 +264,13 @@ export default function ProductPage() {
           )}
         </div>
       </div>
+      <ImageLightbox
+        images={galleryImages}
+        initialIndex={selectedImage}
+        productName={product.name}
+        open={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+      />
     </Layout>
   );
 }
