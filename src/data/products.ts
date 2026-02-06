@@ -82,6 +82,14 @@ import pr8100Specs from "@/assets/products/pr8100-specs.jpg";
 import pr8100Detail from "@/assets/products/pr8100-detail.jpg";
 import pr8100Grip from "@/assets/products/pr8100-grip.jpg";
 
+// Ball Type 1 images
+import balls1Main from "@/assets/products/balls1-main.jpg";
+import balls1Open from "@/assets/products/balls1-open.jpg";
+import balls1Court from "@/assets/products/balls1-court.jpg";
+import balls1Closeup from "@/assets/products/balls1-closeup.jpg";
+import balls1Racket from "@/assets/products/balls1-racket.jpg";
+import balls1Top from "@/assets/products/balls1-top.jpg";
+
 export interface Product {
   id: string;
   name: string;
@@ -375,14 +383,15 @@ export const products: Product[] = [
   // Ball Types
   {
     id: "balls-1",
-    name: "IANONI Premium Balls",
-    slug: "ianoni-premium-balls",
+    name: "IANONI Pro Padel Balls",
+    slug: "ianoni-pro-padel-balls",
     category: "accessories",
-    price: 12.99,
+    price: 6.99,
     rating: 4.7,
     reviewCount: 445,
-    image: pr8100Hero,
-    description: "Official IANONI padel balls for optimal play and consistent bounce.",
+    image: balls1Main,
+    gallery: [balls1Main, balls1Open, balls1Court, balls1Closeup, balls1Racket, balls1Top],
+    description: "Official IANONI pro padel balls for optimal play and consistent bounce. Pack of 3.",
     features: [
       "Tournament quality",
       "Consistent bounce",
