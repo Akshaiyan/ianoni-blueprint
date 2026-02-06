@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { Star, Shield, Truck, RotateCcw } from "lucide-react";
 
 const stats = [
-  { value: "4.6", suffix: "★", label: "Amazon Rating", sublabel: "2,400+ reviews" },
+  { value: "4.8", suffix: "★", label: "Amazon Rating", sublabel: "2,400+ reviews" },
   { value: "50K", suffix: "+", label: "Happy Players", sublabel: "Worldwide" },
   { value: "30", suffix: "+", label: "Countries", sublabel: "Global reach" },
 ];
