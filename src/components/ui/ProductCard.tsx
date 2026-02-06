@@ -38,7 +38,7 @@ export function ProductCard({ product, index = 0, variant = "light" }: ProductCa
             </div>
             
             {/* Product Image */}
-            <div className="absolute inset-0 flex items-center justify-center p-6">
+            <div className="absolute inset-0 flex items-center justify-center p-3">
               <img
                 src={product.image}
                 alt={product.name}
