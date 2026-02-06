@@ -86,7 +86,7 @@ export interface Product {
   id: string;
   name: string;
   slug: string;
-  category: "padel" | "accessories" | "starter-kits";
+  category: "padel" | "accessories";
   price: number;
   originalPrice?: number;
   rating: number;
@@ -304,7 +304,7 @@ export const products: Product[] = [
     id: "kit-1",
     name: "Beginner Starter Kit",
     slug: "beginner-starter-kit",
-    category: "starter-kits",
+    category: "accessories",
     price: 199.99,
     rating: 4.9,
     reviewCount: 156,
@@ -319,7 +319,7 @@ export const products: Product[] = [
     id: "kit-2",
     name: "Intermediate Pro Kit",
     slug: "intermediate-pro-kit",
-    category: "starter-kits",
+    category: "accessories",
     price: 299.99,
     rating: 4.8,
     reviewCount: 89,
@@ -333,7 +333,7 @@ export const products: Product[] = [
     id: "kit-3",
     name: "Doubles Partner Kit",
     slug: "doubles-partner-kit",
-    category: "starter-kits",
+    category: "accessories",
     price: 349.99,
     rating: 4.7,
     reviewCount: 67,
@@ -347,7 +347,7 @@ export const products: Product[] = [
     id: "kit-4",
     name: "Competition Ready Kit",
     slug: "competition-ready-kit",
-    category: "starter-kits",
+    category: "accessories",
     price: 449.99,
     rating: 4.9,
     reviewCount: 45,
@@ -362,7 +362,7 @@ export const products: Product[] = [
     id: "kit-5",
     name: "Family Fun Kit",
     slug: "family-fun-kit",
-    category: "starter-kits",
+    category: "accessories",
     price: 499.99,
     rating: 4.8,
     reviewCount: 34,

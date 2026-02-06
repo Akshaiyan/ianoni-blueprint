@@ -27,7 +27,6 @@ const App = () => (
             <Route path="/collection/:category" element={<CollectionPage />} />
             <Route path="/padel" element={<CollectionPage />} />
             <Route path="/accessories" element={<CollectionPage />} />
-            <Route path="/starter-kits" element={<CollectionPage />} />
             <Route path="/product/:slug" element={<ProductPage />} />
             <Route path="/guide" element={<GuidePage />} />
             <Route path="/cart" element={<CartPage />} />
