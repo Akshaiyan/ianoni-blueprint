@@ -93,7 +93,7 @@ export function ProductCard({ product, index = 0, variant = "light" }: ProductCa
             {/* Price */}
             <div className="flex items-baseline gap-3">
               <span className={`text-lg font-bold ${isDark ? "text-white" : "text-foreground"}`}>
-                ${`£`}{product.price.toFixed(2)}
+                £{product.price.toFixed(2)}
               </span>
               {product.originalPrice && (
                 <span className={`text-sm line-through ${isDark ? "text-white/40" : "text-muted-foreground"}`}>
