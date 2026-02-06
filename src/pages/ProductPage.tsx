@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Star, Check, ShoppingBag, Heart, Share2, Truck, Shield, RotateCcw } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
@@ -13,10 +13,13 @@ export default function ProductPage() {
   const { slug } = useParams<{ slug: string }>();
   const product = slug ? getProductBySlug(slug) : null;
   const { toast } = useToast();
+  const galleryImages = product?.gallery || (product ? [product.image] : []);
+  const [selectedImage, setSelectedImage] = useState(0);
 
-  // Scroll to top when navigating to a new product
+  // Scroll to top and reset image when navigating to a new product
   useLayoutEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    setSelectedImage(0);
   }, [slug]);
 
   const handleAddToCart = () => {
@@ -100,8 +103,12 @@ export default function ProductPage() {
                   <Badge className="absolute top-6 left-6 text-sm z-10">{product.badge}</Badge>
                 )}
                 <motion.img
+                  key={selectedImage}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3 }}
                   whileHover={{ scale: 1.05 }}
-                  src={product.gallery?.[0] || product.image}
+                  src={galleryImages[selectedImage]}
                   alt={product.name}
                   className="w-full h-full object-contain"
                 />
@@ -109,13 +116,16 @@ export default function ProductPage() {
               
               {/* Thumbnails from gallery */}
               <div className="grid grid-cols-4 gap-4">
-                {(product.gallery || [product.image]).slice(0, 4).map((img, i) => (
-                  <div
+                {galleryImages.slice(0, 4).map((img, i) => (
+                  <button
                     key={i}
-                    className="aspect-square rounded-xl bg-muted flex items-center justify-center cursor-pointer hover:ring-2 ring-primary transition-all overflow-hidden p-2"
+                    onClick={() => setSelectedImage(i)}
+                    className={`aspect-square rounded-xl bg-muted flex items-center justify-center cursor-pointer transition-all overflow-hidden p-2 ${
+                      selectedImage === i ? "ring-2 ring-primary" : "hover:ring-2 ring-primary/50"
+                    }`}
                   >
                     <img src={img} alt={`${product.name} view ${i + 1}`} className="w-full h-full object-contain" />
-                  </div>
+                  </button>
                 ))}
               </div>
             </motion.div>
