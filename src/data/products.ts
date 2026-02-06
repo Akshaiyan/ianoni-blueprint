@@ -286,9 +286,9 @@ export const products: Product[] = [
     bestSellerOrder: 4, // Fourth in carousel (second page)
   },
   {
-    id: "pr8200-super-power-pink",
-    name: "PR8200",
-    slug: "pr8200-super-power-pink",
+    id: "super-power-pink",
+    name: "Super Power",
+    slug: "super-power-pink",
     category: "padel",
     price: 49.99,
     rating: 4.7,
@@ -296,8 +296,8 @@ export const products: Product[] = [
     image: pr8200SpMain,
     gallery: [pr8200SpMain, pr8200SpAngle, pr8200SpSide, pr8200SpDetail, pr8200SpAngle2, pr8200SpAction, pr8200SpGrip],
     badge: "New",
-    colorVariant: "Super Power Pink",
-    description: "The next evolution in padel performance. PR8200 features advanced materials and refined balance for professional-level play.",
+    colorVariant: "Pink",
+    description: "The Super Power racket delivers advanced materials and refined balance for professional-level play.",
     features: [
       "Advanced carbon composite",
       "Enhanced sweet spot",
