@@ -129,15 +129,15 @@ export function WhyIanoni() {
                 style={{ y: imageY }}
                 className="relative hidden lg:block"
               >
-                <div className="relative aspect-[4/5] w-4/5 overflow-hidden">
+                <div className="relative aspect-[4/5] w-4/5 overflow-visible">
                   <img
                     src={pr8100Detail}
                     alt="Racket detail"
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="w-full h-full object-cover"
                     style={{ objectPosition: "center 30%" }}
                   />
-                  {/* Film grain overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-cinema-dark via-transparent to-transparent" />
+                  {/* Subtle bottom fade */}
+                  <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-cinema-dark/60 to-transparent" />
                 </div>
 
                 {/* HUD overlay */}
