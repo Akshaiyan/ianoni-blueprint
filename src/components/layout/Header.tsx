@@ -98,6 +98,7 @@ export function Header() {
               <Button
                 variant="ghost"
                 size="icon"
+                asChild
                 className={cn(
                   "transition-colors h-11 w-11",
                   showDarkHeader
@@ -105,7 +106,9 @@ export function Header() {
                     : "text-white/70 hover:text-white hover:bg-white/10"
                 )}
               >
-                <ShoppingBag className="h-6 w-6" />
+                <Link to="/cart">
+                  <ShoppingBag className="h-6 w-6" />
+                </Link>
               </Button>
               <Button
                 variant="ghost"
