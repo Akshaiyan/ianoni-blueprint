@@ -98,6 +98,10 @@ import balls2Ball from "@/assets/products/balls2-ball.jpg";
 import balls2Closeup from "@/assets/products/balls2-closeup.jpg";
 import balls2Court from "@/assets/products/balls2-court.jpg";
 
+// Ball 3-pack images
+import balls1Pack3 from "@/assets/products/balls1-3pack.jpg";
+import balls2Pack3 from "@/assets/products/balls2-3pack.jpg";
+
 export interface Product {
   id: string;
   name: string;
@@ -426,6 +430,52 @@ export const products: Product[] = [
       "Extended lifespan",
       "Perfect pressure",
       "Pack of 3",
+    ],
+    specs: {},
+    isBallType: true,
+  },
+  {
+    id: "balls-1-3pack",
+    name: "IANONI Pro Padel Balls",
+    slug: "ianoni-pro-padel-balls-3pack",
+    category: "accessories",
+    price: 18.00,
+    originalPrice: 20.97,
+    rating: 4.7,
+    reviewCount: 445,
+    image: balls1Pack3,
+    gallery: [balls1Pack3, balls1Main, balls1Open, balls1Court, balls1Closeup, balls1Racket, balls1Top],
+    badge: "Save £3",
+    colorVariant: "3-Pack Bundle",
+    description: "Stock up and save — three cans of IANONI Pro padel balls (9 balls total).",
+    features: [
+      "3 cans (9 balls total)",
+      "Tournament quality",
+      "Consistent bounce",
+      "High visibility",
+    ],
+    specs: {},
+    isBallType: true,
+  },
+  {
+    id: "balls-2-3pack",
+    name: "IANONI Pro S Padel Balls",
+    slug: "ianoni-pro-s-padel-balls-3pack",
+    category: "accessories",
+    price: 25.00,
+    originalPrice: 29.97,
+    rating: 4.8,
+    reviewCount: 234,
+    image: balls2Pack3,
+    gallery: [balls2Pack3, balls2Main, balls2Open, balls2Top, balls2Ball, balls2Closeup, balls2Court],
+    badge: "Save £5",
+    colorVariant: "3-Pack Bundle",
+    description: "Stock up and save — three cans of IANONI Pro S padel balls (9 balls total).",
+    features: [
+      "3 cans (9 balls total)",
+      "Tournament grade",
+      "Extended lifespan",
+      "Perfect pressure",
     ],
     specs: {},
     isBallType: true,
