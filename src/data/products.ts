@@ -63,6 +63,7 @@ import pr8200SpDetail from "@/assets/products/pr8200-sp-detail.png";
 import pr8200SpAngle2 from "@/assets/products/pr8200-sp-angle2.png";
 import pr8200SpAction from "@/assets/products/pr8200-sp-action.png";
 import pr8200SpGrip from "@/assets/products/pr8200-sp-grip.png";
+import pr8200SpDetail2 from "@/assets/products/pr8200-sp-detail2.png";
 
 // PR8100 Blue/Orange
 import pr8100BoMain from "@/assets/products/pr8100-bo-main.jpg";
@@ -302,7 +303,7 @@ export const products: Product[] = [
     rating: 4.7,
     reviewCount: 28,
     image: pr8200SpMain,
-    gallery: [pr8200SpMain, pr8200SpAngle, pr8200SpSide, pr8200SpDetail, pr8200SpAngle2, pr8200SpAction, pr8200SpGrip],
+    gallery: [pr8200SpMain, pr8200SpAngle, pr8200SpSide, pr8200SpDetail, pr8200SpAngle2, pr8200SpAction, pr8200SpGrip, pr8200SpDetail2],
     badge: "New",
     colorVariant: "Pink",
     description: "The Super Power racket delivers advanced materials and refined balance for professional-level play.",
