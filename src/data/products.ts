@@ -39,6 +39,8 @@ import pr8100BpCourt1 from "@/assets/products/pr8100-bp-court1.jpg";
 import pr8100BpCourt2 from "@/assets/products/pr8100-bp-court2.jpg";
 import pr8100BpLifestyle1 from "@/assets/products/pr8100-bp-lifestyle1.jpg";
 import pr8100BpLifestyle2 from "@/assets/products/pr8100-bp-lifestyle2.jpg";
+import pr8100BpLifestyle3 from "@/assets/products/pr8100-bp-lifestyle3.jpg";
+import pr8100BpPlayer3 from "@/assets/products/pr8100-bp-player3.jpg";
 
 // PR8200 Blue Stripe
 import pr8200BsMain from "@/assets/products/pr8200-bs-main.jpg";
@@ -178,7 +180,7 @@ export const products: Product[] = [
     rating: 4.7,
     reviewCount: 186,
     image: pr8100BpMain,
-    gallery: [pr8100BpMain, pr8100BpAngle, pr8100BpBall, pr8100BpAction, pr8100BpBalls, pr8100BpDetail, pr8100BpDetail2, pr8100BpPair, pr8100BpPair2, pr8100BpSpecs, pr8100BpSpecs2, pr8100BpPlayer1, pr8100BpPlayer2, pr8100BpGrip1, pr8100BpGrip2, pr8100BpCourt1, pr8100BpCourt2, pr8100BpLifestyle1, pr8100BpLifestyle2],
+    gallery: [pr8100BpMain, pr8100BpAngle, pr8100BpBall, pr8100BpAction, pr8100BpBalls, pr8100BpDetail, pr8100BpDetail2, pr8100BpPair, pr8100BpPair2, pr8100BpSpecs, pr8100BpSpecs2, pr8100BpPlayer1, pr8100BpPlayer2, pr8100BpGrip1, pr8100BpGrip2, pr8100BpCourt1, pr8100BpCourt2, pr8100BpLifestyle1, pr8100BpLifestyle2, pr8100BpLifestyle3, pr8100BpPlayer3],
     colorVariant: "Blue/Pink",
     description: "Our flagship padel racket featuring 3-layer carbon fiber construction with Energy Transfer System for maximum power and control. The equidistant hole arrangement in groups of 3 strengthens the surface and improves durability.",
     features: [
