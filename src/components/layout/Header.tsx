@@ -5,6 +5,7 @@ import { Menu, X, ShoppingBag, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SearchDialog } from "./SearchDialog";
+import { useCart } from "@/contexts/CartContext";
 import ianoniLogo from "@/assets/ianoni-logo.png";
 
 const navLinks = [
@@ -17,6 +18,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { itemCount } = useCart();
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
@@ -100,7 +102,7 @@ export function Header() {
                 size="icon"
                 asChild
                 className={cn(
-                  "transition-colors h-11 w-11",
+                  "transition-colors h-11 w-11 relative",
                   showDarkHeader
                     ? "text-muted-foreground hover:text-foreground"
                     : "text-white/70 hover:text-white hover:bg-white/10"
@@ -108,6 +110,11 @@ export function Header() {
               >
                 <Link to="/cart">
                   <ShoppingBag className="h-6 w-6" />
+                  {itemCount > 0 && (
+                    <span className="absolute -top-0.5 -right-0.5 bg-primary text-primary-foreground text-[10px] font-bold rounded-full h-5 min-w-5 flex items-center justify-center px-1">
+                      {itemCount > 99 ? "99+" : itemCount}
+                    </span>
+                  )}
                 </Link>
               </Button>
               <Button

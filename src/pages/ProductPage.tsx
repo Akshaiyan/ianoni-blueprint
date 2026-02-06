@@ -10,10 +10,12 @@ import { ProductCard } from "@/components/ui/ProductCard";
 import { ImageLightbox } from "@/components/product/ImageLightbox";
 import { getProductBySlug, products } from "@/data/products";
 import { useToast } from "@/hooks/use-toast";
+import { useCart } from "@/contexts/CartContext";
 export default function ProductPage() {
   const { slug } = useParams<{ slug: string }>();
   const product = slug ? getProductBySlug(slug) : null;
   const { toast } = useToast();
+  const { addItem } = useCart();
   const galleryImages = product?.gallery || (product ? [product.image] : []);
   const [selectedImage, setSelectedImage] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -25,9 +27,11 @@ export default function ProductPage() {
   }, [slug]);
 
   const handleAddToCart = () => {
+    if (!product) return;
+    addItem(product);
     toast({
       title: "Added to cart",
-      description: `${product?.name} has been added to your cart.`,
+      description: `${product.name} has been added to your cart.`,
     });
   };
 
