@@ -9,6 +9,7 @@ import CollectionPage from "./pages/CollectionPage";
 import ProductPage from "./pages/ProductPage";
 import GuidePage from "./pages/GuidePage";
 import NotFound from "./pages/NotFound";
+import CartPage from "./pages/CartPage";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/accessories" element={<CollectionPage />} />
           <Route path="/product/:slug" element={<ProductPage />} />
           <Route path="/guide" element={<GuidePage />} />
+          <Route path="/cart" element={<CartPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
