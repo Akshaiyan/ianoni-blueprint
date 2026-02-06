@@ -121,7 +121,7 @@ export function SearchDialog({ isOpen, onClose, isDark = true }: SearchDialogPro
                           </p>
                         </div>
                         <div className="text-right shrink-0">
-                          <p className="font-semibold text-foreground">${product.price.toFixed(2)}</p>
+                          <p className="font-semibold text-foreground">£{product.price.toFixed(2)}</p>
                         </div>
                       </Link>
                     ))}
