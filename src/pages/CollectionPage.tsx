@@ -13,6 +13,11 @@ const categoryInfo: Record<string, { title: string; description: string; emoji: 
     description: "Premium carbon fiber padel rackets designed for players of all skill levels",
     emoji: "🎾",
   },
+  "starter-kits": {
+    title: "Starter Kits",
+    description: "Curated bundles to get you on the court — save more when you buy together",
+    emoji: "📦",
+  },
   accessories: {
     title: "Accessories & Bags",
     description: "Complete your setup with premium bags, grips, and accessories",
@@ -25,7 +30,7 @@ export default function CollectionPage() {
   
   // Detect category from URL path if not in params (for /padel and /accessories routes)
   const pathname = window.location.pathname;
-  const category = paramCategory || (pathname === "/padel" ? "padel" : pathname === "/accessories" ? "accessories" : null);
+  const category = paramCategory || (pathname === "/padel" ? "padel" : pathname === "/accessories" ? "accessories" : pathname === "/starter-kits" ? "starter-kits" : null);
 
   // Scroll to top when navigating to this page
   useEffect(() => {

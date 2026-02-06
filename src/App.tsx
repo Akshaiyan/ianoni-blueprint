@@ -8,7 +8,6 @@ import { CartProvider } from "@/contexts/CartContext";
 import Index from "./pages/Index";
 import CollectionPage from "./pages/CollectionPage";
 import ProductPage from "./pages/ProductPage";
-import StarterKitsPage from "./pages/StarterKitsPage";
 import GuidePage from "./pages/GuidePage";
 import NotFound from "./pages/NotFound";
 import CartPage from "./pages/CartPage";
@@ -28,7 +27,7 @@ const App = () => (
             <Route path="/collection/:category" element={<CollectionPage />} />
             <Route path="/padel" element={<CollectionPage />} />
             <Route path="/accessories" element={<CollectionPage />} />
-            <Route path="/starter-kits" element={<StarterKitsPage />} />
+            <Route path="/starter-kits" element={<CollectionPage />} />
             <Route path="/product/:slug" element={<ProductPage />} />
             <Route path="/guide" element={<GuidePage />} />
             <Route path="/cart" element={<CartPage />} />
