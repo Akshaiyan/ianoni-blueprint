@@ -535,7 +535,7 @@ export const getBestSellers = () =>
 
 // Get all padel rackets (the 6 main products)
 export const getPadelRackets = () => 
-  products.filter((p) => p.category === "padel" && p.name.startsWith("PR"));
+  products.filter((p) => p.category === "padel" && !p.isStarterKit);
 
 // Get padel rackets in random order
 export const getPadelRacketsRandomized = () => {
