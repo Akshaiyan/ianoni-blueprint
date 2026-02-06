@@ -39,12 +39,20 @@ export default function CollectionPage() {
   
   const info = category ? categoryInfo[category] : null;
   
-  // Randomize padel rackets on each page load
+  // Randomize padel rackets on each page load; sort accessories with balls first
   const products = useMemo(() => {
     if (category === "padel") {
       return getPadelRacketsRandomized();
     }
-    return category ? getProductsByCategory(category) : allProducts;
+    const categoryProducts = category ? getProductsByCategory(category) : allProducts;
+    if (category === "accessories") {
+      return [...categoryProducts].sort((a, b) => {
+        const aIsBall = a.isBallType ? 0 : 1;
+        const bIsBall = b.isBallType ? 0 : 1;
+        return aIsBall - bIsBall;
+      });
+    }
+    return categoryProducts;
   }, [category]);
 
   if (!info) {
