@@ -10,7 +10,7 @@ const stats = [
 
 const badges = [
   { icon: Shield, label: "Secure Checkout", sublabel: "SSL Encrypted" },
-  { icon: Truck, label: "2-3 Day Shipping", sublabel: "Fast delivery" },
+  { icon: Truck, label: "Next Day Shipping", sublabel: "Fast delivery" },
   { icon: RotateCcw, label: "30-Day Returns", sublabel: "Hassle-free" },
 ];
 
