@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Truck } from "lucide-react";
 import { useRef } from "react";
 import heroImage from "@/assets/hero-action.jpg";
 export function HeroSection() {
@@ -172,6 +172,13 @@ export function HeroSection() {
             <span className="text-3xl md:text-4xl font-black text-white">30+</span>
             <p className="text-[9px] tracking-[0.2em] uppercase text-white/40 mt-1">
               Countries
+            </p>
+          </div>
+          <div className="w-px h-10 bg-white/10" />
+          <div className="text-center flex flex-col items-center">
+            <Truck className="h-6 w-6 text-primary mb-0.5" />
+            <p className="text-[9px] tracking-[0.2em] uppercase text-white/40 mt-1">
+              Free UK Shipping
             </p>
           </div>
         </motion.div>
