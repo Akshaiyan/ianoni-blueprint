@@ -129,12 +129,11 @@ export function WhyIanoni() {
                 style={{ y: imageY }}
                 className="relative hidden lg:block"
               >
-                <div className="relative aspect-[4/5] w-4/5 overflow-visible">
+                <div className="relative w-4/5">
                   <img
                     src={pr8100Detail}
                     alt="Racket detail"
-                    className="w-full h-full object-cover"
-                    style={{ objectPosition: "center 30%" }}
+                    className="w-full h-auto object-contain"
                   />
                   {/* Subtle bottom fade */}
                   <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-cinema-dark/60 to-transparent" />
