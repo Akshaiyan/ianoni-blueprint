@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Clock } from "lucide-react";
+import { ArrowRight, Clock, Truck } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function PromoBanner() {
@@ -35,6 +35,15 @@ export function PromoBanner() {
           to="/padel" 
           className="group flex flex-wrap items-center justify-center gap-4 md:gap-8 text-white"
         >
+          {/* Free Shipping */}
+          <div className="flex items-center gap-2 bg-white/20 rounded-full px-4 py-1.5">
+            <Truck className="h-4 w-4" />
+            <span className="text-sm font-bold tracking-wide uppercase">Free UK Shipping</span>
+          </div>
+
+          {/* Divider */}
+          <span className="hidden md:block w-px h-5 bg-white/30" />
+
           {/* Urgency indicator */}
           <div className="flex items-center gap-2">
             <Clock className="h-4 w-4 animate-pulse" />
