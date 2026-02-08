@@ -158,7 +158,7 @@ export default function GuidePage() {
               <thead>
                 <tr className="border-b">
                   <th className="text-left p-4 font-semibold">Feature</th>
-                  <th className="text-center p-4 font-semibold bg-primary/5">
+                  <th className="text-center p-4 font-semibold">
                     <span className="text-primary">Beginner</span>
                   </th>
                   <th className="text-center p-4 font-semibold">Intermediate</th>
@@ -169,7 +169,7 @@ export default function GuidePage() {
                  {comparisonData.map((row, index) => (
                    <tr key={row.feature} className={`${index !== comparisonData.length - 1 ? "border-b" : ""} bg-primary/5`}>
                      <td className="p-4 font-medium">{row.feature}</td>
-                     <td className="text-center p-4 bg-primary/10">{row.beginner}</td>
+                     <td className="text-center p-4">{row.beginner}</td>
                      <td className="text-center p-4">{row.intermediate}</td>
                      <td className="text-center p-4">{row.advanced}</td>
                    </tr>
