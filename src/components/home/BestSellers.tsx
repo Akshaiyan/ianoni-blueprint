@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react";
 import { useState, useMemo } from "react";
 import { getBestSellers, Product } from "@/data/products";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/contexts/CartContext";
+import { toast } from "sonner";
 
 // Randomly assign badges to products
 const assignRandomBadges = (products: Product[]) => {
@@ -17,6 +19,14 @@ const assignRandomBadges = (products: Product[]) => {
 export function BestSellers() {
   const [currentPage, setCurrentPage] = useState(0);
   const bestSellers = getBestSellers();
+  const { addItem } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent, product: Product) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addItem(product);
+    toast.success(`${product.name} added to cart`);
+  };
   
   // Randomly assign badges on mount (stable for session)
   const productsWithBadges = useMemo(() => assignRandomBadges(bestSellers), []);
@@ -173,6 +183,19 @@ export function BestSellers() {
                         </span>
                       )}
                     </div>
+                  </div>
+
+                  {/* Add to Cart button */}
+                  <div className="absolute bottom-4 right-4 z-10 transition-all duration-400">
+                    <button
+                      onClick={(e) => handleAddToCart(e, product)}
+                      className="flex items-center gap-0 group-hover:gap-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold h-10 w-10 group-hover:w-auto group-hover:px-5 rounded-full shadow-lg transition-all duration-400 justify-center overflow-hidden"
+                    >
+                      <ShoppingBag className="h-4 w-4 shrink-0" />
+                      <span className="max-w-0 group-hover:max-w-[6rem] overflow-hidden whitespace-nowrap transition-all duration-400 opacity-0 group-hover:opacity-100">
+                        Add to Cart
+                      </span>
+                    </button>
                   </div>
 
                   {/* Hover accent line */}
