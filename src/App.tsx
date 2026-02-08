@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import CollectionPage from "./pages/CollectionPage";
 import ProductPage from "./pages/ProductPage";
 import GuidePage from "./pages/GuidePage";
+import Padel101Page from "./pages/Padel101Page";
 import NotFound from "./pages/NotFound";
 import CartPage from "./pages/CartPage";
 import ContactPage from "./pages/ContactPage";
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/accessories" element={<CollectionPage />} />
             <Route path="/product/:slug" element={<ProductPage />} />
             <Route path="/guide" element={<GuidePage />} />
+            <Route path="/guide/padel-101" element={<Padel101Page />} />
             <Route path="/guide/*" element={<GuidePage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/contact" element={<ContactPage />} />
