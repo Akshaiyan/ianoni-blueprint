@@ -345,8 +345,8 @@ export const products: Product[] = [
     gallery: [starterKitBo, pr8100BoMain, pr8100BoAngle, pr8100BoBall, pr8100BoDetail, pr8100BoLifestyle, pr8100BoLifestyle2],
     badge: "Popular",
     colorVariant: "Blue/Orange",
-    description: "Everything you need to start your padel journey. Includes a PR8100 racket, 3 premium balls, carry bag, and overgrip.",
-    features: ["PR8100 padel racket", "3 premium IANONI balls", "IANONI Sports carry bag", "Overgrip included"],
+    description: "Everything you need to start your padel journey. Includes a PR8100 racket, 3 premium balls, and carry bag.",
+    features: ["PR8100 padel racket", "3 premium IANONI balls", "IANONI carry bag"],
     specs: {
       weight: "12.5 oz (355g)",
       shape: "Round",
@@ -368,7 +368,7 @@ export const products: Product[] = [
     gallery: [starterKitBp, pr8100BpMain, pr8100BpAngle, pr8100BpBall, pr8100BpDetail, pr8100BpLifestyle1, pr8100BpLifestyle2],
     colorVariant: "Blue/Pink",
     description: "Get started with the stylish Blue/Pink PR8100. Includes racket and 3 premium IANONI balls.",
-    features: ["PR8100 padel racket", "3 premium IANONI balls", "Energy Transfer System", "Anti-slip grip"],
+    features: ["PR8100 padel racket", "3 premium IANONI balls", "IANONI carry bag"],
     specs: {
       weight: "12.5 oz (355g)",
       shape: "Round",
@@ -390,7 +390,7 @@ export const products: Product[] = [
     gallery: [starterKitBs, pr8200BsMain, pr8200BsAngle, pr8200BsBall, pr8200BsDetail, pr8200BsGrip, pr8200BsPlayer],
     colorVariant: "Black/Sky Blue",
     description: "Step up with the PR8200 in Black/Sky Blue. Includes racket and 3 premium IANONI balls.",
-    features: ["PR8200 padel racket", "3 premium IANONI balls", "Advanced carbon construction", "Premium grip"],
+    features: ["PR8200 padel racket", "3 premium IANONI balls", "IANONI carry bag"],
     specs: {
       weight: "12.5 oz (355g)",
       shape: "Round",
@@ -412,7 +412,7 @@ export const products: Product[] = [
     gallery: [starterKitRb, pr8100RbMain, pr8100RbAngle, pr8100RbBall, pr8100RbDetail, pr8100RbDetail2, pr8100RbLifestyle1],
     colorVariant: "Red/Black",
     description: "Hit the court with the classic Red/Black PR8100. Includes racket and 3 premium IANONI balls.",
-    features: ["PR8100 padel racket", "3 premium IANONI balls", "Energy Transfer System", "Anti-slip grip"],
+    features: ["PR8100 padel racket", "3 premium IANONI balls", "IANONI carry bag"],
     specs: {
       weight: "12.5 oz (355g)",
       shape: "Round",
@@ -435,7 +435,7 @@ export const products: Product[] = [
     badge: "Best Value",
     colorVariant: "Red/Black",
     description: "Perfect for pairs — two PR8100 Red/Black rackets with 3 premium IANONI balls. Everything you need to play together.",
-    features: ["2× PR8100 padel rackets", "3 premium IANONI balls", "Energy Transfer System", "Great gift idea"],
+    features: ["2× PR8100 padel rackets", "3 premium IANONI balls", "2× IANONI carry bags"],
     specs: {
       weight: "12.5 oz (355g) each",
       shape: "Round",

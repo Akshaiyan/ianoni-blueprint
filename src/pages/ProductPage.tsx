@@ -224,10 +224,6 @@ export default function ProductPage() {
                             <span>{item}</span>
                           </div>
                         ))}
-                        <div className="flex items-center gap-2 text-sm">
-                          <Check className="h-4 w-4 text-primary shrink-0" />
-                          <span>IANONI carry bag</span>
-                        </div>
                       </>
                     ) : (
                       <>
