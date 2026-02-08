@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, ArrowRight, Minus, Plus, Trash2 } from "lucide-react";
+import { ShoppingBag, ArrowRight, Minus, Plus, Trash2, Package, Dumbbell } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -27,12 +27,20 @@ export default function CartPage() {
               <p className="text-muted-foreground mb-8 max-w-md">
                 Looks like you haven't added anything to your cart yet. Browse our collection and find the perfect racket for your game.
               </p>
-              <Button asChild size="lg">
-                <Link to="/padel">
-                  Shop Padel Rackets
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button asChild size="lg">
+                  <Link to="/padel">
+                    <Dumbbell className="mr-2 h-5 w-5" />
+                    Shop Padel Rackets
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline">
+                  <Link to="/accessories">
+                    <Package className="mr-2 h-5 w-5" />
+                    Shop Starter Kits & Accessories
+                  </Link>
+                </Button>
+              </div>
             </motion.div>
           </div>
         </div>
