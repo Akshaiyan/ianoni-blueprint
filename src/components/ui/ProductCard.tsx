@@ -72,14 +72,16 @@ export function ProductCard({ product, index = 0, variant = "light" }: ProductCa
               }`} 
             />
             
-            {/* Add to Cart button on hover */}
-            <div className="absolute bottom-4 left-4 right-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+            {/* Add to Cart button — icon always visible, expands on hover */}
+            <div className="absolute bottom-4 right-4 transition-all duration-400">
               <button
                 onClick={handleAddToCart}
-                className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold py-3 rounded-xl shadow-lg transition-colors duration-200"
+                className="flex items-center gap-0 group-hover:gap-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold h-10 w-10 group-hover:w-auto group-hover:px-5 rounded-full shadow-lg transition-all duration-400 justify-center overflow-hidden"
               >
-                <ShoppingBag className="h-4 w-4" />
-                Add to Cart
+                <ShoppingBag className="h-4 w-4 shrink-0" />
+                <span className="max-w-0 group-hover:max-w-[6rem] overflow-hidden whitespace-nowrap transition-all duration-400 opacity-0 group-hover:opacity-100">
+                  Add to Cart
+                </span>
               </button>
             </div>
           </div>
