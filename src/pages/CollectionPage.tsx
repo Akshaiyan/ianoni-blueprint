@@ -11,7 +11,7 @@ const categoryInfo: Record<string, { title: string; description: string; emoji: 
   padel: {
     title: "Padel Rackets",
     description: "Premium carbon fiber padel rackets designed for players of all skill levels",
-    emoji: "🎾",
+    emoji: "🟡",
   },
   "starter-kits": {
     title: "Starter Kits & Accessories",
@@ -21,7 +21,7 @@ const categoryInfo: Record<string, { title: string; description: string; emoji: 
   accessories: {
     title: "Starter Kits & Accessories",
     description: "Curated bundles, premium balls, bags, grips, and everything you need",
-    emoji: "🎾",
+    emoji: "🟡",
   },
 };
 
