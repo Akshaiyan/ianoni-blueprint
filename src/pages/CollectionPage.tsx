@@ -16,12 +16,12 @@ const categoryInfo: Record<string, { title: string; description: string; emoji: 
   "starter-kits": {
     title: "Starter Kits & Accessories",
     description: "Curated bundles to get you on the court — save more when you buy together",
-    emoji: "📦",
+    emoji: "🎾",
   },
   accessories: {
     title: "Starter Kits & Accessories",
     description: "Curated bundles, premium balls, bags, grips, and everything you need",
-    emoji: "📦",
+    emoji: "🎾",
   },
 };
 
