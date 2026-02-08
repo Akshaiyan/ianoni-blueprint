@@ -533,45 +533,6 @@ export const products: Product[] = [
     specs: {},
     isBallType: true,
   },
-  // Accessories
-  {
-    id: "acc-2",
-    name: "Premium Racket Bag",
-    slug: "premium-racket-bag",
-    category: "accessories",
-    price: 79.99,
-    rating: 4.8,
-    reviewCount: 92,
-    image: pr8100RbMain,
-    description: "Spacious bag with dedicated compartments for rackets and gear.",
-    features: [
-      "Holds 3+ rackets",
-      "Padded straps",
-      "Ventilated shoe pocket",
-      "Accessory pockets",
-    ],
-    specs: {
-      material: "Water-resistant nylon",
-    },
-  },
-  {
-    id: "acc-3",
-    name: "Overgrip Pack (3pcs)",
-    slug: "overgrip-pack",
-    category: "accessories",
-    price: 14.99,
-    rating: 4.7,
-    reviewCount: 312,
-    image: pr8100Grip,
-    description: "High-tack overgrips for improved comfort and control.",
-    features: [
-      "Superior absorption",
-      "Tacky feel",
-      "Easy application",
-      "Multiple colors",
-    ],
-    specs: {},
-  },
 ];
 
 // Get best sellers sorted by their display order

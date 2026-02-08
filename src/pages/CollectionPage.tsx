@@ -39,10 +39,12 @@ export default function CollectionPage() {
   
   const info = category ? categoryInfo[category] : null;
   
-  // Randomize padel rackets on each page load; sort accessories with balls first
+  // Randomize padel rackets on each page load; include starter kits on padel page
   const products = useMemo(() => {
     if (category === "padel") {
-      return getPadelRacketsRandomized();
+      const rackets = getPadelRacketsRandomized();
+      const starterKits = allProducts.filter(p => p.isStarterKit);
+      return [...rackets, ...starterKits];
     }
     const categoryProducts = category ? getProductsByCategory(category) : allProducts;
     if (category === "accessories") {
