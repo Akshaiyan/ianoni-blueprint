@@ -255,9 +255,8 @@ export default function GuidePage() {
               </Button>
               <Button
                 asChild
-                variant="outline"
                 size="lg"
-                className="border-primary-foreground border-2 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
+                className="border-primary-foreground border-2 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-primary"
               >
                 <Link to="/contact">
                   <Mail className="mr-2 h-5 w-5" />

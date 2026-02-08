@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight, Star, Check, ShoppingBag, Heart, Share2, Truck, Shield, RotateCcw, ZoomIn } from "lucide-react";
+import { ChevronRight, Star, Check, ShoppingBag, Heart, Share2, Truck, Shield, RotateCcw, ZoomIn, Package } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -237,7 +237,42 @@ export default function ProductPage() {
                 </div>
               )}
 
-
+              {/* What's Included */}
+              {(product.category === "padel" || product.isStarterKit) && (
+                <div className="space-y-3">
+                  <h3 className="font-semibold flex items-center gap-2">
+                    <Package className="h-5 w-5 text-primary" />
+                    What's Included
+                  </h3>
+                  <div className="bg-primary/5 rounded-xl p-4 space-y-2">
+                    {product.isStarterKit ? (
+                      <>
+                        {product.features.map((item) => (
+                          <div key={item} className="flex items-center gap-2 text-sm">
+                            <Check className="h-4 w-4 text-primary shrink-0" />
+                            <span>{item}</span>
+                          </div>
+                        ))}
+                        <div className="flex items-center gap-2 text-sm">
+                          <Check className="h-4 w-4 text-primary shrink-0" />
+                          <span>IANONI carry bag</span>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex items-center gap-2 text-sm">
+                          <Check className="h-4 w-4 text-primary shrink-0" />
+                          <span>1× {product.name} padel racket{product.colorVariant ? ` (${product.colorVariant})` : ""}</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm">
+                          <Check className="h-4 w-4 text-primary shrink-0" />
+                          <span>IANONI carry bag</span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
 
 
               {/* Trust badges */}
