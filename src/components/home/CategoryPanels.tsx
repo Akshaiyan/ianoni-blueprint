@@ -23,7 +23,7 @@ const categories = [
     subtitle: "Kits",
     description: "Everything to start",
     image: pr8100BluePink,
-    href: "/guide",
+    href: "/accessories",
     stat: "5",
     statLabel: "bundles",
   },
