@@ -31,7 +31,7 @@ const guides = [
 const faqs = [
   {
     question: "What's the difference between padel and pickleball?",
-    answer: "Padel is typically played on an enclosed court with glass walls and uses a stringless racket with a solid face. Pickleball is played on an open court similar to badminton and uses a perforated paddle. Both are great racket sports but offer different gameplay experiences.",
+    answer: "Padel is typically played on an enclosed court with glass walls and uses a stringless racket with a solid face. Pickleball is played on an open court similar to badminton and uses a solid paddle. Both are great racket sports but offer different gameplay experiences.",
   },
   {
     question: "Which racket shape is best for beginners?",
@@ -166,13 +166,13 @@ export default function GuidePage() {
                 </tr>
               </thead>
               <tbody>
-                {comparisonData.map((row, index) => (
-                  <tr key={row.feature} className={index !== comparisonData.length - 1 ? "border-b" : ""}>
-                    <td className="p-4 font-medium">{row.feature}</td>
-                    <td className="text-center p-4 bg-primary/5">{row.beginner}</td>
-                    <td className="text-center p-4">{row.intermediate}</td>
-                    <td className="text-center p-4">{row.advanced}</td>
-                  </tr>
+                 {comparisonData.map((row, index) => (
+                   <tr key={row.feature} className={`${index !== comparisonData.length - 1 ? "border-b" : ""} bg-primary/5`}>
+                     <td className="p-4 font-medium">{row.feature}</td>
+                     <td className="text-center p-4 bg-primary/10">{row.beginner}</td>
+                     <td className="text-center p-4">{row.intermediate}</td>
+                     <td className="text-center p-4">{row.advanced}</td>
+                   </tr>
                 ))}
               </tbody>
             </table>
