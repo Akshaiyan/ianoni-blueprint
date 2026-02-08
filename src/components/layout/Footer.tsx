@@ -31,6 +31,7 @@ export function Footer() {
             <ul className="space-y-4">
               <li><Link to="/about" className="text-muted-foreground text-sm hover:text-foreground transition-colors">About</Link></li>
               <li><Link to="/contact" className="text-muted-foreground text-sm hover:text-foreground transition-colors">Contact</Link></li>
+              <li><a href="mailto:ianoni@tidytrade.ai" className="text-muted-foreground text-sm hover:text-foreground transition-colors">ianoni@tidytrade.ai</a></li>
             </ul>
           </div>
         </div>
