@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { useRef, useMemo } from "react";
 import { getPadelRackets } from "@/data/products";
-import pr8100Grip from "@/assets/products/pr8100-grip.jpg";
+import balls1Main from "@/assets/products/balls1-main.jpg";
 import pr8100BluePink from "@/assets/products/pr8100-blue-pink.jpg";
 
 const categories = [
@@ -12,7 +12,7 @@ const categories = [
     title: "Accessories",
     subtitle: "& Gear",
     description: "Bags, grips & more",
-    image: pr8100Grip,
+    image: balls1Main,
     href: "/accessories",
     stat: "24",
     statLabel: "items",
