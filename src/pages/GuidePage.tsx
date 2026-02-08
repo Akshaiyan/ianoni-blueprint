@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { BookOpen, Lightbulb, HelpCircle, ChevronRight, ArrowRight, Check } from "lucide-react";
+import { BookOpen, Lightbulb, HelpCircle, ChevronRight, ArrowRight, Check, Mail } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import {
@@ -259,7 +259,10 @@ export default function GuidePage() {
                 size="lg"
                 className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10"
               >
-                <Link to="/contact">Contact Us</Link>
+                <Link to="/contact">
+                  <Mail className="mr-2 h-5 w-5" />
+                  Contact Us
+                </Link>
               </Button>
             </div>
           </motion.div>

@@ -115,6 +115,8 @@ import balls2Pack3 from "@/assets/products/balls2-3pack.jpg";
 import starterKitBo from "@/assets/products/starter-kit-bo.jpg";
 import starterKitBp from "@/assets/products/starter-kit-bp.jpg";
 import starterKitBs from "@/assets/products/starter-kit-bs.jpg";
+import starterKitRb from "@/assets/products/starter-kit-rb.jpg";
+import starterKitRbDoubles from "@/assets/products/starter-kit-rb-doubles.jpg";
 
 export interface Product {
   id: string;
@@ -395,6 +397,51 @@ export const products: Product[] = [
       material: "Carbon Fiber",
       balance: "Medium-High",
       level: "Intermediate",
+    },
+    isStarterKit: true,
+  },
+  {
+    id: "kit-rb",
+    name: "PR8100 Starter Kit",
+    slug: "starter-kit-red-black",
+    category: "accessories",
+    price: 44.99,
+    rating: 4.8,
+    reviewCount: 112,
+    image: starterKitRb,
+    gallery: [starterKitRb, pr8100RbMain, pr8100RbAngle, pr8100RbBall, pr8100RbDetail, pr8100RbDetail2, pr8100RbLifestyle1],
+    colorVariant: "Red/Black",
+    description: "Hit the court with the classic Red/Black PR8100. Includes racket and 3 premium IANONI balls.",
+    features: ["PR8100 padel racket", "3 premium IANONI balls", "Energy Transfer System", "Anti-slip grip"],
+    specs: {
+      weight: "12.5 oz (355g)",
+      shape: "Round",
+      material: "3-Layer Carbon Fiber",
+      balance: "Medium",
+      level: "Beginner-Intermediate",
+    },
+    isStarterKit: true,
+  },
+  {
+    id: "kit-rb-doubles",
+    name: "PR8100 Doubles Kit",
+    slug: "starter-kit-red-black-doubles",
+    category: "accessories",
+    price: 44.99,
+    rating: 4.9,
+    reviewCount: 78,
+    image: starterKitRbDoubles,
+    gallery: [starterKitRbDoubles, pr8100RbMain, pr8100RbAngle, pr8100RbPair, pr8100RbBall, pr8100RbLifestyle1, pr8100RbLifestyle2],
+    badge: "Best Value",
+    colorVariant: "Red/Black",
+    description: "Perfect for pairs — two PR8100 Red/Black rackets with 3 premium IANONI balls. Everything you need to play together.",
+    features: ["2× PR8100 padel rackets", "3 premium IANONI balls", "Energy Transfer System", "Great gift idea"],
+    specs: {
+      weight: "12.5 oz (355g) each",
+      shape: "Round",
+      material: "3-Layer Carbon Fiber",
+      balance: "Medium",
+      level: "Beginner-Intermediate",
     },
     isStarterKit: true,
   },
