@@ -427,7 +427,7 @@ export const products: Product[] = [
     name: "PR8100 Doubles Kit",
     slug: "starter-kit-red-black-doubles",
     category: "accessories",
-    price: 44.99,
+    price: 77.99,
     rating: 4.9,
     reviewCount: 78,
     image: starterKitRbDoubles,

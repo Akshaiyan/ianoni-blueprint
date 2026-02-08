@@ -257,7 +257,7 @@ export default function GuidePage() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10"
+                className="border-primary-foreground border-2 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
               >
                 <Link to="/contact">
                   <Mail className="mr-2 h-5 w-5" />
