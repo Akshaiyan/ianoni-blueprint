@@ -208,35 +208,6 @@ export default function ProductPage() {
                 </ul>
               </div>
 
-              {/* Add to Cart & Actions */}
-              <div className="flex gap-3">
-                <Button size="lg" className="flex-1" onClick={handleAddToCart}>
-                  <ShoppingBag className="mr-2 h-5 w-5" />
-                  Add to Cart
-                </Button>
-                <Button size="lg" variant="outline" onClick={handleWishlist}>
-                  <Heart className="h-5 w-5" />
-                </Button>
-                <Button size="lg" variant="outline" onClick={handleShare}>
-                  <Share2 className="h-5 w-5" />
-                </Button>
-              </div>
-
-              {/* Specs */}
-              {Object.keys(product.specs).length > 0 && (
-                <div className="space-y-3">
-                  <h3 className="font-semibold">Specifications</h3>
-                  <div className="grid grid-cols-2 gap-3">
-                    {Object.entries(product.specs).map(([key, value]) => (
-                      <div key={key} className="bg-muted rounded-lg p-3">
-                        <p className="text-xs text-muted-foreground capitalize">{key}</p>
-                        <p className="font-medium">{value}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
               {/* What's Included */}
               {(product.category === "padel" || product.isStarterKit) && (
                 <div className="space-y-3">
@@ -270,6 +241,35 @@ export default function ProductPage() {
                         </div>
                       </>
                     )}
+                  </div>
+                </div>
+              )}
+
+              {/* Add to Cart & Actions */}
+              <div className="flex gap-3">
+                <Button size="lg" className="flex-1" onClick={handleAddToCart}>
+                  <ShoppingBag className="mr-2 h-5 w-5" />
+                  Add to Cart
+                </Button>
+                <Button size="lg" variant="outline" onClick={handleWishlist}>
+                  <Heart className="h-5 w-5" />
+                </Button>
+                <Button size="lg" variant="outline" onClick={handleShare}>
+                  <Share2 className="h-5 w-5" />
+                </Button>
+              </div>
+
+              {/* Specs */}
+              {Object.keys(product.specs).length > 0 && (
+                <div className="space-y-3">
+                  <h3 className="font-semibold">Specifications</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {Object.entries(product.specs).map(([key, value]) => (
+                      <div key={key} className="bg-muted rounded-lg p-3">
+                        <p className="text-xs text-muted-foreground capitalize">{key}</p>
+                        <p className="font-medium">{value}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}

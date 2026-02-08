@@ -264,7 +264,7 @@ export const products: Product[] = [
     ],
     specs: {
       weight: "12.3 oz (350g)",
-      shape: "Teardrop",
+      shape: "Round",
       material: "Carbon Composite",
       balance: "Medium-High",
       level: "Advanced-Pro",
@@ -293,7 +293,7 @@ export const products: Product[] = [
     ],
     specs: {
       weight: "12.3 oz (350g)",
-      shape: "Teardrop",
+      shape: "Round",
       material: "Carbon Composite",
       balance: "Medium-High",
       level: "Advanced-Pro",
@@ -323,7 +323,7 @@ export const products: Product[] = [
     ],
     specs: {
       weight: "12.3 oz (350g)",
-      shape: "Teardrop",
+      shape: "Round",
       material: "Carbon Composite",
       balance: "Medium-High",
       level: "Advanced-Pro",
@@ -393,7 +393,7 @@ export const products: Product[] = [
     features: ["PR8200 padel racket", "3 premium IANONI balls", "Advanced carbon construction", "Premium grip"],
     specs: {
       weight: "12.5 oz (355g)",
-      shape: "Teardrop",
+      shape: "Round",
       material: "Carbon Fiber",
       balance: "Medium-High",
       level: "Intermediate",
