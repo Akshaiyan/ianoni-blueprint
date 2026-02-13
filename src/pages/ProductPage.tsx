@@ -55,6 +55,10 @@ export default function ProductPage() {
   const galleryImages = product.images.edges.map(e => e.node.url);
   const price = parseFloat(product.priceRange.minVariantPrice.amount);
   const currency = getCurrencySymbol(product.priceRange.minVariantPrice.currencyCode);
+  const compareAtPrice = product.compareAtPriceRange?.minVariantPrice?.amount
+    ? parseFloat(product.compareAtPriceRange.minVariantPrice.amount)
+    : null;
+  const originalPrice = compareAtPrice && compareAtPrice > price ? compareAtPrice : Math.ceil(price * 1.25) - 0.01;
   const selectedVariant = product.variants.edges[0]?.node;
   const isStarterKit = product.productType === 'Starter Kit';
   const isRacket = product.productType === 'Racket';
@@ -186,8 +190,9 @@ export default function ProductPage() {
             >
               <h1 className="text-3xl md:text-4xl font-bold">{product.title}</h1>
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <span className="text-3xl font-bold">{currency}{price.toFixed(2)}</span>
+                <span className="text-xl text-muted-foreground line-through">{currency}{originalPrice.toFixed(2)}</span>
               </div>
 
               <p className="text-muted-foreground text-lg leading-relaxed">
