@@ -261,19 +261,19 @@ export default function ProductPage() {
                   <button
                     onClick={handleExpressCheckout}
                     disabled={cartLoading || !selectedVariant}
-                    className="flex items-center justify-center gap-2 h-12 rounded-full border border-border bg-background hover:bg-muted transition-colors disabled:opacity-50"
+                    className="flex items-center justify-center gap-2 h-14 rounded-full border border-border bg-background hover:bg-muted transition-colors disabled:opacity-50"
                   >
-                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
                       <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
                     </svg>
-                    <span className="font-medium text-sm">Pay</span>
+                    <span className="font-semibold text-base">Pay</span>
                   </button>
                   <button
                     onClick={handleExpressCheckout}
                     disabled={cartLoading || !selectedVariant}
-                    className="flex items-center justify-center h-12 rounded-full border border-border bg-[#FFC439] hover:bg-[#f0b72e] transition-colors disabled:opacity-50"
+                    className="flex items-center justify-center h-14 rounded-full border border-border bg-background hover:bg-muted transition-colors disabled:opacity-50"
                   >
-                    <svg viewBox="0 0 101 32" className="h-5" fill="none">
+                    <svg viewBox="0 0 101 32" className="h-6" fill="none">
                       <path d="M12.237 9.821h-3.843c-.263 0-.487.191-.528.45l-1.554 9.855a.316.316 0 00.313.366h1.838a.536.536 0 00.529-.45l.44-2.795a.536.536 0 01.529-.45h1.22c2.54 0 4.006-1.229 4.388-3.664.172-1.066.007-1.903-.49-2.49-.546-.645-1.514-.972-2.842-.972zm.445 3.61c-.211 1.384-1.269 1.384-2.291 1.384h-.582l.408-2.585a.32.32 0 01.317-.271h.267c.697 0 1.355 0 1.694.397.203.237.264.59.187 1.074z" fill="#253B80"/>
                       <path d="M26.492 13.388h-1.843a.32.32 0 00-.317.271l-.081.514-.129-.187c-.4-.58-1.291-.774-2.18-.774-2.039 0-3.779 1.544-4.118 3.712-.176 1.082.074 2.117.687 2.837.563.662 1.366.938 2.322.938 1.642 0 2.552-1.055 2.552-1.055l-.082.512a.316.316 0 00.313.366h1.659a.536.536 0 00.529-.45l.995-6.318a.316.316 0 00-.307-.366zm-2.57 3.59c-.178 1.054-1.015 1.762-2.083 1.762-.536 0-.965-.172-1.24-.498-.273-.324-.376-.785-.29-1.298.166-1.046 1.017-1.777 2.069-1.777.525 0 .952.174 1.233.502.283.331.394.795.312 1.31z" fill="#253B80"/>
                       <path d="M38.087 13.388h-1.852a.534.534 0 00-.441.234l-2.547 3.752-1.08-3.607a.536.536 0 00-.513-.379h-1.82a.317.317 0 00-.3.422l2.034 5.972-1.913 2.7a.316.316 0 00.259.5h1.85a.533.533 0 00.438-.23l6.143-8.868a.316.316 0 00-.258-.496z" fill="#253B80"/>
