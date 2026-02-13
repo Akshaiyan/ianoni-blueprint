@@ -1,66 +1,41 @@
 import { useParams, Link } from "react-router-dom";
 import { useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight, Star, Check, ShoppingBag, Heart, Share2, Truck, Shield, RotateCcw, ZoomIn, Package } from "lucide-react";
+import { ChevronRight, Check, ShoppingBag, Heart, Share2, Truck, Shield, RotateCcw, ZoomIn, Package, Loader2 } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { ImageLightbox } from "@/components/product/ImageLightbox";
-import { getProductBySlug, products } from "@/data/products";
+import { useShopifyProduct, useShopifyProducts, getCurrencySymbol } from "@/hooks/useShopifyProducts";
 import { useToast } from "@/hooks/use-toast";
-import { useCart } from "@/contexts/CartContext";
+import { useCartStore } from "@/stores/cartStore";
+
 export default function ProductPage() {
   const { slug } = useParams<{ slug: string }>();
-  const product = slug ? getProductBySlug(slug) : null;
+  const { data: product, isLoading } = useShopifyProduct(slug);
+  const { data: allProducts } = useShopifyProducts();
   const { toast } = useToast();
-  const { addItem } = useCart();
-  const galleryImages = product?.gallery || (product ? [product.image] : []);
+  const addItem = useCartStore(state => state.addItem);
+  const cartLoading = useCartStore(state => state.isLoading);
   const [selectedImage, setSelectedImage] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
-  // Scroll to top and reset image when navigating to a new product
   useLayoutEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     setSelectedImage(0);
   }, [slug]);
 
-  const handleAddToCart = () => {
-    if (!product) return;
-    addItem(product);
-    toast({
-      title: "Added to cart",
-      description: `${product.name} has been added to your cart.`,
-    });
-  };
-
-  const handleWishlist = () => {
-    toast({
-      title: "Added to wishlist",
-      description: `${product?.name} has been saved to your wishlist.`,
-    });
-  };
-
-  const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: product?.name,
-          text: product?.description,
-          url: window.location.href,
-        });
-      } catch (err) {
-        // User cancelled or error
-      }
-    } else {
-      await navigator.clipboard.writeText(window.location.href);
-      toast({
-        title: "Link copied",
-        description: "Product link has been copied to clipboard.",
-      });
-    }
-  };
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="min-h-screen flex items-center justify-center pt-24">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      </Layout>
+    );
+  }
 
   if (!product) {
     return (
@@ -77,9 +52,56 @@ export default function ProductPage() {
     );
   }
 
-  const relatedProducts = products
-    .filter((p) => p.category === product.category && p.id !== product.id)
+  const galleryImages = product.images.edges.map(e => e.node.url);
+  const price = parseFloat(product.priceRange.minVariantPrice.amount);
+  const currency = getCurrencySymbol(product.priceRange.minVariantPrice.currencyCode);
+  const selectedVariant = product.variants.edges[0]?.node;
+  const isStarterKit = product.productType === 'Starter Kit';
+  const isRacket = product.productType === 'Racket';
+  const categoryPath = isStarterKit ? 'accessories' : 'padel';
+
+  // Parse description for features (from body_html or description)
+  const description = product.description;
+
+  const relatedProducts = (allProducts || [])
+    .filter(p => p.node.productType === product.productType && p.node.handle !== product.handle)
     .slice(0, 4);
+
+  const handleAddToCart = async () => {
+    if (!selectedVariant) return;
+    await addItem({
+      product: { node: product },
+      variantId: selectedVariant.id,
+      variantTitle: selectedVariant.title,
+      price: selectedVariant.price,
+      quantity: 1,
+      selectedOptions: selectedVariant.selectedOptions || [],
+    });
+    toast({
+      title: "Added to cart",
+      description: `${product.title} has been added to your cart.`,
+    });
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: product.title,
+          text: description,
+          url: window.location.href,
+        });
+      } catch {
+        // cancelled
+      }
+    } else {
+      await navigator.clipboard.writeText(window.location.href);
+      toast({
+        title: "Link copied",
+        description: "Product link has been copied to clipboard.",
+      });
+    }
+  };
 
   return (
     <Layout>
@@ -89,11 +111,11 @@ export default function ProductPage() {
           <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
             <Link to="/" className="hover:text-primary">Home</Link>
             <ChevronRight className="h-4 w-4" />
-            <Link to={`/${product.category}`} className="hover:text-primary capitalize">
-              {product.category}
+            <Link to={`/${categoryPath}`} className="hover:text-primary capitalize">
+              {product.productType || 'Products'}
             </Link>
             <ChevronRight className="h-4 w-4" />
-            <span className="text-foreground font-medium">{product.name}</span>
+            <span className="text-foreground font-medium">{product.title}</span>
           </nav>
 
           {/* Product Section */}
@@ -108,9 +130,6 @@ export default function ProductPage() {
                 className="aspect-square rounded-3xl bg-white flex items-center justify-center relative overflow-hidden p-8 cursor-zoom-in"
                 onClick={() => setLightboxOpen(true)}
               >
-                {product.badge && (
-                  <Badge className="absolute top-6 left-6 text-sm z-10">{product.badge}</Badge>
-                )}
                 <motion.img
                   key={selectedImage}
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -118,7 +137,7 @@ export default function ProductPage() {
                   transition={{ duration: 0.3 }}
                   whileHover={{ scale: 1.05 }}
                   src={galleryImages[selectedImage]}
-                  alt={product.name}
+                  alt={product.title}
                   className="w-full h-full object-contain"
                 />
                 <div className="absolute bottom-4 right-4 p-2 rounded-full bg-foreground/10 backdrop-blur-sm text-foreground/60">
@@ -126,20 +145,21 @@ export default function ProductPage() {
                 </div>
               </div>
               
-              {/* Thumbnails from gallery */}
-              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin">
-                {galleryImages.map((img, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setSelectedImage(i)}
-                    className={`flex-shrink-0 w-20 h-20 rounded-xl bg-white flex items-center justify-center cursor-pointer transition-all overflow-hidden p-1.5 ${
-                      selectedImage === i ? "ring-2 ring-primary" : "hover:ring-2 ring-primary/50"
-                    }`}
-                  >
-                    <img src={img} alt={`${product.name} view ${i + 1}`} className="w-full h-full object-contain" />
-                  </button>
-                ))}
-              </div>
+              {galleryImages.length > 1 && (
+                <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin">
+                  {galleryImages.map((img, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setSelectedImage(i)}
+                      className={`flex-shrink-0 w-20 h-20 rounded-xl bg-white flex items-center justify-center cursor-pointer transition-all overflow-hidden p-1.5 ${
+                        selectedImage === i ? "ring-2 ring-primary" : "hover:ring-2 ring-primary/50"
+                      }`}
+                    >
+                      <img src={img} alt={`${product.title} view ${i + 1}`} className="w-full h-full object-contain" />
+                    </button>
+                  ))}
+                </div>
+              )}
             </motion.div>
 
             {/* Product Info */}
@@ -148,88 +168,46 @@ export default function ProductPage() {
               animate={{ opacity: 1, x: 0 }}
               className="space-y-6"
             >
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1">
-                  {Array.from({ length: 5 }).map((_, i) => {
-                    const fill = Math.min(1, Math.max(0, product.rating - i));
-                    return (
-                      <div key={i} className="relative h-5 w-5">
-                        <Star className="h-5 w-5 text-muted absolute inset-0" />
-                        {fill > 0 && (
-                          <div className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
-                            <Star className="h-5 w-5 fill-primary text-primary" />
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-                <span className="font-medium">{product.rating}</span>
-                <span className="text-muted-foreground">
-                  ({product.reviewCount} reviews)
-                </span>
-              </div>
+              <h1 className="text-3xl md:text-4xl font-bold">{product.title}</h1>
 
-              {/* Name */}
-              <h1 className="text-3xl md:text-4xl font-bold">{product.name}</h1>
-
-              {/* Price */}
               <div className="flex items-center gap-4">
-                <span className="text-3xl font-bold">£{product.price.toFixed(2)}</span>
-                {product.originalPrice && (
-                  <>
-                    <span className="text-xl text-muted-foreground line-through">
-                      £{product.originalPrice.toFixed(2)}
-                    </span>
-                    <Badge variant="destructive">
-                      Save £{(product.originalPrice - product.price).toFixed(2)}
-                    </Badge>
-                  </>
-                )}
+                <span className="text-3xl font-bold">{currency}{price.toFixed(2)}</span>
               </div>
 
-              {/* Description */}
               <p className="text-muted-foreground text-lg leading-relaxed">
-                {product.description}
+                {description}
               </p>
 
               <Separator />
 
-              {/* Features */}
-              <div className="space-y-3">
-                <h3 className="font-semibold">Key Features</h3>
-                <ul className="space-y-2">
-                  {product.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-3">
-                      <Check className="h-5 w-5 text-primary shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
               {/* What's Included */}
-              {(product.category === "padel" || product.isStarterKit) && (
+              {(isRacket || isStarterKit) && (
                 <div className="space-y-3">
                   <h3 className="font-semibold flex items-center gap-2">
                     <Package className="h-5 w-5 text-primary" />
                     What's Included
                   </h3>
                   <div className="bg-primary/5 rounded-xl p-4 space-y-2">
-                    {product.isStarterKit ? (
+                    {isStarterKit ? (
                       <>
-                        {product.features.map((item) => (
-                          <div key={item} className="flex items-center gap-2 text-sm">
-                            <Check className="h-4 w-4 text-primary shrink-0" />
-                            <span>{item}</span>
-                          </div>
-                        ))}
+                        <div className="flex items-center gap-2 text-sm">
+                          <Check className="h-4 w-4 text-primary shrink-0" />
+                          <span>Padel racket</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm">
+                          <Check className="h-4 w-4 text-primary shrink-0" />
+                          <span>3 premium IANONI balls</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm">
+                          <Check className="h-4 w-4 text-primary shrink-0" />
+                          <span>IANONI carry bag</span>
+                        </div>
                       </>
                     ) : (
                       <>
                         <div className="flex items-center gap-2 text-sm">
                           <Check className="h-4 w-4 text-primary shrink-0" />
-                          <span>1× {product.name} padel racket{product.colorVariant ? ` (${product.colorVariant})` : ""}</span>
+                          <span>1× {product.title} padel racket</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm">
                           <Check className="h-4 w-4 text-primary shrink-0" />
@@ -241,35 +219,20 @@ export default function ProductPage() {
                 </div>
               )}
 
-              {/* Add to Cart & Actions */}
+              {/* Add to Cart */}
               <div className="flex gap-3">
-                <Button size="lg" className="flex-1" onClick={handleAddToCart}>
-                  <ShoppingBag className="mr-2 h-5 w-5" />
+                <Button size="lg" className="flex-1" onClick={handleAddToCart} disabled={cartLoading || !selectedVariant}>
+                  {cartLoading ? (
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  ) : (
+                    <ShoppingBag className="mr-2 h-5 w-5" />
+                  )}
                   Add to Cart
-                </Button>
-                <Button size="lg" variant="outline" onClick={handleWishlist}>
-                  <Heart className="h-5 w-5" />
                 </Button>
                 <Button size="lg" variant="outline" onClick={handleShare}>
                   <Share2 className="h-5 w-5" />
                 </Button>
               </div>
-
-              {/* Specs */}
-              {Object.keys(product.specs).length > 0 && (
-                <div className="space-y-3">
-                  <h3 className="font-semibold">Specifications</h3>
-                  <div className="grid grid-cols-2 gap-3">
-                    {Object.entries(product.specs).map(([key, value]) => (
-                      <div key={key} className="bg-muted rounded-lg p-3">
-                        <p className="text-xs text-muted-foreground capitalize">{key}</p>
-                        <p className="font-medium">{value}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
 
               {/* Trust badges */}
               <div className="grid grid-cols-3 gap-4 pt-4">
@@ -295,7 +258,7 @@ export default function ProductPage() {
               <h2 className="text-2xl font-bold mb-8">You May Also Like</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {relatedProducts.map((product, index) => (
-                  <ProductCard key={product.id} product={product} index={index} />
+                  <ProductCard key={product.node.id} product={product} index={index} />
                 ))}
               </div>
             </section>
@@ -305,7 +268,7 @@ export default function ProductPage() {
       <ImageLightbox
         images={galleryImages}
         initialIndex={selectedImage}
-        productName={product.name}
+        productName={product.title}
         open={lightboxOpen}
         onClose={() => setLightboxOpen(false)}
       />

@@ -5,7 +5,7 @@ import { Menu, X, ShoppingBag, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SearchDialog } from "./SearchDialog";
-import { useCart } from "@/contexts/CartContext";
+import { useCartStore } from "@/stores/cartStore";
 import ianoniLogo from "@/assets/ianoni-logo.png";
 
 const navLinks = [
@@ -18,7 +18,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { itemCount } = useCart();
+  const itemCount = useCartStore(state => state.itemCount)();
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
@@ -32,7 +32,6 @@ export function Header() {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
 
-  // On home page, start transparent with light text, then become solid on scroll
   const showDarkHeader = isScrolled || !isHomePage;
 
   return (
