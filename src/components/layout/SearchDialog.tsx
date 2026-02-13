@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Search, X } from "lucide-react";
+import { Search, X, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { products } from "@/data/products";
+import { useShopifyProducts, getCurrencySymbol } from "@/hooks/useShopifyProducts";
 import { cn } from "@/lib/utils";
 
 interface SearchDialogProps {
@@ -14,13 +14,14 @@ interface SearchDialogProps {
 export function SearchDialog({ isOpen, onClose, isDark = true }: SearchDialogProps) {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const { data: allProducts, isLoading } = useShopifyProducts();
 
-  const filteredProducts = query.length > 0
-    ? products.filter(
+  const filteredProducts = query.length > 0 && allProducts
+    ? allProducts.filter(
         (p) =>
-          p.name.toLowerCase().includes(query.toLowerCase()) ||
-          p.category.toLowerCase().includes(query.toLowerCase()) ||
-          p.colorVariant?.toLowerCase().includes(query.toLowerCase())
+          p.node.title.toLowerCase().includes(query.toLowerCase()) ||
+          p.node.productType.toLowerCase().includes(query.toLowerCase()) ||
+          p.node.description.toLowerCase().includes(query.toLowerCase())
       ).slice(0, 6)
     : [];
 
@@ -52,7 +53,6 @@ export function SearchDialog({ isOpen, onClose, isDark = true }: SearchDialogPro
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -61,7 +61,6 @@ export function SearchDialog({ isOpen, onClose, isDark = true }: SearchDialogPro
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
           />
 
-          {/* Search Container */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -69,7 +68,6 @@ export function SearchDialog({ isOpen, onClose, isDark = true }: SearchDialogPro
             className="fixed top-0 left-0 right-0 z-50 pt-24 px-4"
           >
             <div className="max-w-2xl mx-auto">
-              {/* Search Input */}
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <input
@@ -88,7 +86,6 @@ export function SearchDialog({ isOpen, onClose, isDark = true }: SearchDialogPro
                 </button>
               </div>
 
-              {/* Results Dropdown */}
               <AnimatePresence>
                 {filteredProducts.length > 0 && (
                   <motion.div
@@ -97,40 +94,47 @@ export function SearchDialog({ isOpen, onClose, isDark = true }: SearchDialogPro
                     exit={{ opacity: 0, y: -10 }}
                     className="mt-2 bg-background border border-border rounded-xl overflow-hidden shadow-2xl"
                   >
-                    {filteredProducts.map((product, index) => (
-                      <Link
-                        key={product.id}
-                        to={`/product/${product.slug}`}
-                        onClick={handleProductClick}
-                        className={cn(
-                          "flex items-center gap-4 p-4 hover:bg-muted transition-colors",
-                          index !== filteredProducts.length - 1 && "border-b border-border"
-                        )}
-                      >
-                        <div className="w-14 h-14 rounded-lg bg-muted flex items-center justify-center overflow-hidden shrink-0">
-                          <img
-                            src={product.image}
-                            alt={product.name}
-                            className="w-full h-full object-contain p-1"
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-medium text-foreground truncate">{product.name}</p>
-                          <p className="text-sm text-muted-foreground truncate">
-                            {product.colorVariant || product.category}
-                          </p>
-                        </div>
-                        <div className="text-right shrink-0">
-                          <p className="font-semibold text-foreground">£{product.price.toFixed(2)}</p>
-                        </div>
-                      </Link>
-                    ))}
+                    {filteredProducts.map((product, index) => {
+                      const price = parseFloat(product.node.priceRange.minVariantPrice.amount);
+                      const currency = getCurrencySymbol(product.node.priceRange.minVariantPrice.currencyCode);
+                      const image = product.node.images.edges[0]?.node.url;
+
+                      return (
+                        <Link
+                          key={product.node.id}
+                          to={`/product/${product.node.handle}`}
+                          onClick={handleProductClick}
+                          className={cn(
+                            "flex items-center gap-4 p-4 hover:bg-muted transition-colors",
+                            index !== filteredProducts.length - 1 && "border-b border-border"
+                          )}
+                        >
+                          <div className="w-14 h-14 rounded-lg bg-muted flex items-center justify-center overflow-hidden shrink-0">
+                            {image && (
+                              <img
+                                src={image}
+                                alt={product.node.title}
+                                className="w-full h-full object-contain p-1"
+                              />
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-medium text-foreground truncate">{product.node.title}</p>
+                            <p className="text-sm text-muted-foreground truncate">
+                              {product.node.productType}
+                            </p>
+                          </div>
+                          <div className="text-right shrink-0">
+                            <p className="font-semibold text-foreground">{currency}{price.toFixed(2)}</p>
+                          </div>
+                        </Link>
+                      );
+                    })}
                   </motion.div>
                 )}
               </AnimatePresence>
 
-              {/* No Results */}
-              {query.length > 0 && filteredProducts.length === 0 && (
+              {query.length > 0 && filteredProducts.length === 0 && !isLoading && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
