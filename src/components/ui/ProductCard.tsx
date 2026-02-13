@@ -112,9 +112,15 @@ export function ProductCard({ product, index = 0, variant = "light" }: ProductCa
               {node.title}
             </h3>
 
-            <div className="flex items-baseline gap-3">
+            <div className="flex items-baseline gap-2">
               <span className={`text-lg font-bold ${isDark ? "text-white" : "text-foreground"}`}>
                 {currency}{price.toFixed(2)}
+              </span>
+              <span className={`text-sm line-through ${isDark ? "text-white/50" : "text-muted-foreground"}`}>
+                {currency}{(node.compareAtPriceRange?.minVariantPrice?.amount && parseFloat(node.compareAtPriceRange.minVariantPrice.amount) > price
+                  ? parseFloat(node.compareAtPriceRange.minVariantPrice.amount)
+                  : Math.ceil(price * 1.25) - 0.01
+                ).toFixed(2)}
               </span>
             </div>
           </div>
