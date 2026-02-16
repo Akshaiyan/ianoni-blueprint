@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
-import type { ShopifyProduct } from "@/lib/shopify";
+import type { Product } from "@/data/products";
 import { useCartStore } from "@/stores/cartStore";
-import { getProductPrice, getProductImage, getCurrencySymbol } from "@/hooks/useShopifyProducts";
+import { getVariantMapping, hasVariantId } from "@/data/shopify-variants";
 import { toast } from "sonner";
 
 interface ProductCardProps {
-  product: ShopifyProduct;
+  product: Product;
   index?: number;
   variant?: "light" | "dark";
 }
@@ -16,37 +16,27 @@ export function ProductCard({ product, index = 0, variant = "light" }: ProductCa
   const isDark = variant === "dark";
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
-  const node = product.node;
-  const price = getProductPrice(product);
-  const image = getProductImage(product);
-  const currency = getCurrencySymbol(node.priceRange.minVariantPrice.currencyCode);
-  const selectedVariant = node.variants.edges[0]?.node;
-
-  // Extract color variant from title (e.g., "PR8100 Red/Black" → "Red/Black")
-  const titleParts = node.title.split(' ');
-  const modelName = titleParts[0]; // e.g., "PR8100"
-  const colorVariant = titleParts.length > 1 ? titleParts.slice(1).join(' ') : null;
+  const canAddToCart = hasVariantId(product.slug);
+  const variantMapping = getVariantMapping(product.slug);
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!selectedVariant) return;
+    if (!canAddToCart || !variantMapping) return;
     await addItem({
-      product,
-      variantId: selectedVariant.id,
-      variantTitle: selectedVariant.title,
-      price: selectedVariant.price,
+      display: {
+        title: product.name + (product.colorVariant ? ` ${product.colorVariant}` : ''),
+        handle: product.slug,
+        imageUrl: product.image,
+      },
+      variantId: variantMapping.variantId,
+      variantTitle: product.colorVariant || "Default Title",
+      price: variantMapping.price || { amount: product.price.toFixed(2), currencyCode: "GBP" },
       quantity: 1,
-      selectedOptions: selectedVariant.selectedOptions || [],
+      selectedOptions: product.colorVariant ? [{ name: "Color", value: product.colorVariant }] : [],
     });
-    toast.success(`${node.title} added to cart`);
+    toast.success(`${product.name} added to cart`);
   };
-
-  // Determine badge
-  const badge = node.tags.includes('best-value') ? 'Best Value' :
-    node.tags.includes('pro') && node.productType === 'Balls' ? 'Pro Choice' :
-    node.tags.includes('save') ? `Save ${currency}${(parseFloat(node.compareAtPriceRange?.minVariantPrice?.amount || '0') - price).toFixed(0)}` :
-    null;
 
   return (
     <motion.div
@@ -56,7 +46,7 @@ export function ProductCard({ product, index = 0, variant = "light" }: ProductCa
       transition={{ delay: index * 0.1, duration: 0.6 }}
     >
       <Link
-        to={`/product/${node.handle}`}
+        to={`/product/${product.slug}`}
         className="group block"
       >
         <div className="relative">
@@ -73,15 +63,15 @@ export function ProductCard({ product, index = 0, variant = "light" }: ProductCa
             
             <div className="absolute inset-0 flex items-center justify-center p-3">
               <img
-                src={image}
-                alt={node.title}
+                src={product.image}
+                alt={product.name}
                 className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-xl"
               />
             </div>
             
-            {badge && (
+            {product.badge && (
               <div className="absolute top-4 left-4 px-3 py-1.5 bg-primary text-white text-xs font-semibold rounded-full shadow-lg">
-                {badge}
+                {product.badge}
               </div>
             )}
             
@@ -96,7 +86,7 @@ export function ProductCard({ product, index = 0, variant = "light" }: ProductCa
             <div className="absolute bottom-4 right-4 transition-all duration-400">
               <button
                 onClick={handleAddToCart}
-                disabled={isLoading || !selectedVariant}
+                disabled={isLoading || !canAddToCart}
                 className="flex items-center gap-0 group-hover:gap-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold h-10 w-10 group-hover:w-auto group-hover:px-5 rounded-full shadow-lg transition-all duration-400 justify-center overflow-hidden disabled:opacity-50"
               >
                 <ShoppingBag className="h-4 w-4 shrink-0" />
@@ -109,19 +99,18 @@ export function ProductCard({ product, index = 0, variant = "light" }: ProductCa
 
           <div className="space-y-2">
             <h3 className={`font-semibold group-hover:text-primary transition-colors duration-300 ${isDark ? "text-white" : "text-foreground"}`}>
-              {node.title}
+              {product.name}{product.colorVariant ? ` — ${product.colorVariant}` : ''}
             </h3>
 
             <div className="flex items-baseline gap-2">
               <span className={`text-lg font-bold ${isDark ? "text-white" : "text-foreground"}`}>
-                {currency}{price.toFixed(2)}
+                £{product.price.toFixed(2)}
               </span>
-              <span className={`text-sm line-through ${isDark ? "text-white/50" : "text-muted-foreground"}`}>
-                {currency}{(node.compareAtPriceRange?.minVariantPrice?.amount && parseFloat(node.compareAtPriceRange.minVariantPrice.amount) > price
-                  ? parseFloat(node.compareAtPriceRange.minVariantPrice.amount)
-                  : Math.ceil(price * 1.25) - 0.01
-                ).toFixed(2)}
-              </span>
+              {product.originalPrice && (
+                <span className={`text-sm line-through ${isDark ? "text-white/50" : "text-muted-foreground"}`}>
+                  £{product.originalPrice.toFixed(2)}
+                </span>
+              )}
             </div>
           </div>
         </div>

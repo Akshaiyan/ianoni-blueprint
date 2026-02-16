@@ -5,7 +5,6 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useCartStore } from "@/stores/cartStore";
-import { getCurrencySymbol } from "@/hooks/useShopifyProducts";
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, clearCart, isLoading, isSyncing, getCheckoutUrl } = useCartStore();
@@ -13,7 +12,7 @@ export default function CartPage() {
   const total = useCartStore(state => state.total)();
 
   const currencyCode = items[0]?.price.currencyCode || 'GBP';
-  const currency = getCurrencySymbol(currencyCode);
+  const currency = currencyCode === 'GBP' ? '£' : currencyCode === 'USD' ? '$' : currencyCode === 'EUR' ? '€' : currencyCode;
 
   const handleCheckout = () => {
     const checkoutUrl = getCheckoutUrl();
@@ -78,7 +77,6 @@ export default function CartPage() {
             <div className="lg:col-span-2 space-y-1">
               <AnimatePresence mode="popLayout">
                 {items.map((item) => {
-                  const image = item.product.node.images?.edges?.[0]?.node.url;
                   const itemPrice = parseFloat(item.price.amount);
                   return (
                     <motion.div
@@ -89,12 +87,12 @@ export default function CartPage() {
                       exit={{ opacity: 0, x: -100 }}
                       className="flex gap-4 md:gap-6 py-6 border-b border-border"
                     >
-                      <Link to={`/product/${item.product.node.handle}`} className="shrink-0">
+                      <Link to={`/product/${item.display.handle}`} className="shrink-0">
                         <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl bg-muted flex items-center justify-center p-2 overflow-hidden">
-                          {image && (
+                          {item.display.imageUrl && (
                             <img
-                              src={image}
-                              alt={item.product.node.title}
+                              src={item.display.imageUrl}
+                              alt={item.display.title}
                               className="w-full h-full object-contain"
                             />
                           )}
@@ -102,8 +100,8 @@ export default function CartPage() {
                       </Link>
 
                       <div className="flex-1 min-w-0">
-                        <Link to={`/product/${item.product.node.handle}`} className="hover:text-primary transition-colors">
-                          <h3 className="font-semibold text-base md:text-lg truncate">{item.product.node.title}</h3>
+                        <Link to={`/product/${item.display.handle}`} className="hover:text-primary transition-colors">
+                          <h3 className="font-semibold text-base md:text-lg truncate">{item.display.title}</h3>
                         </Link>
                         {item.variantTitle !== 'Default Title' && (
                           <p className="text-sm text-muted-foreground">{item.variantTitle}</p>

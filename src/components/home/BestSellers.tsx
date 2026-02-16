@@ -1,35 +1,38 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, ChevronLeft, ChevronRight, ShoppingBag, Loader2 } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react";
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/stores/cartStore";
-import { useShopifyProducts, getCurrencySymbol } from "@/hooks/useShopifyProducts";
-import type { ShopifyProduct } from "@/lib/shopify";
+import { getBestSellers, type Product } from "@/data/products";
+import { getVariantMapping, hasVariantId } from "@/data/shopify-variants";
 import { toast } from "sonner";
 
 export function BestSellers() {
   const [currentPage, setCurrentPage] = useState(0);
-  const { data: allProducts, isLoading } = useShopifyProducts("product_type:Racket");
   const addItem = useCartStore(state => state.addItem);
   const cartLoading = useCartStore(state => state.isLoading);
 
-  const bestSellers = useMemo(() => allProducts || [], [allProducts]);
+  const bestSellers = useMemo(() => getBestSellers(), []);
 
-  const handleAddToCart = async (e: React.MouseEvent, product: ShopifyProduct) => {
+  const handleAddToCart = async (e: React.MouseEvent, product: Product) => {
     e.preventDefault();
     e.stopPropagation();
-    const variant = product.node.variants.edges[0]?.node;
-    if (!variant) return;
+    const variantMapping = getVariantMapping(product.slug);
+    if (!variantMapping || !hasVariantId(product.slug)) return;
     await addItem({
-      product,
-      variantId: variant.id,
-      variantTitle: variant.title,
-      price: variant.price,
+      display: {
+        title: product.name + (product.colorVariant ? ` ${product.colorVariant}` : ''),
+        handle: product.slug,
+        imageUrl: product.image,
+      },
+      variantId: variantMapping.variantId,
+      variantTitle: product.colorVariant || "Default Title",
+      price: variantMapping.price || { amount: product.price.toFixed(2), currencyCode: "GBP" },
       quantity: 1,
-      selectedOptions: variant.selectedOptions || [],
+      selectedOptions: product.colorVariant ? [{ name: "Color", value: product.colorVariant }] : [],
     });
-    toast.success(`${product.node.title} added to cart`);
+    toast.success(`${product.name} added to cart`);
   };
   
   const productsPerPage = 3;
@@ -41,16 +44,6 @@ export function BestSellers() {
 
   const goToNext = () => setCurrentPage((prev) => (prev + 1) % totalPages);
   const goToPrev = () => setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
-
-  if (isLoading) {
-    return (
-      <section className="relative py-16 md:py-20 overflow-hidden">
-        <div className="container mx-auto px-4 md:px-8 flex justify-center py-20">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className="relative py-16 md:py-20 overflow-hidden">
@@ -117,64 +110,56 @@ export function BestSellers() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {currentProducts.map((product, index) => {
-            const price = parseFloat(product.node.priceRange.minVariantPrice.amount);
-            const currency = getCurrencySymbol(product.node.priceRange.minVariantPrice.currencyCode);
-            const image = product.node.images.edges[0]?.node.url;
-
-            return (
-              <motion.div
-                key={product.node.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+          {currentProducts.map((product, index) => (
+            <motion.div
+              key={product.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <Link
+                to={`/product/${product.slug}`}
+                className="group block relative overflow-hidden"
               >
-                <Link
-                  to={`/product/${product.node.handle}`}
-                  className="group block relative overflow-hidden"
-                >
-                  <div className="relative overflow-hidden rounded-2xl h-[400px] md:h-[450px]">
-                    <div className="absolute inset-0 overflow-hidden bg-muted">
-                      {image && (
-                        <img
-                          src={image}
-                          alt={product.node.title}
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                      )}
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300">
-                        {product.node.title}
-                      </h3>
-                      <div className="flex items-baseline gap-3 mt-3">
-                        <span className="text-xl font-bold text-white">
-                          {currency}{price.toFixed(2)}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="absolute bottom-4 right-4 z-10 transition-all duration-400">
-                      <button
-                        onClick={(e) => handleAddToCart(e, product)}
-                        disabled={cartLoading}
-                        className="flex items-center gap-0 group-hover:gap-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold h-10 w-10 group-hover:w-auto group-hover:px-5 rounded-full shadow-lg transition-all duration-400 justify-center overflow-hidden disabled:opacity-50"
-                      >
-                        <ShoppingBag className="h-4 w-4 shrink-0" />
-                        <span className="max-w-0 group-hover:max-w-[6rem] overflow-hidden whitespace-nowrap transition-all duration-400 opacity-0 group-hover:opacity-100">
-                          Add to Cart
-                        </span>
-                      </button>
-                    </div>
-
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
+                <div className="relative overflow-hidden rounded-2xl h-[400px] md:h-[450px]">
+                  <div className="absolute inset-0 overflow-hidden bg-muted">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
                   </div>
-                </Link>
-              </motion.div>
-            );
-          })}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300">
+                      {product.name}{product.colorVariant ? ` — ${product.colorVariant}` : ''}
+                    </h3>
+                    <div className="flex items-baseline gap-3 mt-3">
+                      <span className="text-xl font-bold text-white">
+                        £{product.price.toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="absolute bottom-4 right-4 z-10 transition-all duration-400">
+                    <button
+                      onClick={(e) => handleAddToCart(e, product)}
+                      disabled={cartLoading || !hasVariantId(product.slug)}
+                      className="flex items-center gap-0 group-hover:gap-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold h-10 w-10 group-hover:w-auto group-hover:px-5 rounded-full shadow-lg transition-all duration-400 justify-center overflow-hidden disabled:opacity-50"
+                    >
+                      <ShoppingBag className="h-4 w-4 shrink-0" />
+                      <span className="max-w-0 group-hover:max-w-[6rem] overflow-hidden whitespace-nowrap transition-all duration-400 opacity-0 group-hover:opacity-100">
+                        Add to Cart
+                      </span>
+                    </button>
+                  </div>
+
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
+                </div>
+              </Link>
+            </motion.div>
+          ))}
         </div>
 
         {totalPages > 1 && (

@@ -1,16 +1,30 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import {
-  type ShopifyProduct,
-  type CartItemData,
   createShopifyCart,
   addLineToShopifyCart,
   updateShopifyCartLine,
   removeLineFromShopifyCart,
   fetchCart,
 } from '@/lib/shopify';
+import type { CartItemData } from '@/lib/shopify';
 
-export type CartItem = CartItemData;
+// Local display info stored in cart (no dependency on ShopifyProduct type)
+export interface CartItemDisplay {
+  title: string;
+  handle: string;
+  imageUrl: string;
+}
+
+export interface CartItem {
+  lineId: string | null;
+  display: CartItemDisplay;
+  variantId: string;
+  variantTitle: string;
+  price: { amount: string; currencyCode: string };
+  quantity: number;
+  selectedOptions: Array<{ name: string; value: string }>;
+}
 
 interface CartStore {
   items: CartItem[];
@@ -26,6 +40,32 @@ interface CartStore {
   getCheckoutUrl: () => string | null;
   itemCount: () => number;
   total: () => number;
+}
+
+// Bridge CartItem to CartItemData for Shopify API calls
+function toShopifyCartItem(item: CartItem | Omit<CartItem, 'lineId'>): CartItemData {
+  return {
+    lineId: 'lineId' in item ? item.lineId : null,
+    product: {
+      node: {
+        id: '',
+        title: item.display.title,
+        description: '',
+        handle: item.display.handle,
+        productType: '',
+        tags: [],
+        priceRange: { minVariantPrice: item.price },
+        images: { edges: item.display.imageUrl ? [{ node: { url: item.display.imageUrl, altText: null } }] : [] },
+        variants: { edges: [] },
+        options: [],
+      },
+    },
+    variantId: item.variantId,
+    variantTitle: item.variantTitle,
+    price: item.price,
+    quantity: item.quantity,
+    selectedOptions: item.selectedOptions,
+  };
 }
 
 export const useCartStore = create<CartStore>()(
@@ -44,7 +84,7 @@ export const useCartStore = create<CartStore>()(
         set({ isLoading: true });
         try {
           if (!cartId) {
-            const result = await createShopifyCart({ ...item, lineId: null });
+            const result = await createShopifyCart(toShopifyCartItem(item));
             if (result) {
               set({
                 cartId: result.cartId,
@@ -63,7 +103,7 @@ export const useCartStore = create<CartStore>()(
               clearCart();
             }
           } else {
-            const result = await addLineToShopifyCart(cartId, { ...item, lineId: null });
+            const result = await addLineToShopifyCart(cartId, toShopifyCartItem(item));
             if (result.success) {
               const currentItems = get().items;
               set({ items: [...currentItems, { ...item, lineId: result.lineId ?? null }] });
