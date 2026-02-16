@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import type { Product } from "@/data/products";
 import { useCartStore } from "@/stores/cartStore";
-import { getVariantMapping, hasVariantId } from "@/data/shopify-variants";
+import { useVariantMap } from "@/hooks/useVariantMap";
 import { toast } from "sonner";
 
 interface ProductCardProps {
@@ -16,22 +16,23 @@ export function ProductCard({ product, index = 0, variant = "light" }: ProductCa
   const isDark = variant === "dark";
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
-  const canAddToCart = hasVariantId(product.slug);
-  const variantMapping = getVariantMapping(product.slug);
+  const { getVariant, hasVariant } = useVariantMap();
+  const canAddToCart = hasVariant(product.slug);
+  const resolved = getVariant(product.slug);
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!canAddToCart || !variantMapping) return;
+    if (!canAddToCart || !resolved) return;
     await addItem({
       display: {
         title: product.name + (product.colorVariant ? ` ${product.colorVariant}` : ''),
         handle: product.slug,
         imageUrl: product.image,
       },
-      variantId: variantMapping.variantId,
+      variantId: resolved.variantId,
       variantTitle: product.colorVariant || "Default Title",
-      price: variantMapping.price || { amount: product.price.toFixed(2), currencyCode: "GBP" },
+      price: resolved.price || { amount: product.price.toFixed(2), currencyCode: "GBP" },
       quantity: 1,
       selectedOptions: product.colorVariant ? [{ name: "Color", value: product.colorVariant }] : [],
     });
