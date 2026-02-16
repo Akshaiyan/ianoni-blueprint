@@ -2,9 +2,9 @@ import { toast } from "sonner";
 
 // Shopify Storefront API configuration
 const SHOPIFY_API_VERSION = '2025-07';
-const SHOPIFY_STORE_PERMANENT_DOMAIN = '0psz1b-ht.myshopify.com';
+const SHOPIFY_STORE_PERMANENT_DOMAIN = 'ianonidraft-odkpg.myshopify.com';
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
-const SHOPIFY_STOREFRONT_TOKEN = '83cba3146d35c6ca8adf8221121654a1';
+const SHOPIFY_STOREFRONT_TOKEN = '6539185271b98ad0a05dbf79327ff67d';
 
 // Types
 export interface ShopifyImage {
