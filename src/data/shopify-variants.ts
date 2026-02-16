@@ -10,14 +10,14 @@ export interface VariantMapping {
 
 const variantMap: Record<string, VariantMapping> = {
   // PR8100 Rackets
-  "pr8100-red-black": { variantId: "gid://shopify/ProductVariant/46944062480685" },
-  "pr8100-blue-pink": { variantId: "gid://shopify/ProductVariant/46944062546221" },
-  "pr8100-blue-orange": { variantId: "gid://shopify/ProductVariant/46944062578989" },
+  "pr8100-red-black": { variantId: "gid://shopify/ProductVariant/47900760447275" },
+  "pr8100-blue-pink": { variantId: "gid://shopify/ProductVariant/47900760512747" },
+  "pr8100-blue-orange": { variantId: "gid://shopify/ProductVariant/47900760545515" },
 
   // PR8200 Rackets
-  "pr8200-blue-stripe": { variantId: "gid://shopify/ProductVariant/46944062513453" },
-  "pr8200-grey-stripe": { variantId: "gid://shopify/ProductVariant/46944062611757" },
-  "super-power-pink": { variantId: "gid://shopify/ProductVariant/46944062644525" },
+  "pr8200-blue-stripe": { variantId: "gid://shopify/ProductVariant/47900760479979" },
+  "pr8200-grey-stripe": { variantId: "gid://shopify/ProductVariant/47900760578283" },
+  "super-power-pink": { variantId: "gid://shopify/ProductVariant/47900760611051" },
 
   // Starter Kits — not yet in Shopify store
   "starter-kit-blue-orange": { variantId: "" },
