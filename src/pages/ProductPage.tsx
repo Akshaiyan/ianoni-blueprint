@@ -10,7 +10,7 @@ import { ImageLightbox } from "@/components/product/ImageLightbox";
 import { useToast } from "@/hooks/use-toast";
 import { useCartStore } from "@/stores/cartStore";
 import { getProductBySlug, products, type Product } from "@/data/products";
-import { getVariantMapping, hasVariantId } from "@/data/shopify-variants";
+import { useVariantMap } from "@/hooks/useVariantMap";
 
 export default function ProductPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -20,6 +20,7 @@ export default function ProductPage() {
   const cartLoading = useCartStore(state => state.isLoading);
   const [selectedImage, setSelectedImage] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const { getVariant, hasVariant } = useVariantMap();
 
   useLayoutEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
@@ -44,8 +45,8 @@ export default function ProductPage() {
   const galleryImages = product.gallery || [product.image];
   const price = product.price;
   const originalPrice = product.originalPrice || Math.ceil(price * 1.25) - 0.01;
-  const variantMapping = getVariantMapping(product.slug);
-  const canAddToCart = variantMapping && hasVariantId(product.slug);
+  const resolved = getVariant(product.slug);
+  const canAddToCart = !!resolved && hasVariant(product.slug);
   const isStarterKit = product.isStarterKit;
   const isRacket = product.category === "padel" && !product.isStarterKit;
   const categoryPath = isStarterKit ? "accessories" : "padel";
@@ -56,12 +57,12 @@ export default function ProductPage() {
     .slice(0, 4);
 
   const handleAddToCart = async () => {
-    if (!canAddToCart || !variantMapping) return;
+    if (!canAddToCart || !resolved) return;
     await addItem({
       display: { title: product.name + (product.colorVariant ? ` ${product.colorVariant}` : ''), handle: product.slug, imageUrl: product.image },
-      variantId: variantMapping.variantId,
+      variantId: resolved.variantId,
       variantTitle: product.colorVariant || "Default Title",
-      price: variantMapping.price || { amount: product.price.toFixed(2), currencyCode: "GBP" },
+      price: resolved.price || { amount: product.price.toFixed(2), currencyCode: "GBP" },
       quantity: 1,
       selectedOptions: product.colorVariant ? [{ name: "Color", value: product.colorVariant }] : [],
     });
@@ -72,12 +73,12 @@ export default function ProductPage() {
   };
 
   const handleExpressCheckout = async () => {
-    if (!canAddToCart || !variantMapping) return;
+    if (!canAddToCart || !resolved) return;
     await addItem({
       display: { title: product.name + (product.colorVariant ? ` ${product.colorVariant}` : ''), handle: product.slug, imageUrl: product.image },
-      variantId: variantMapping.variantId,
+      variantId: resolved.variantId,
       variantTitle: product.colorVariant || "Default Title",
-      price: variantMapping.price || { amount: product.price.toFixed(2), currencyCode: "GBP" },
+      price: resolved.price || { amount: product.price.toFixed(2), currencyCode: "GBP" },
       quantity: 1,
       selectedOptions: product.colorVariant ? [{ name: "Color", value: product.colorVariant }] : [],
     });

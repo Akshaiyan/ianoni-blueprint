@@ -5,30 +5,31 @@ import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/stores/cartStore";
 import { getBestSellers, type Product } from "@/data/products";
-import { getVariantMapping, hasVariantId } from "@/data/shopify-variants";
+import { useVariantMap } from "@/hooks/useVariantMap";
 import { toast } from "sonner";
 
 export function BestSellers() {
   const [currentPage, setCurrentPage] = useState(0);
   const addItem = useCartStore(state => state.addItem);
   const cartLoading = useCartStore(state => state.isLoading);
+  const { getVariant, hasVariant } = useVariantMap();
 
   const bestSellers = useMemo(() => getBestSellers(), []);
 
   const handleAddToCart = async (e: React.MouseEvent, product: Product) => {
     e.preventDefault();
     e.stopPropagation();
-    const variantMapping = getVariantMapping(product.slug);
-    if (!variantMapping || !hasVariantId(product.slug)) return;
+    const resolved = getVariant(product.slug);
+    if (!resolved || !hasVariant(product.slug)) return;
     await addItem({
       display: {
         title: product.name + (product.colorVariant ? ` ${product.colorVariant}` : ''),
         handle: product.slug,
         imageUrl: product.image,
       },
-      variantId: variantMapping.variantId,
+      variantId: resolved.variantId,
       variantTitle: product.colorVariant || "Default Title",
-      price: variantMapping.price || { amount: product.price.toFixed(2), currencyCode: "GBP" },
+      price: resolved.price || { amount: product.price.toFixed(2), currencyCode: "GBP" },
       quantity: 1,
       selectedOptions: product.colorVariant ? [{ name: "Color", value: product.colorVariant }] : [],
     });
@@ -145,7 +146,7 @@ export function BestSellers() {
                   <div className="absolute bottom-4 right-4 z-10 transition-all duration-400">
                     <button
                       onClick={(e) => handleAddToCart(e, product)}
-                      disabled={cartLoading || !hasVariantId(product.slug)}
+                      disabled={cartLoading || !hasVariant(product.slug)}
                       className="flex items-center gap-0 group-hover:gap-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold h-10 w-10 group-hover:w-auto group-hover:px-5 rounded-full shadow-lg transition-all duration-400 justify-center overflow-hidden disabled:opacity-50"
                     >
                       <ShoppingBag className="h-4 w-4 shrink-0" />
