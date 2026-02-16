@@ -1,25 +1,23 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight, Filter, SlidersHorizontal, Loader2 } from "lucide-react";
+import { ChevronRight, Loader2 } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { ProductCard } from "@/components/ui/ProductCard";
-import { Button } from "@/components/ui/button";
-import { useShopifyProducts } from "@/hooks/useShopifyProducts";
-import type { ShopifyProduct } from "@/lib/shopify";
+import { products, getPadelRackets, type Product } from "@/data/products";
 
-const categoryInfo: Record<string, { title: string; description: string; emoji: string; query?: string }> = {
+const categoryInfo: Record<string, { title: string; description: string; emoji: string; filter: (p: Product) => boolean }> = {
   padel: {
     title: "Padel Rackets",
     description: "Premium carbon fiber padel rackets designed for players of all skill levels",
     emoji: "🎾",
-    query: "product_type:Racket",
+    filter: (p) => p.category === "padel" && !p.isStarterKit,
   },
   accessories: {
     title: "Starter Kits & Accessories",
     description: "Curated bundles, premium balls, and everything you need",
     emoji: "🎾",
-    query: "product_type:Balls OR product_type:'Starter Kit'",
+    filter: (p) => p.isStarterKit || p.isBallType || false,
   },
 };
 
@@ -35,35 +33,33 @@ export default function CollectionPage() {
   
   const info = category ? categoryInfo[category] : null;
 
-  // For padel page, also fetch starter kits to show below rackets
-  const isPadel = category === "padel";
-  const { data: products, isLoading } = useShopifyProducts(info?.query);
-  const { data: starterKits } = useShopifyProducts(isPadel ? "product_type:'Starter Kit'" : undefined);
-
   const displayProducts = useMemo(() => {
-    if (!products) return [];
+    if (!info) return [];
     
-    if (isPadel) {
+    const filtered = products.filter(info.filter);
+
+    if (category === "padel") {
       // Shuffle rackets, then append starter kits
-      const rackets = [...products];
+      const rackets = [...filtered];
       for (let i = rackets.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [rackets[i], rackets[j]] = [rackets[j], rackets[i]];
       }
-      return [...rackets, ...(starterKits || [])];
+      const starterKits = products.filter(p => p.isStarterKit);
+      return [...rackets, ...starterKits];
     }
     
     if (category === "accessories") {
       // Balls first, then starter kits
-      return [...products].sort((a, b) => {
-        const aIsBall = a.node.productType === 'Balls' ? 0 : 1;
-        const bIsBall = b.node.productType === 'Balls' ? 0 : 1;
+      return [...filtered].sort((a, b) => {
+        const aIsBall = a.isBallType ? 0 : 1;
+        const bIsBall = b.isBallType ? 0 : 1;
         return aIsBall - bIsBall;
       });
     }
     
-    return products;
-  }, [products, starterKits, category, isPadel]);
+    return filtered;
+  }, [info, category]);
 
   if (!info) {
     return (
@@ -103,25 +99,17 @@ export default function CollectionPage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
             <p className="text-muted-foreground">
-              {isLoading ? "Loading..." : (
-                <>Showing <span className="font-medium text-foreground">{displayProducts.length}</span> products</>
-              )}
+              Showing <span className="font-medium text-foreground">{displayProducts.length}</span> products
             </p>
           </div>
 
-          {isLoading ? (
-            <div className="flex justify-center py-20">
-              <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            </div>
-          ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-              {displayProducts.map((product, index) => (
-                <ProductCard key={product.node.id} product={product} index={index} />
-              ))}
-            </div>
-          )}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+            {displayProducts.map((product, index) => (
+              <ProductCard key={product.id} product={product} index={index} />
+            ))}
+          </div>
 
-          {!isLoading && displayProducts.length === 0 && (
+          {displayProducts.length === 0 && (
             <div className="text-center py-20">
               <p className="text-muted-foreground">No products found in this category.</p>
             </div>
