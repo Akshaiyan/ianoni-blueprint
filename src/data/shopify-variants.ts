@@ -10,27 +10,27 @@ export interface VariantMapping {
 
 const variantMap: Record<string, VariantMapping> = {
   // PR8100 Rackets
-  "pr8100-red-black": { variantId: "gid://shopify/ProductVariant/47900760447275" },
-  "pr8100-blue-pink": { variantId: "gid://shopify/ProductVariant/47900760512747" },
-  "pr8100-blue-orange": { variantId: "gid://shopify/ProductVariant/47900760545515" },
+  "pr8100-red-black": { variantId: "gid://shopify/ProductVariant/53330880758087" },
+  "pr8100-blue-pink": { variantId: "gid://shopify/ProductVariant/53330883150151" },
+  "pr8100-blue-orange": { variantId: "gid://shopify/ProductVariant/53330884559175" },
 
   // PR8200 Rackets
-  "pr8200-blue-stripe": { variantId: "gid://shopify/ProductVariant/47900760479979" },
-  "pr8200-grey-stripe": { variantId: "gid://shopify/ProductVariant/47900760578283" },
-  "super-power-pink": { variantId: "gid://shopify/ProductVariant/47900760611051" },
+  "pr8200-blue-stripe": { variantId: "gid://shopify/ProductVariant/53330884723015" },
+  "pr8200-grey-stripe": { variantId: "gid://shopify/ProductVariant/53330884788551" },
+  "super-power-pink": { variantId: "gid://shopify/ProductVariant/53330884821319" },
 
-  // Starter Kits — not yet in Shopify store
-  "starter-kit-blue-orange": { variantId: "" },
-  "starter-kit-blue-pink": { variantId: "" },
-  "starter-kit-black-sky": { variantId: "" },
-  "starter-kit-red-black": { variantId: "" },
-  "starter-kit-red-black-doubles": { variantId: "" },
+  // Starter Kits
+  "starter-kit-blue-orange": { variantId: "gid://shopify/ProductVariant/53330885050695" },
+  "starter-kit-blue-pink": { variantId: "gid://shopify/ProductVariant/53330885116231" },
+  "starter-kit-black-sky": { variantId: "gid://shopify/ProductVariant/53330885148999" },
+  "starter-kit-red-black": { variantId: "gid://shopify/ProductVariant/53330885214535" },
+  "starter-kit-red-black-doubles": { variantId: "gid://shopify/ProductVariant/53330885443911" },
 
-  // Balls — not yet in Shopify store
-  "ianoni-pro-padel-balls": { variantId: "" },
-  "ianoni-pro-s-padel-balls": { variantId: "" },
-  "ianoni-pro-padel-balls-3pack": { variantId: "" },
-  "ianoni-pro-s-padel-balls-3pack": { variantId: "" },
+  // Balls
+  "ianoni-pro-padel-balls": { variantId: "gid://shopify/ProductVariant/53330885738823" },
+  "ianoni-pro-s-padel-balls": { variantId: "gid://shopify/ProductVariant/53330885771591" },
+  "ianoni-pro-padel-balls-3pack": { variantId: "gid://shopify/ProductVariant/53330885804359" },
+  "ianoni-pro-s-padel-balls-3pack": { variantId: "gid://shopify/ProductVariant/53330892915015" },
 };
 
 export function getVariantMapping(slug: string): VariantMapping | null {
