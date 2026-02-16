@@ -1,44 +1,36 @@
 /**
  * Maps local product slugs to Shopify variant IDs.
- * 
- * After creating minimal products in Shopify Admin, paste each product's
- * variant ID here. The variant ID format is: gid://shopify/ProductVariant/XXXXXXXXXX
- * 
- * You can find variant IDs in Shopify Admin → Products → [Product] → Variants,
- * or by inspecting the URL when editing a variant.
+ * These are used for cart/checkout operations via the Storefront API.
  */
 
 export interface VariantMapping {
   variantId: string;
-  // Price from Shopify (in case it differs from local data)
   price?: { amount: string; currencyCode: string };
 }
 
-// TODO: Replace these placeholder IDs with real Shopify variant IDs
-// after creating the products in your Shopify Admin.
 const variantMap: Record<string, VariantMapping> = {
   // PR8100 Rackets
-  "pr8100-red-black": { variantId: "" },
-  "pr8100-blue-pink": { variantId: "" },
-  "pr8100-blue-orange": { variantId: "" },
+  "pr8100-red-black": { variantId: "gid://shopify/ProductVariant/53330880758087" },
+  "pr8100-blue-pink": { variantId: "gid://shopify/ProductVariant/53330883150151" },
+  "pr8100-blue-orange": { variantId: "gid://shopify/ProductVariant/53330884559175" },
 
   // PR8200 Rackets
-  "pr8200-blue-stripe": { variantId: "" },
-  "pr8200-grey-stripe": { variantId: "" },
-  "super-power-pink": { variantId: "" },
+  "pr8200-blue-stripe": { variantId: "gid://shopify/ProductVariant/53330884723015" },
+  "pr8200-grey-stripe": { variantId: "gid://shopify/ProductVariant/53330884788551" },
+  "super-power-pink": { variantId: "gid://shopify/ProductVariant/53330884821319" },
 
   // Starter Kits
-  "starter-kit-blue-orange": { variantId: "" },
-  "starter-kit-blue-pink": { variantId: "" },
-  "starter-kit-black-sky": { variantId: "" },
-  "starter-kit-red-black": { variantId: "" },
-  "starter-kit-red-black-doubles": { variantId: "" },
+  "starter-kit-blue-orange": { variantId: "gid://shopify/ProductVariant/53330885050695" },
+  "starter-kit-blue-pink": { variantId: "gid://shopify/ProductVariant/53330885116231" },
+  "starter-kit-black-sky": { variantId: "gid://shopify/ProductVariant/53330885148999" },
+  "starter-kit-red-black": { variantId: "gid://shopify/ProductVariant/53330885214535" },
+  "starter-kit-red-black-doubles": { variantId: "gid://shopify/ProductVariant/53330885443911" },
 
   // Balls
-  "ianoni-pro-padel-balls": { variantId: "" },
-  "ianoni-pro-s-padel-balls": { variantId: "" },
-  "ianoni-pro-padel-balls-3pack": { variantId: "" },
-  "ianoni-pro-s-padel-balls-3pack": { variantId: "" },
+  "ianoni-pro-padel-balls": { variantId: "gid://shopify/ProductVariant/53330885738823" },
+  "ianoni-pro-s-padel-balls": { variantId: "gid://shopify/ProductVariant/53330885771591" },
+  "ianoni-pro-padel-balls-3pack": { variantId: "gid://shopify/ProductVariant/53330885804359" },
+  "ianoni-pro-s-padel-balls-3pack": { variantId: "gid://shopify/ProductVariant/53330892915015" },
 };
 
 export function getVariantMapping(slug: string): VariantMapping | null {
