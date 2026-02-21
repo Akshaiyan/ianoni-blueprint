@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ChevronRight, Check, ShoppingBag, Share2, Truck, Shield, RotateCcw, ZoomIn, Package, Loader2 } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { ProductCard } from "@/components/ui/ProductCard";
+import { ReviewSection } from "@/components/product/ReviewSection";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ImageLightbox } from "@/components/product/ImageLightbox";
@@ -280,6 +281,9 @@ export default function ProductPage() {
               </div>
             </motion.div>
           </div>
+
+          {/* Reviews */}
+          <ReviewSection productHandle={product.slug} />
 
           {/* Related Products */}
           {relatedProducts.length > 0 && (
