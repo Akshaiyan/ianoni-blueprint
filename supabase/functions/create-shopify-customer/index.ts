@@ -38,7 +38,7 @@ serve(async (req) => {
       });
     }
 
-    const shopDomain = 'ianonidraft-odkpg.myshopify.com';
+    const shopDomain = '0psz1b-ht.myshopify.com';
 
     // Create customer via Shopify Admin API
     const response = await fetch(`https://${shopDomain}/admin/api/2025-07/customers.json`, {
