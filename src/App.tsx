@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { useCartSync } from "@/hooks/useCartSync";
+import { EmailPopup } from "@/components/home/EmailPopup";
 import Index from "./pages/Index";
 import CollectionPage from "./pages/CollectionPage";
 import ProductPage from "./pages/ProductPage";
@@ -13,6 +14,7 @@ import Padel101Page from "./pages/Padel101Page";
 import NotFound from "./pages/NotFound";
 import CartPage from "./pages/CartPage";
 import ContactPage from "./pages/ContactPage";
+import AdminReviewsPage from "./pages/AdminReviewsPage";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +24,7 @@ function AppContent() {
     <>
       <Toaster />
       <Sonner />
+      <EmailPopup />
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
@@ -35,6 +38,7 @@ function AppContent() {
           <Route path="/guide/*" element={<GuidePage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/admin/reviews" element={<AdminReviewsPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
