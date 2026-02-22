@@ -43,12 +43,19 @@ export function EmailPopup() {
 
     setLoading(true);
     try {
-      const { data, error: fnError } = await supabase.functions.invoke("create-shopify-customer", {
-        body: { email: result.data },
-      });
+      const { error: dbError } = await supabase
+        .from("email_signups")
+        .insert({ email: result.data });
 
-      if (fnError) throw fnError;
-      if (data?.error) throw new Error(data.error);
+      if (dbError) {
+        // Unique constraint means already signed up — treat as success
+        if (dbError.code === "23505") {
+          setSuccess(true);
+          localStorage.setItem(POPUP_STORAGE_KEY, "true");
+          return;
+        }
+        throw dbError;
+      }
 
       setSuccess(true);
       localStorage.setItem(POPUP_STORAGE_KEY, "true");
