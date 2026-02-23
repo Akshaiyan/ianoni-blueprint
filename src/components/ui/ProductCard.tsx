@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, Star } from "lucide-react";
 import type { Product } from "@/data/products";
 import { useCartStore } from "@/stores/cartStore";
 import { useVariantMap } from "@/hooks/useVariantMap";
+import { useProductRatings } from "@/hooks/useProductRatings";
 import { toast } from "sonner";
 
 interface ProductCardProps {
@@ -17,8 +18,10 @@ export function ProductCard({ product, index = 0, variant = "light" }: ProductCa
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
   const { getVariant, hasVariant } = useVariantMap();
+  const { getRating } = useProductRatings();
   const canAddToCart = hasVariant(product.slug);
   const resolved = getVariant(product.slug);
+  const rating = getRating(product.slug);
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -98,10 +101,30 @@ export function ProductCard({ product, index = 0, variant = "light" }: ProductCa
             </div>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             <h3 className={`font-semibold group-hover:text-primary transition-colors duration-300 ${isDark ? "text-white" : "text-foreground"}`}>
               {product.name}{product.colorVariant ? ` — ${product.colorVariant}` : ''}
             </h3>
+
+            {rating && (
+              <div className="flex items-center gap-1.5">
+                <div className="flex gap-0.5">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star
+                      key={star}
+                      className={`h-3.5 w-3.5 ${
+                        star <= Math.round(rating.avgRating)
+                          ? "fill-primary text-primary"
+                          : "text-border"
+                      }`}
+                    />
+                  ))}
+                </div>
+                <span className={`text-xs ${isDark ? "text-white/60" : "text-muted-foreground"}`}>
+                  {rating.avgRating} ({rating.totalCount})
+                </span>
+              </div>
+            )}
 
             <div className="flex items-baseline gap-2">
               <span className={`text-lg font-bold ${isDark ? "text-white" : "text-foreground"}`}>
