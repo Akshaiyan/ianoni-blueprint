@@ -199,7 +199,7 @@ export default function ProductPage() {
                         ))}
                       </div>
                       <span className="text-sm text-muted-foreground">
-                        {rating.avgRating} ({rating.totalCount} reviews)
+                        {rating.avgRating} ({rating.displayCount} reviews)
                       </span>
                     </div>
                   );

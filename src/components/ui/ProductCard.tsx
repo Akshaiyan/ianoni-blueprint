@@ -121,7 +121,7 @@ export function ProductCard({ product, index = 0, variant = "light" }: ProductCa
                   ))}
                 </div>
                 <span className={`text-xs ${isDark ? "text-white/60" : "text-muted-foreground"}`}>
-                  {rating.avgRating} ({rating.totalCount})
+                  {rating.avgRating} ({rating.displayCount})
                 </span>
               </div>
             )}
