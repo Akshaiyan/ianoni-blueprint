@@ -57,6 +57,7 @@ interface ReviewSectionProps {
 
 export function ReviewSection({ productHandle }: ReviewSectionProps) {
   const [showForm, setShowForm] = useState(false);
+  const [showAll, setShowAll] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     reviewer_name: "",
@@ -67,23 +68,30 @@ export function ReviewSection({ productHandle }: ReviewSectionProps) {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const { data: reviews = [], refetch } = useQuery({
+  const DISPLAY_LIMIT = 6;
+
+  const { data: reviewData, refetch } = useQuery({
     queryKey: ["reviews", productHandle],
     queryFn: async () => {
-      const { data, error } = await supabase
+      // Fetch all approved reviews to compute stats, but we'll only display recent ones
+      const { data, error, count } = await supabase
         .from("reviews")
-        .select("*")
+        .select("*", { count: "exact" })
         .eq("product_handle", productHandle)
         .eq("status", "approved")
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      return data;
+      return { reviews: data ?? [], totalCount: count ?? 0 };
     },
   });
 
-  const avgRating = reviews.length > 0
-    ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+  const allReviews = reviewData?.reviews ?? [];
+  const totalCount = reviewData?.totalCount ?? 0;
+  const reviews = allReviews.slice(0, showAll ? allReviews.length : DISPLAY_LIMIT);
+
+  const avgRating = allReviews.length > 0
+    ? allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length
     : 0;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -130,12 +138,12 @@ export function ReviewSection({ productHandle }: ReviewSectionProps) {
     <section className="py-12 border-t">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h2 className="text-2xl font-bold">Customer Reviews</h2>
-          {reviews.length > 0 && (
+          <h2 className="text-2xl font-bold">Recent Reviews</h2>
+          {totalCount > 0 && (
             <div className="flex items-center gap-3 mt-2">
               <StarRating value={Math.round(avgRating)} readOnly size="sm" />
               <span className="text-sm text-muted-foreground">
-                {avgRating.toFixed(1)} out of 5 · {reviews.length} review{reviews.length !== 1 ? "s" : ""}
+                {avgRating.toFixed(1)} out of 5 · Based on {totalCount} review{totalCount !== 1 ? "s" : ""}
               </span>
             </div>
           )}
@@ -221,25 +229,34 @@ export function ReviewSection({ productHandle }: ReviewSectionProps) {
           <p className="text-sm">Be the first to share your experience!</p>
         </div>
       ) : (
-        <div className="space-y-6">
-          {reviews.map((review) => (
-            <div key={review.id} className="border-b border-border pb-6 last:border-0">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-3">
-                  <StarRating value={review.rating} readOnly size="sm" />
-                  {review.title && (
-                    <span className="font-semibold text-sm">{review.title}</span>
-                  )}
+        <>
+          <div className="space-y-6">
+            {reviews.map((review) => (
+              <div key={review.id} className="border-b border-border pb-6 last:border-0">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-3">
+                    <StarRating value={review.rating} readOnly size="sm" />
+                    {review.title && (
+                      <span className="font-semibold text-sm">{review.title}</span>
+                    )}
+                  </div>
+                  <span className="text-xs text-muted-foreground">
+                    {new Date(review.created_at).toLocaleDateString()}
+                  </span>
                 </div>
-                <span className="text-xs text-muted-foreground">
-                  {new Date(review.created_at).toLocaleDateString()}
-                </span>
+                <p className="text-sm text-foreground mb-2">{review.body}</p>
+                <p className="text-xs text-muted-foreground">{review.reviewer_name}</p>
               </div>
-              <p className="text-sm text-foreground mb-2">{review.body}</p>
-              <p className="text-xs text-muted-foreground">{review.reviewer_name}</p>
+            ))}
+          </div>
+          {!showAll && allReviews.length > DISPLAY_LIMIT && (
+            <div className="text-center mt-8">
+              <Button variant="outline" onClick={() => setShowAll(true)}>
+                Show All {totalCount} Reviews
+              </Button>
             </div>
-          ))}
-        </div>
+          )}
+        </>
       )}
     </section>
   );
