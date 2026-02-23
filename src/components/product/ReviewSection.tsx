@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { z } from "zod";
+import { useProductRatings } from "@/hooks/useProductRatings";
 
 const reviewSchema = z.object({
   reviewer_name: z.string().trim().min(1, "Name is required").max(100),
@@ -56,6 +57,7 @@ interface ReviewSectionProps {
 }
 
 export function ReviewSection({ productHandle }: ReviewSectionProps) {
+  const { getRating } = useProductRatings();
   const [showForm, setShowForm] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -88,6 +90,8 @@ export function ReviewSection({ productHandle }: ReviewSectionProps) {
 
   const allReviews = reviewData?.reviews ?? [];
   const totalCount = reviewData?.totalCount ?? 0;
+  const ratingData = getRating(productHandle);
+  const displayCount = ratingData?.displayCount ?? totalCount;
   const reviews = allReviews.slice(0, showAll ? allReviews.length : DISPLAY_LIMIT);
 
   const avgRating = allReviews.length > 0
@@ -139,11 +143,11 @@ export function ReviewSection({ productHandle }: ReviewSectionProps) {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h2 className="text-2xl font-bold">Recent Reviews</h2>
-          {totalCount > 0 && (
+          {displayCount > 0 && (
             <div className="flex items-center gap-3 mt-2">
               <StarRating value={Math.round(avgRating)} readOnly size="sm" />
               <span className="text-sm text-muted-foreground">
-                {avgRating.toFixed(1)} out of 5 · Based on {totalCount} review{totalCount !== 1 ? "s" : ""}
+                {avgRating.toFixed(1)} out of 5 · Based on {displayCount} review{displayCount !== 1 ? "s" : ""}
               </span>
             </div>
           )}
@@ -252,7 +256,7 @@ export function ReviewSection({ productHandle }: ReviewSectionProps) {
           {!showAll && allReviews.length > DISPLAY_LIMIT && (
             <div className="text-center mt-8">
               <Button variant="outline" onClick={() => setShowAll(true)}>
-                Show All {totalCount} Reviews
+                Show More Reviews
               </Button>
             </div>
           )}
