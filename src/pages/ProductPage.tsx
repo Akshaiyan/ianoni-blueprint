@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight, Check, ShoppingBag, Share2, Truck, Shield, RotateCcw, ZoomIn, Package, Loader2 } from "lucide-react";
+import { ChevronRight, Check, ShoppingBag, Share2, Truck, Shield, RotateCcw, ZoomIn, Package, Loader2, Star } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { ReviewSection } from "@/components/product/ReviewSection";
@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useCartStore } from "@/stores/cartStore";
 import { getProductBySlug, products, type Product } from "@/data/products";
 import { useVariantMap } from "@/hooks/useVariantMap";
+import { useProductRatings } from "@/hooks/useProductRatings";
 
 export default function ProductPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -22,6 +23,7 @@ export default function ProductPage() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const { getVariant, hasVariant } = useVariantMap();
+  const { getRating } = useProductRatings();
 
   useLayoutEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
@@ -179,6 +181,29 @@ export default function ProductPage() {
                 {product.colorVariant && (
                   <p className="text-muted-foreground mt-1">{product.colorVariant}</p>
                 )}
+                {(() => {
+                  const rating = getRating(product.slug);
+                  if (!rating) return null;
+                  return (
+                    <div className="flex items-center gap-2 mt-2">
+                      <div className="flex gap-0.5">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <Star
+                            key={star}
+                            className={`h-4 w-4 ${
+                              star <= Math.round(rating.avgRating)
+                                ? "fill-primary text-primary"
+                                : "text-border"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      <span className="text-sm text-muted-foreground">
+                        {rating.avgRating} ({rating.totalCount} reviews)
+                      </span>
+                    </div>
+                  );
+                })()}
               </div>
 
               <div className="flex items-center gap-3">
